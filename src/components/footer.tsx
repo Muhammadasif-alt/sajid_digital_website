@@ -25,7 +25,7 @@ const quickLinks = [
   { label: "Why SDS", href: "#why-choose" },
   { label: "Jobs", href: "/jobs" },
   { label: "Blog", href: "/blog" },
-  { label: "Contact", href: "#contact" },
+  { label: "Contact", href: "/contact" },
 ];
 
 const serviceLinks = [

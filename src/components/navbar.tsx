@@ -15,7 +15,7 @@ const navLinks = [
   { label: "About Us", href: "/about" },
   { label: "Jobs", href: "/jobs" },
   { label: "Blog", href: "/blog" },
-  { label: "Contact", href: "#contact" },
+  { label: "Contact", href: "/contact" },
 ];
 
 function useNavClick() {
