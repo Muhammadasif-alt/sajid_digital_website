@@ -1,11 +1,14 @@
 import { NextResponse } from 'next/server';
-import { writeFile, mkdir } from 'fs/promises';
-import path from 'path';
+import sharp from 'sharp';
 import { getSession } from '@/lib/auth';
 
 const ALLOWED = ['image/jpeg', 'image/png', 'image/webp', 'image/gif', 'image/avif'];
-const MAX_SIZE = 5 * 1024 * 1024; // 5 MB
+const MAX_SIZE = 5 * 1024 * 1024; // 5 MB (raw upload)
 
+// Vercel (and most serverless hosts) have a READ-ONLY filesystem, so we cannot
+// write uploaded files to disk. Instead we compress the image with sharp and
+// return it as a base64 data URI, which is stored directly in the database
+// (logo / featuredImage are @db.Text columns). This works everywhere.
 export async function POST(request: Request) {
   // Only logged-in admins can upload.
   const session = await getSession();
@@ -28,17 +31,19 @@ export async function POST(request: Request) {
     }
 
     const bytes = await file.arrayBuffer();
-    const buffer = Buffer.from(bytes);
+    const input = Buffer.from(bytes);
 
-    const uploadDir = path.join(process.cwd(), 'public', 'uploads');
-    await mkdir(uploadDir, { recursive: true });
+    // Resize down to a sane max width and re-encode as WebP to keep the data
+    // URI small (typically 30-150 KB) so DB rows and API responses stay light.
+    const output = await sharp(input)
+      .rotate() // respect EXIF orientation
+      .resize({ width: 1280, height: 1280, fit: 'inside', withoutEnlargement: true })
+      .webp({ quality: 78 })
+      .toBuffer();
 
-    const ext = (file.name.split('.').pop() || 'jpg').toLowerCase().replace(/[^a-z0-9]/g, '');
-    const safeName = `banner_${Date.now()}_${Math.round(Math.random() * 1e6)}.${ext}`;
-    await writeFile(path.join(uploadDir, safeName), buffer);
-
-    return NextResponse.json({ url: `/uploads/${safeName}` });
+    const url = `data:image/webp;base64,${output.toString('base64')}`;
+    return NextResponse.json({ url });
   } catch {
-    return NextResponse.json({ error: 'Upload failed' }, { status: 500 });
+    return NextResponse.json({ error: 'Upload failed. Please try a different image.' }, { status: 500 });
   }
 }
