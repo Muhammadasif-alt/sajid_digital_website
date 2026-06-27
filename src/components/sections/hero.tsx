@@ -124,9 +124,9 @@ export function HeroSection() {
         </div>
         <div className="relative w-full">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/white-hero-bg.png" alt="Sajad Digital Services" className="w-full h-auto dark:hidden" />
+          <img src="/white-hero-bg.webp" alt="Sajad Digital Services" className="w-full h-auto dark:hidden" />
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/blue-hero-bg.png" alt="Sajad Digital Services" className="w-full h-auto hidden dark:block" />
+          <img src="/blue-hero-bg.webp" alt="Sajad Digital Services" className="w-full h-auto hidden dark:block" />
         </div>
       </div>
 
@@ -134,9 +134,9 @@ export function HeroSection() {
       <div className="hidden lg:block pt-24">
         <div className="relative">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/white-hero-bg.png" alt="Sajad Digital Services" className="w-full h-auto dark:hidden" />
+          <img src="/white-hero-bg.webp" alt="Sajad Digital Services" className="w-full h-auto dark:hidden" />
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/blue-hero-bg.png" alt="Sajad Digital Services" className="w-full h-auto hidden dark:block" />
+          <img src="/blue-hero-bg.webp" alt="Sajad Digital Services" className="w-full h-auto hidden dark:block" />
           {/* legibility veil on the left only */}
           <div className="absolute inset-0 bg-gradient-to-r from-background/85 via-background/45 to-transparent dark:from-navy-dark/85 dark:via-navy-dark/45" />
           <div className="absolute inset-0 flex items-center">

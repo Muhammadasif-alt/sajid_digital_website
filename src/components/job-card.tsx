@@ -41,6 +41,8 @@ export function JobCard({ job, index = 0 }: { job: JobWithCategory; index?: numb
               <img
                 src={job.featuredImage}
                 alt={job.title}
+                loading="lazy"
+                decoding="async"
                 className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
               />
             ) : (
