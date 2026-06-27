@@ -1,0 +1,293 @@
+     1→import { db } from '../src/lib/db';
+     2→
+     3→async function main() {
+     4→  console.log('Seeding database...');
+     5→
+     6→  // Clear existing data
+     7→  await db.application.deleteMany();
+     8→  await db.job.deleteMany();
+     9→  await db.blog.deleteMany();
+    10→  await db.testimonial.deleteMany();
+    11→  await db.newsletter.deleteMany();
+    12→  await db.message.deleteMany();
+    13→  await db.setting.deleteMany();
+    14→  await db.industry.deleteMany();
+    15→  await db.blogCategory.deleteMany();
+    16→  await db.jobCategory.deleteMany();
+    17→  await db.admin.deleteMany();
+    18→
+    19→  // Create Job Categories
+    20→  const techCat = await db.jobCategory.create({ data: { name: 'Technology & IT', slug: 'technology-it', icon: 'Code2', description: 'Software engineering, data science, cloud computing and IT roles', jobCount: 0 } });
+    21→  const healthCat = await db.jobCategory.create({ data: { name: 'Healthcare & Medical', slug: 'healthcare-medical', icon: 'Heart', description: 'Doctors, nurses, medical research and healthcare administration', jobCount: 0 } });
+    22→  const finCat = await db.jobCategory.create({ data: { name: 'Finance & Banking', slug: 'finance-banking', icon: 'DollarSign', description: 'Banking, investment, accounting and financial analysis', jobCount: 0 } });
+    23→  const marketCat = await db.jobCategory.create({ data: { name: 'Marketing & Creative', slug: 'marketing-creative', icon: 'Palette', description: 'Digital marketing, brand design, content creation and advertising', jobCount: 0 } });
+    24→  const engCat = await db.jobCategory.create({ data: { name: 'Engineering', slug: 'engineering', icon: 'Wrench', description: 'Mechanical, electrical, civil and industrial engineering', jobCount: 0 } });
+    25→  const salesCat = await db.jobCategory.create({ data: { name: 'Sales & Business Dev', slug: 'sales-business-dev', icon: 'TrendingUp', description: 'Business development, account management and enterprise sales', jobCount: 0 } });
+    26→  const hrCat = await db.jobCategory.create({ data: { name: 'Human Resources', slug: 'human-resources', icon: 'Users', description: 'Talent acquisition, HR management and organizational development', jobCount: 0 } });
+    27→  const legalCat = await db.jobCategory.create({ data: { name: 'Legal & Compliance', slug: 'legal-compliance', icon: 'Scale', description: 'Corporate law, compliance, regulatory affairs and legal counsel', jobCount: 0 } });
+    28→
+    29→  // Create Industries
+    30→  await db.industry.createMany({
+    31→    data: [
+    32→      { name: 'Technology', slug: 'technology', icon: 'Monitor', description: 'Software, AI, cloud computing and emerging tech', jobCount: 45 },
+    33→      { name: 'Healthcare', slug: 'healthcare', icon: 'Stethoscope', description: 'Hospitals, pharma, biotech and health tech', jobCount: 32 },
+    34→      { name: 'Finance & Banking', slug: 'finance-banking-ind', icon: 'Building2', description: 'Banking, fintech, insurance and investment', jobCount: 28 },
+    35→      { name: 'Manufacturing', slug: 'manufacturing', icon: 'Factory', description: 'Industrial manufacturing, automation and supply chain', jobCount: 22 },
+    36→      { name: 'Retail & E-commerce', slug: 'retail-ecommerce', icon: 'ShoppingBag', description: 'Online retail, logistics and consumer goods', jobCount: 19 },
+    37→      { name: 'Education', slug: 'education', icon: 'GraduationCap', description: 'EdTech, universities and training platforms', jobCount: 15 },
+    38→      { name: 'Energy & Utilities', slug: 'energy-utilities', icon: 'Zap', description: 'Renewable energy, oil & gas and utilities', jobCount: 12 },
+    39→      { name: 'Media & Entertainment', slug: 'media-entertainment', icon: 'Film', description: 'Streaming, gaming, publishing and digital media', jobCount: 17 },
+    40→    ]
+    41→  });
+    42→
+    43→  // Create Blog Categories
+    44→  const careerCat = await db.blogCategory.create({ data: { name: 'Career Advice', slug: 'career-advice' } });
+    45→  const insightCat = await db.blogCategory.create({ data: { name: 'Industry Insights', slug: 'industry-insights' } });
+    46→  const recruitCat = await db.blogCategory.create({ data: { name: 'Recruitment Tips', slug: 'recruitment-tips' } });
+    47→  const newsCat = await db.blogCategory.create({ data: { name: 'Company News', slug: 'company-news' } });
+    48→
+    49→  // Create Jobs
+    50→  const jobs = [
+    51→    {
+    52→      title: 'Senior Full-Stack Engineer', slug: 'senior-full-stack-engineer',
+    53→      description: 'We are seeking an exceptional Senior Full-Stack Engineer to join our core platform team. You will be responsible for designing, building, and maintaining scalable web applications that serve millions of users worldwide. This is a high-impact role where you will work closely with product managers, designers, and other engineers to deliver innovative features that drive business growth and user satisfaction. You will have the opportunity to shape the technical direction of our platform and mentor junior developers on best practices for building production-grade software.',
+    54→      responsibilities: '- Lead the design and implementation of full-stack features using React, Next.js, and Node.js\n- Architect and build scalable RESTful APIs and microservices\n- Collaborate with cross-functional teams to define, design, and ship new features\n- Conduct code reviews, establish best practices, and mentor junior engineers\n- Optimize application performance, reliability, and security',
+    55→      requirements: '- 7+ years of professional software development experience\n- Expert proficiency in React, TypeScript, Node.js, and PostgreSQL\n- Strong experience with cloud platforms (AWS, GCP, or Azure)\n- Demonstrated ability to architect and scale distributed systems\n- Excellent communication skills and a collaborative mindset',
+    56→      benefits: '- Competitive salary range: $150,000 - $200,000\n- Comprehensive health, dental, and vision insurance\n- 401(k) with 6% company match\n- Unlimited PTO and flexible work hours\n- Annual learning budget of $5,000',
+    57→      salaryMin: 150000, salaryMax: 200000, currency: 'USD', location: 'San Francisco, CA', employmentType: 'Full-time', department: 'Engineering', experience: 'Senior', education: "Bachelor's", workMode: 'Hybrid', categoryId: techCat.id, isFeatured: true, status: 'published', deadline: new Date(Date.now() + 60 * 86400000), seoTitle: 'Senior Full-Stack Engineer Job in San Francisco', seoDescription: 'Join our team as a Senior Full-Stack Engineer. Build scalable web apps with React, Next.js and Node.js.'
+    58→    },
+    59→    {
+    60→      title: 'VP of Product', slug: 'vp-of-product',
+    61→      description: 'We are looking for a visionary Vice President of Product to lead our product strategy and execution. In this executive leadership role, you will define the product roadmap, align cross-functional teams around shared objectives, and drive the development of world-class products that delight users and accelerate revenue growth. You will report directly to the CEO and play a pivotal role in shaping the future direction of the company, making data-driven decisions that balance user needs, business goals, and technical feasibility.',
+    62→      responsibilities: '- Define and execute the product vision, strategy, and roadmap across all product lines\n- Lead and grow a high-performing product management team of 12+ PMs\n- Partner with engineering, design, marketing, and sales to deliver exceptional products\n- Establish product metrics, KPIs, and data-driven decision-making frameworks\n- Present product strategy and progress to the board of directors and executive leadership',
+    63→      requirements: '- 12+ years of product management experience, 5+ in leadership roles\n- Proven track record of building and scaling B2B SaaS products from $0 to $100M+ ARR\n- Strong technical background with the ability to engage deeply with engineering teams\n- Exceptional strategic thinking, communication, and stakeholder management skills\n- MBA or equivalent advanced degree preferred',
+    64→      benefits: '- Executive compensation: $250,000 - $350,000 base + equity\n- Premium health benefits including executive health screening\n- Company car allowance or transportation stipend\n- Executive education and conference budget\n- Equity participation in company growth',
+    65→      salaryMin: 250000, salaryMax: 350000, currency: 'USD', location: 'New York, NY', employmentType: 'Full-time', department: 'Product', experience: 'Executive', education: "Master's", workMode: 'On-site', categoryId: techCat.id, isFeatured: true, status: 'published', deadline: new Date(Date.now() + 45 * 86400000), seoTitle: 'VP of Product - Executive Leadership Role', seoDescription: 'Lead product strategy and execution at an industry-leading company. Executive-level compensation and equity.'
+    66→    },
+    67→    {
+    68→      title: 'Data Science Lead', slug: 'data-science-lead',
+    69→      description: 'We are seeking a Data Science Lead to spearhead our analytics and machine learning initiatives. You will lead a team of data scientists and analysts to uncover actionable insights, build predictive models, and develop AI-powered solutions that drive strategic decision-making across the organization. This is a unique opportunity to combine technical expertise with business acumen, translating complex data into clear, actionable recommendations that directly impact revenue, user engagement, and operational efficiency.',
+    70→      responsibilities: '- Lead a team of 5+ data scientists in developing ML models and analytical solutions\n- Design and implement end-to-end data pipelines and feature engineering workflows\n- Collaborate with product and engineering to integrate ML models into production systems\n- Develop and maintain dashboards, reports, and data visualization tools\n- Drive a data-driven culture by educating stakeholders and promoting best practices',
+    71→      requirements: '- 8+ years of experience in data science, machine learning, or statistical analysis\n- Strong proficiency in Python, SQL, and ML frameworks (TensorFlow, PyTorch, or scikit-learn)\- Experience leading data science teams and managing complex analytical projects\n- Excellent communication skills with the ability to present findings to non-technical audiences\n- PhD or Master\'s in Computer Science, Statistics, Mathematics, or related field',
+    72→      benefits: '- Salary range: $180,000 - $240,000\n- Comprehensive health, dental, and vision insurance\n- 401(k) with generous company match\n- Remote-first culture with optional co-working space stipend\n- Conference attendance and professional development budget',
+    73→      salaryMin: 180000, salaryMax: 240000, currency: 'USD', location: 'Remote', employmentType: 'Full-time', department: 'Engineering', experience: 'Senior', education: "PhD", workMode: 'Remote', categoryId: techCat.id, isFeatured: true, status: 'published', deadline: new Date(Date.now() + 75 * 86400000), seoTitle: 'Data Science Lead - Remote Position', seoDescription: 'Lead a data science team building ML models and AI solutions. Competitive salary and remote-first culture.'
+    74→    },
+    75→    {
+    76→      title: 'Chief Marketing Officer', slug: 'chief-marketing-officer',
+    77→      description: 'We are searching for a dynamic Chief Marketing Officer to drive our brand strategy, demand generation, and market expansion. As a member of the C-suite, you will be responsible for developing and executing comprehensive marketing strategies that position our company as the definitive leader in our industry. You will oversee all marketing functions including brand, content, digital, product marketing, and public relations, ensuring consistent messaging and maximum impact across all channels and touchpoints.',
+    78→      responsibilities: '- Develop and execute the overall marketing strategy aligned with company growth objectives\n- Lead and scale the marketing organization across brand, growth, content, and product marketing\n- Own the marketing budget, allocation, and ROI measurement across all channels\n- Build and nurture strategic partnerships, co-marketing opportunities, and industry presence\n- Serve as a thought leader and company spokesperson at key industry events and conferences',
+    79→      requirements: '- 15+ years of marketing experience with 7+ years in senior leadership roles\n- Demonstrated success scaling B2B or B2C brands from growth stage to market leadership\n- Deep expertise in digital marketing, brand strategy, and demand generation\n- Strong analytical skills with experience in marketing attribution and data-driven optimization\n- Exceptional leadership, communication, and team-building capabilities',
+    80→      benefits: '- Executive compensation: $280,000 - $400,000 + performance bonus\n- Comprehensive executive benefits package\n- Stock options and long-term incentive plan\n- Dedicated executive assistant and travel budget\n- Premium health and wellness program',
+    81→      salaryMin: 280000, salaryMax: 400000, currency: 'USD', location: 'Chicago, IL', employmentType: 'Full-time', department: 'Marketing', experience: 'Executive', education: "Master's", workMode: 'On-site', categoryId: marketCat.id, isFeatured: true, status: 'published', deadline: new Date(Date.now() + 30 * 86400000), seoTitle: 'Chief Marketing Officer (CMO) Position', seoDescription: 'Lead marketing strategy and brand growth at an innovative company. Executive-level compensation with equity.'
+    82→    },
+    83→    {
+    84→      title: 'Healthcare Administration Director', slug: 'healthcare-administration-director',
+    85→      description: 'We are seeking an experienced Healthcare Administration Director to oversee operations across our network of medical facilities. You will be responsible for ensuring regulatory compliance, optimizing operational efficiency, and maintaining the highest standards of patient care across all locations. This leadership role requires a deep understanding of healthcare systems, strong management capabilities, and the ability to navigate complex regulatory environments while driving continuous improvement in service delivery and patient outcomes.',
+    86→      responsibilities: '- Direct and coordinate administrative operations across 5+ healthcare facilities\n- Ensure full compliance with federal, state, and local healthcare regulations\n- Develop and implement operational policies to improve efficiency and patient satisfaction\n- Manage departmental budgets, financial planning, and resource allocation\n- Lead cross-functional teams to achieve organizational goals and quality metrics',
+    87→      requirements: '- 10+ years of healthcare administration experience, 5+ in a director-level role\n- Master\'s degree in Healthcare Administration (MHA) or related field\n- Strong knowledge of HIPAA, Joint Commission, and CMS regulations\n- Proven track record of improving operational efficiency in healthcare settings\n- Excellent leadership, communication, and problem-solving skills',
+    88→      benefits: '- Salary range: $160,000 - $210,000\n- Comprehensive medical, dental, and vision coverage\n- Pension plan and 403(b) retirement savings\n- Continuing education and professional development support\n- Paid malpractice insurance and licensure renewal',
+    89→      salaryMin: 160000, salaryMax: 210000, currency: 'USD', location: 'Boston, MA', employmentType: 'Full-time', department: 'Operations', experience: 'Senior', education: "Master's", workMode: 'On-site', categoryId: healthCat.id, status: 'published', deadline: new Date(Date.now() + 60 * 86400000)
+    90→    },
+    91→    {
+    92→      title: 'Senior Financial Analyst', slug: 'senior-financial-analyst',
+    93→      description: 'We are looking for a Senior Financial Analyst to join our corporate finance team and play a key role in driving strategic financial planning and analysis. You will be responsible for building complex financial models, conducting detailed business analyses, and providing actionable insights to senior leadership that inform critical business decisions. This role offers significant exposure to executive leadership and the opportunity to directly influence the company\'s financial strategy and long-term growth trajectory.',
+    94→      responsibilities: '- Build and maintain sophisticated financial models for forecasting, budgeting, and valuation\n- Conduct detailed variance analysis and provide monthly financial reporting to leadership\n- Support strategic initiatives including M&A analysis, pricing strategy, and capital allocation\n- Develop and present financial insights and recommendations to C-suite executives\n- Collaborate with accounting, operations, and business development teams on cross-functional projects',
+    95→      requirements: '- 6+ years of financial analysis experience in investment banking, consulting, or corporate finance\n- Strong proficiency in Excel, financial modeling, and data visualization tools\n- CFA designation or MBA preferred\n- Experience with ERP systems (SAP, Oracle, or NetSuite)\n- Exceptional analytical, communication, and presentation skills',
+    96→      benefits: '- Salary range: $120,000 - $160,000\n- Performance-based annual bonus up to 25%\n- Comprehensive health and dental insurance\n- 401(k) with 5% company match\n- Professional development and CFA exam support',
+    97→      salaryMin: 120000, salaryMax: 160000, currency: 'USD', location: 'New York, NY', employmentType: 'Full-time', department: 'Finance', experience: 'Senior', education: "Master's", workMode: 'Hybrid', categoryId: finCat.id, status: 'published', deadline: new Date(Date.now() + 45 * 86400000)
+    98→    },
+    99→    {
+   100→      title: 'UX Design Director', slug: 'ux-design-director',
+   101→      description: 'We are seeking a talented UX Design Director to lead our design team and elevate the user experience across all our digital products. You will set the design vision, establish design systems and standards, and ensure every touchpoint delivers a seamless, delightful experience for our users. This is a leadership role that combines creative vision with strategic thinking, requiring you to balance business objectives with user needs while fostering a culture of design excellence and innovation within the organization.',
+   102→      responsibilities: '- Lead and mentor a design team of 8+ UX/UI designers and researchers\n- Define and maintain the company\'s design system, ensuring consistency across all products\n- Drive user research initiatives and translate insights into actionable design improvements\n- Collaborate with product and engineering leadership to shape product strategy\n- Present design vision and rationale to executive stakeholders and board members',
+   103→      requirements: '- 10+ years of UX design experience, 5+ in a design leadership role\n- Strong portfolio demonstrating enterprise-level product design and design systems\n- Expert proficiency in Figma, design prototyping, and user research methodologies\n- Experience leading design for complex SaaS or enterprise platforms\n- Excellent communication and presentation skills',
+   104→      benefits: '- Salary range: $170,000 - $230,000\n- Comprehensive benefits package including health and wellness\n- Creative tools and equipment allowance\n- Annual design conference budget\n- Flexible work schedule with remote options',
+   105→      salaryMin: 170000, salaryMax: 230000, currency: 'USD', location: 'Seattle, WA', employmentType: 'Full-time', department: 'Design', experience: 'Senior', education: "Bachelor's", workMode: 'Hybrid', categoryId: marketCat.id, status: 'published', deadline: new Date(Date.now() + 55 * 86400000)
+   106→    },
+   107→    {
+   108→      title: 'Cloud Architecture Manager', slug: 'cloud-architecture-manager',
+   109→      description: 'We are looking for a Cloud Architecture Manager to lead the design and implementation of our cloud infrastructure strategy. You will be responsible for ensuring our cloud architecture is secure, scalable, and cost-effective while supporting the needs of our rapidly growing platform. This role requires deep technical expertise in cloud services, strong leadership skills, and the ability to make strategic decisions that balance performance, reliability, and cost in a complex multi-cloud environment.',
+   110→      responsibilities: '- Design and implement cloud architecture across AWS, GCP, and Azure environments\n- Lead a team of 4+ cloud engineers in building and maintaining infrastructure\n- Develop cloud governance policies, security standards, and cost optimization strategies\n- Evaluate and implement cloud-native services for scalability and performance\n- Drive cloud migration initiatives and modernization of legacy systems',
+   111→      requirements: '- 10+ years of infrastructure experience, 5+ years in cloud architecture\n- AWS Solutions Architect Professional or equivalent certification (GCP, Azure)\n- Deep expertise in Kubernetes, Terraform, CI/CD pipelines, and infrastructure as code\n- Strong background in cloud security, networking, and compliance frameworks\n- Experience managing cloud budgets of $1M+ annually',
+   112→      benefits: '- Salary range: $190,000 - $260,000\n- Full benefits package including health, dental, and vision\n- Cloud certification reimbursement program\n- Remote-first with optional office access\n- Home office setup stipend',
+   113→      salaryMin: 190000, salaryMax: 260000, currency: 'USD', location: 'Austin, TX', employmentType: 'Full-time', department: 'Engineering', experience: 'Senior', education: "Bachelor's", workMode: 'Remote', categoryId: techCat.id, status: 'published', deadline: new Date(Date.now() + 70 * 86400000)
+   114→    },
+   115→    {
+   116→      title: 'Machine Learning Engineer', slug: 'machine-learning-engineer',
+   117→      description: 'We are seeking a skilled Machine Learning Engineer to join our AI research and development team. You will be responsible for designing, implementing, and deploying machine learning models that power our core products and services. This is a hands-on role where you will work with cutting-edge technologies including large language models, computer vision, and recommendation systems, collaborating closely with data scientists and software engineers to bring ML solutions from research to production at scale.',
+   118→      responsibilities: '- Design, train, and deploy machine learning models in production environments\n- Develop and optimize ML pipelines for training, evaluation, and inference\n- Collaborate with data scientists to translate research prototypes into production-ready systems\n- Implement MLOps best practices including model monitoring, versioning, and A/B testing\n- Stay current with latest ML research and identify opportunities for innovation',
+   119→      requirements: '- 5+ years of experience in machine learning engineering\n- Strong programming skills in Python and experience with ML frameworks (PyTorch, TensorFlow)\n- Experience deploying models at scale using Docker, Kubernetes, and cloud services\n- Solid understanding of MLOps, model monitoring, and production ML systems\n- MS or PhD in Computer Science, ML, or related field preferred',
+   120→      benefits: '- Salary range: $140,000 - $200,000\n- Comprehensive health and dental insurance\n- 401(k) with 5% match\n- GPU cluster access for research projects\n- Conference and paper publication support',
+   121→      salaryMin: 140000, salaryMax: 200000, currency: 'USD', location: 'Remote', employmentType: 'Full-time', department: 'Engineering', experience: 'Mid-level', education: "Master's", workMode: 'Remote', categoryId: techCat.id, status: 'published', deadline: new Date(Date.now() + 50 * 86400000)
+   122→    },
+   123→    {
+   124→      title: 'Product Marketing Manager', slug: 'product-marketing-manager',
+   125→      description: 'We are looking for a strategic Product Marketing Manager to drive go-to-market strategy for our growing product portfolio. You will be the bridge between product development and sales, translating complex technical capabilities into compelling value propositions and messaging that resonates with our target audience. This role requires a unique blend of analytical thinking, creative storytelling, and cross-functional collaboration to ensure our products successfully reach and convert the right customers.',
+   126→      responsibilities: '- Develop positioning, messaging, and go-to-market strategies for new and existing products\n- Create sales enablement materials including pitch decks, case studies, and competitive analyses\n- Conduct market research and competitive intelligence to inform product strategy\n- Plan and execute product launches, webinars, and thought leadership campaigns\n- Collaborate with demand generation, content, and design teams on campaign development',
+   127→      requirements: '- 5+ years of product marketing experience in B2B SaaS or technology\n- Strong writing and storytelling skills with experience creating customer-facing content\n- Data-driven mindset with experience in marketing analytics and attribution\n- Experience working with cross-functional teams in fast-paced environments\n- Bachelor\'s degree in Marketing, Business, or related field',
+   128→      benefits: '- Salary range: $110,000 - $150,000\n- Health, dental, and vision insurance\n- 401(k) with company match\n- Flexible PTO and remote work options\n- Professional development budget',
+   129→      salaryMin: 110000, salaryMax: 150000, currency: 'USD', location: 'San Francisco, CA', employmentType: 'Full-time', department: 'Marketing', experience: 'Mid-level', education: "Bachelor's", workMode: 'Hybrid', categoryId: marketCat.id, status: 'published', deadline: new Date(Date.now() + 40 * 86400000)
+   130→    },
+   131→    {
+   132→      title: 'Director of Engineering', slug: 'director-of-engineering',
+   133→      description: 'We are seeking a Director of Engineering to lead multiple engineering teams and drive technical excellence across our organization. You will be responsible for setting technical standards, managing engineering delivery, and building a world-class engineering culture. This is a senior leadership role that requires both deep technical expertise and exceptional people management skills, as you will be responsible for the growth and development of 30+ engineers across multiple product teams.',
+   134→      responsibilities: '- Lead and manage 4-6 engineering teams with 30+ engineers across multiple product areas\n- Drive technical strategy, architecture decisions, and engineering best practices\n- Oversee sprint planning, delivery timelines, and engineering resource allocation\n- Build and maintain a high-performance engineering culture focused on quality and innovation\n- Partner with VP of Engineering and CTO on long-term technical roadmap and strategy',
+   135→      requirements: '- 12+ years of software engineering experience, 5+ in engineering management\n- Experience managing engineering organizations of 20+ people\n- Strong technical background in distributed systems, microservices, and cloud architecture\n- Proven track record of delivering large-scale projects on time and with high quality\n- Excellent leadership, communication, and organizational skills',
+   136→      benefits: '- Salary range: $220,000 - $300,000\n- Executive-level benefits package\n- Significant equity participation\n- Dedicated learning and development budget\n- Flexible work arrangement',
+   137→      salaryMin: 220000, salaryMax: 300000, currency: 'USD', location: 'New York, NY', employmentType: 'Full-time', department: 'Engineering', experience: 'Executive', education: "Bachelor's", workMode: 'On-site', categoryId: techCat.id, status: 'published', deadline: new Date(Date.now() + 35 * 86400000)
+   138→    },
+   139→    {
+   140→      title: 'Clinical Research Manager', slug: 'clinical-research-manager',
+   141→      description: 'We are looking for an experienced Clinical Research Manager to oversee our clinical trials and research programs. You will manage all aspects of clinical research operations, from study design and protocol development to regulatory submissions and data analysis. This role is critical to advancing our research pipeline and ensuring all studies are conducted in compliance with regulatory requirements and ethical standards while maintaining the highest levels of scientific rigor and patient safety.',
+   142→      responsibilities: '- Manage and oversee multiple clinical research studies from initiation through completion\n- Ensure compliance with FDA regulations, ICH guidelines, and GCP standards\n- Lead the clinical research team including CRAs, data managers, and clinical coordinators\n- Develop study protocols, informed consent documents, and regulatory submissions\n- Collaborate with investigators, sponsors, and CROs on study execution',
+   143→      requirements: '- 8+ years of clinical research experience, 3+ in a management role\n- Strong knowledge of FDA/EMA regulations, ICH-GCP, and clinical trial processes\n- CCRA or ACRP certification preferred\n- Experience managing Phase I-III clinical trials\n- Excellent project management and communication skills',
+   144→      benefits: '- Salary range: $130,000 - $175,000\n- Comprehensive health and dental insurance\n- 401(k) with company match\n- Tuition reimbursement for advanced degrees\n- Flexible work schedule',
+   145→      salaryMin: 130000, salaryMax: 175000, currency: 'USD', location: 'Boston, MA', employmentType: 'Full-time', department: 'Operations', experience: 'Senior', education: "Master's", workMode: 'Hybrid', categoryId: healthCat.id, status: 'published', deadline: new Date(Date.now() + 65 * 86400000)
+   146→    },
+   147→    // Draft jobs
+   148→    {
+   149→      title: 'Junior Software Developer', slug: 'junior-software-developer',
+   150→      description: 'Great opportunity for a junior developer to start their career at a fast-growing technology company.', responsibilities: '- Write clean, maintainable code\n- Participate in code reviews\n- Learn from senior engineers', requirements: '- 0-2 years of experience\n- Basic knowledge of JavaScript and Python\n- Strong desire to learn', salaryMin: 65000, salaryMax: 85000, currency: 'USD', location: 'Remote', employmentType: 'Full-time', department: 'Engineering', experience: 'Entry-level', education: "Bachelor's", workMode: 'Remote', categoryId: techCat.id, status: 'draft', deadline: new Date(Date.now() + 90 * 86400000)
+   151→    },
+   152→    {
+   153→      title: 'Marketing Coordinator', slug: 'marketing-coordinator',
+   154→      description: 'Support the marketing team with campaign execution and content creation.', responsibilities: '- Assist with social media management\n- Help create marketing materials\n- Coordinate events and webinars', requirements: '- 1-3 years of marketing experience\n- Strong organizational skills\n- Proficiency in Adobe Creative Suite', salaryMin: 50000, salaryMax: 70000, currency: 'USD', location: 'Austin, TX', employmentType: 'Full-time', department: 'Marketing', experience: 'Entry-level', education: "Bachelor's", workMode: 'On-site', categoryId: marketCat.id, status: 'draft', deadline: new Date(Date.now() + 60 * 86400000)
+   155→    },
+   156→    {
+   157→      title: 'Financial Controller', slug: 'financial-controller',
+   158→      description: 'Oversee financial reporting and compliance for a growing organization.', responsibilities: '- Manage monthly close process\n- Ensure regulatory compliance\n- Lead annual audit process', requirements: '- CPA required\n- 8+ years of accounting experience\n- Previous controller or assistant controller experience', salaryMin: 140000, salaryMax: 180000, currency: 'USD', location: 'Chicago, IL', employmentType: 'Full-time', department: 'Finance', experience: 'Senior', education: "Bachelor's", workMode: 'On-site', categoryId: finCat.id, status: 'draft', deadline: new Date(Date.now() + 45 * 86400000)
+   159→    },
+   160→    {
+   161→      title: 'HR Business Partner', slug: 'hr-business-partner',
+   162→      description: 'Strategic HR partner supporting business leaders across the organization.', responsibilities: '- Partner with business leaders on talent strategy\n- Drive employee engagement initiatives\n- Manage performance review processes', requirements: '- 7+ years of HR experience\n- SHRM-SCP or SPHR certification\n- Experience in tech industry preferred', salaryMin: 110000, salaryMax: 145000, currency: 'USD', location: 'San Francisco, CA', employmentType: 'Full-time', department: 'Human Resources', experience: 'Senior', education: "Bachelor's", workMode: 'Hybrid', categoryId: hrCat.id, status: 'draft', deadline: new Date(Date.now() + 55 * 86400000)
+   163→    },
+   164→  ];
+   165→
+   166→  for (const job of jobs) {
+   167→    await db.job.create({ data: job });
+   168→  }
+   169→
+   170→  // Create Blogs
+   171→  const blogs = [
+   172→    {
+   173→      title: 'The Future of Remote Work: Trends Shaping 2026 and Beyond', slug: 'future-of-remote-work-2026',
+   174→      excerpt: 'Remote work has evolved from a pandemic necessity to a strategic advantage. Discover the trends defining the next era of distributed workforces.',
+   175→      content: 'The landscape of remote work has undergone a dramatic transformation over the past few years, evolving from an emergency response measure into a fundamental pillar of modern business strategy. As we move through 2026, several key trends are reshaping how organizations approach distributed work, and understanding these shifts is critical for both employers and job seekers looking to stay ahead in an increasingly competitive market.\n\nOne of the most significant trends is the rise of hybrid work models that blend the best of both worlds. Companies are no longer forcing a binary choice between fully remote and fully in-office arrangements. Instead, they are designing flexible schedules that allow employees to split their time between home and the office based on their role requirements, team collaboration needs, and personal preferences. Research consistently shows that hybrid workers report higher job satisfaction and productivity compared to their fully in-office counterparts.\n\nAnother game-changing development is the rapid advancement of collaboration technology. AI-powered meeting assistants, virtual reality workspaces, and intelligent project management platforms are making remote collaboration more seamless than ever. These tools are reducing the friction that traditionally made remote work challenging, enabling teams to maintain strong connections and drive results regardless of their physical location.\n\nThe talent landscape is also being reshaped by remote work, with companies now competing for the best candidates on a global scale rather than being limited by geography. This has led to a significant rebalancing of compensation structures, as employers must now consider cost-of-living adjustments across different regions while remaining competitive in an international talent market.',
+   176→      featuredImage: null, categoryId: insightCat.id, author: 'Sarah Mitchell', tags: 'remote work, future of work, hybrid, trends', status: 'published', seoTitle: 'The Future of Remote Work in 2026', seoDescription: 'Explore the top trends shaping remote work in 2026 including hybrid models, AI collaboration tools, and global talent strategies.'
+   177→    },
+   178→    {
+   179→      title: 'How to Ace Your Executive Interview: A Comprehensive Guide', slug: 'how-to-ace-executive-interview',
+   180→      excerpt: 'Executive interviews require a different approach. Learn the strategies that help senior leaders stand out and secure top positions.',
+   181→      content: 'Interviewing for an executive position is fundamentally different from interviewing for mid-level or entry-level roles. The expectations are higher, the questions are more strategic, and the evaluation criteria extend far beyond technical competence. Executives are assessed on their leadership vision, strategic thinking ability, cultural fit, and their capacity to drive transformational change within an organization. Preparing for this level of interview requires a fundamentally different approach.\n\nThe first critical element of executive interview preparation is developing a compelling leadership narrative. This is not simply a recitation of your resume, but rather a cohesive story that connects your career experiences into a powerful narrative about who you are as a leader, what you stand for, and how you create value for organizations. Your narrative should highlight key inflection points in your career, the difficult decisions you made, and the measurable impact you delivered.\n\nEqually important is your ability to articulate a 90-day plan. Executives who come to interviews with a clear, well-thought-out plan for their first 90 days demonstrate strategic thinking, initiative, and a genuine interest in the role. This plan should include your approach to understanding the business, building relationships with key stakeholders, identifying quick wins, and laying the foundation for longer-term strategic initiatives.\n\nFinally, executive interviews often include sessions with board members, major investors, or other senior stakeholders. These conversations require a different register, more focused on governance, risk management, and long-term value creation. Being prepared to discuss your philosophy on these topics can set you apart from other candidates and demonstrate the maturity and breadth of experience expected at the executive level.',
+   182→      featuredImage: null, categoryId: careerCat.id, author: 'James Chen', tags: 'interview tips, executive, leadership, career advice', status: 'published', seoTitle: 'Executive Interview Guide: How to Ace Senior Leadership Interviews', seoDescription: 'Master executive interviews with proven strategies for leadership narratives, 90-day plans, and stakeholder conversations.'
+   183→    },
+   184→    {
+   185→      title: 'The Rise of AI in Recruitment: How Technology is Transforming Hiring', slug: 'ai-in-recruitment-transforming-hiring',
+   186→      excerpt: 'Artificial intelligence is revolutionizing how companies find and hire talent. Learn about the latest AI tools and their impact on recruitment.',
+   187→      content: 'Artificial intelligence has moved from a buzzword to a transformative force in the recruitment industry, fundamentally changing how companies source, evaluate, and hire talent. From intelligent resume screening to predictive analytics that identify the best candidates before they even apply, AI is enabling recruiters to work smarter, faster, and with greater precision than ever before. The impact of this technological revolution is being felt across every stage of the hiring process.\n\nAt the top of the funnel, AI-powered sourcing tools are dramatically expanding the reach of recruiters. These platforms use natural language processing and machine learning to scan millions of professional profiles, identifying candidates who match specific skill requirements, experience levels, and career trajectories. What used to take a recruiter days of manual searching can now be accomplished in minutes, with AI presenting a curated shortlist of highly qualified candidates along with compatibility scores and fit assessments.\n\nPerhaps the most impactful application of AI in recruitment is in the area of bias reduction. Sophisticated algorithms can be trained to evaluate candidates based solely on their qualifications, skills, and experience, effectively removing unconscious bias related to gender, ethnicity, age, and educational background. Companies that have implemented AI-driven evaluation processes report significant increases in diversity hires while maintaining or improving overall quality of hire metrics.\n\nLooking ahead, the integration of AI with emerging technologies like generative AI for job description creation, video analysis for soft skill assessment, and blockchain for credential verification promises to further transform the recruitment landscape, making it more efficient, equitable, and effective for both employers and job seekers.',
+   188→      featuredImage: null, categoryId: recruitCat.id, author: 'Emily Rodriguez', tags: 'AI, recruitment, technology, hiring', status: 'published', seoTitle: 'AI in Recruitment: How AI is Transforming Hiring', seoDescription: 'Discover how artificial intelligence is revolutionizing recruitment with intelligent sourcing, bias reduction, and predictive analytics.'
+   189→    },
+   190→    {
+   191→      title: 'Salary Negotiation Strategies for Senior Professionals', slug: 'salary-negotiation-senior-professionals',
+   192→      excerpt: 'Negotiating compensation at the senior level requires finesse and strategy. Here are proven approaches to maximize your earning potential.',
+   193→      content: 'Salary negotiation at the senior professional level is a high-stakes endeavor that can have a compounding impact on your career earnings and financial trajectory. Unlike entry-level or mid-career negotiations, senior-level compensation discussions typically involve complex packages that include base salary, bonuses, equity, deferred compensation, and various perks and benefits. Understanding how to navigate these multi-dimensional negotiations is essential for securing compensation that reflects your true market value.\n\nThe foundation of any successful salary negotiation is thorough market research. Senior professionals should invest significant time in understanding compensation benchmarks for their specific role, industry, and geographic market. This includes not just base salary ranges, but also total compensation packages that account for bonuses, equity grants, and benefits. Professional networks, industry associations, and specialized compensation surveys are valuable resources for gathering this intelligence.\n\nOne of the most effective strategies in senior negotiations is to frame the discussion around value creation rather than personal needs. Instead of leading with what you want, focus on what you will deliver. Quantify your expected impact in terms of revenue growth, cost savings, team performance improvements, or other measurable outcomes. This approach shifts the conversation from a transactional exchange to a strategic investment discussion, which is far more compelling for executive decision-makers.\n\nIt is also crucial to think beyond the headline numbers. Equity grants, signing bonuses, relocation packages, deferred compensation, and non-monetary benefits like flexible work arrangements can significantly enhance the overall value of your offer. A comprehensive negotiation strategy considers all these elements and prioritizes them based on your personal and financial goals.',
+   194→      featuredImage: null, categoryId: careerCat.id, author: 'Michael Thompson', tags: 'salary negotiation, compensation, senior professionals, career', status: 'published', seoTitle: 'Senior Salary Negotiation Strategies', seoDescription: 'Master salary negotiation at the senior level with proven strategies for maximizing compensation packages.'
+   195→    },
+   196→    {
+   197→      title: 'Building a Strong Employer Brand in a Competitive Market', slug: 'building-strong-employer-brand',
+   198→      excerpt: 'In today\'s talent war, your employer brand is your most powerful recruiting tool. Learn how to build and leverage it effectively.',
+   199→      content: 'In an era where top talent has unprecedented choice and mobility, a strong employer brand has become one of the most critical competitive advantages for organizations looking to attract and retain the best people. Research consistently shows that companies with strong employer brands see 50% more qualified applicants, reduce their cost-per-hire by up to 43%, and experience significantly lower turnover rates. Building and maintaining a compelling employer brand is no longer a nice-to-have but a strategic imperative.\n\nThe first step in building a strong employer brand is developing a clear and authentic Employee Value Proposition (EVP). Your EVP is the unique combination of benefits, experiences, and opportunities that you offer to your employees in exchange for their skills, capabilities, and commitment. A compelling EVP goes beyond compensation and benefits to encompass culture, career development, work-life balance, purpose, and the overall employee experience. It should be rooted in reality and genuinely reflect what it is like to work at your organization.\n\nSocial proof is another powerful lever for employer branding. Employee testimonials, day-in-the-life content, behind-the-scenes looks at your culture, and authentic stories about career growth within the company resonate far more strongly with potential candidates than polished marketing materials. Encourage your employees to be brand ambassadors on platforms like LinkedIn, Glassdoor, and social media, and provide them with the tools and encouragement to share their genuine experiences.\n\nFinally, your employer brand must be consistently reinforced at every touchpoint of the candidate and employee journey. From the first job posting a candidate sees, to the interview experience, to onboarding, to ongoing career development, every interaction should reinforce the promises made by your employer brand. Inconsistencies between what you promise and what candidates actually experience are the fastest way to damage your employer brand and generate negative word-of-mouth.',
+   200→      featuredImage: null, categoryId: recruitCat.id, author: 'Lisa Park', tags: 'employer brand, recruiting, talent acquisition, HR', status: 'published', seoTitle: 'How to Build a Strong Employer Brand', seoDescription: 'Learn strategies for building a compelling employer brand that attracts top talent and reduces hiring costs.'
+   201→    },
+   202→    {
+   203→      title: 'TalentBridge Expands Operations to Europe and Asia Pacific', slug: 'talentbridge-expands-europe-asia-pacific',
+   204→      excerpt: 'TalentBridge announces its strategic expansion into European and Asia Pacific markets, bringing premium recruitment services to new regions.',
+   205→      content: 'TalentBridge is proud to announce a major strategic expansion that will extend our premium recruitment services to key markets across Europe and the Asia Pacific region. This expansion represents a significant milestone in our growth journey and reflects the increasing global demand for our specialized approach to connecting exceptional talent with leading organizations. Over the next 18 months, we will be establishing offices in London, Singapore, and Sydney, with plans to hire over 50 additional recruitment consultants and industry specialists.\n\nThe decision to expand internationally is driven by strong demand from both our existing clients who are growing their global operations and new clients in these regions who are seeking a more sophisticated, technology-enabled recruitment partnership. Our proprietary matching algorithms, combined with the deep industry expertise of our consultants, have proven remarkably effective at identifying candidates who not only have the right skills but also the cultural fit and growth potential to thrive in our clients organizations.\n\nAs part of this expansion, we are also investing significantly in local market research and building partnerships with leading universities, professional associations, and industry bodies across Europe and Asia Pacific. This local knowledge, combined with our global capabilities and technology platform, will enable us to deliver an unmatched recruitment experience for both clients and candidates in these exciting new markets.',
+   206→      featuredImage: null, categoryId: newsCat.id, author: 'TalentBridge Team', tags: 'expansion, Europe, Asia Pacific, growth', status: 'published', seoTitle: 'TalentBridge Expands to Europe and Asia Pacific', seoDescription: 'TalentBridge announces strategic expansion into European and Asia Pacific markets with new offices and 50+ new hires.'
+   207→    },
+   208→    // Draft blogs
+   209→    {
+   210→      title: 'The Complete Guide to Writing a Standout Resume in 2026', slug: 'complete-guide-standout-resume-2026',
+   211→      excerpt: 'Your resume is your first impression. Learn how to make it count with modern formatting, keywords, and storytelling.',
+   212→      content: 'A well-crafted resume remains the cornerstone of any successful job search, even in an age of LinkedIn profiles and AI-powered recruiting platforms. Your resume serves as your personal marketing document, a concise yet compelling narrative of your professional journey, accomplishments, and potential. In 2026, the most effective resumes balance modern design sensibilities with substance, leveraging both human psychology and AI-optimization techniques to stand out in increasingly competitive applicant pools.',
+   213→      categoryId: careerCat.id, author: 'Sarah Mitchell', tags: 'resume, job search, career', status: 'draft'
+   214→    },
+   215→    {
+   216→      title: 'Diversity and Inclusion in Tech: Progress and Challenges', slug: 'diversity-inclusion-tech-progress-challenges',
+   217→      excerpt: 'An in-depth look at the current state of D&I in the technology industry and what companies can do to drive meaningful change.',
+   218→      content: 'The technology industry has made meaningful progress on diversity and inclusion over the past several years, but significant challenges remain. While major tech companies have publicly committed to building more diverse and inclusive workforces, the data shows that progress has been uneven across different dimensions of diversity, particularly in leadership and technical roles. Understanding both the achievements and the persistent gaps is essential for driving meaningful, sustainable change in the industry.',
+   219→      categoryId: insightCat.id, author: 'James Chen', tags: 'diversity, inclusion, tech, culture', status: 'draft'
+   220→    },
+   221→  ];
+   222→
+   223→  for (const blog of blogs) {
+   224→    await db.blog.create({ data: blog });
+   225→  }
+   226→
+   227→  // Create Testimonials
+   228→  const testimonials = [
+   229→    { name: 'Robert Anderson', title: 'Chief Technology Officer', company: 'Nexus Technologies', content: 'TalentBridge transformed our hiring process entirely. Within three months, they placed 12 senior engineers who have become the backbone of our new platform. Their understanding of technical roles and company culture fit is truly exceptional. The caliber of candidates they presented was significantly higher than what we had seen from other agencies, and the time-to-hire was reduced by 60%.', rating: 5, isFeatured: true },
+   230→    { name: 'Jennifer Walsh', title: 'VP of Human Resources', company: 'Meridian Healthcare', content: 'As a healthcare organization, finding candidates who understand both the clinical and administrative sides of our business is incredibly challenging. TalentBridge not only understood our unique requirements but delivered candidates who exceeded our expectations on every front. Their consultants demonstrated a genuine understanding of the healthcare industry that set them apart from every other recruitment firm we have worked with.', rating: 5, isFeatured: true },
+   231→    { name: 'David Park', title: 'Founder & CEO', company: 'Aurora Ventures', content: 'When we were scaling from 20 to 150 employees, TalentBridge was instrumental in building our core team. They helped us hire our entire leadership team, from VP of Engineering to Head of Marketing. What impressed me most was their strategic approach to recruitment. They did not just fill positions; they helped us think through our organizational design and hiring strategy to build a company that could scale.', rating: 5, isFeatured: true },
+   232→    { name: 'Amanda Torres', title: 'Director of Talent Acquisition', company: 'Pacific Financial Group', content: 'We have been working with TalentBridge for over two years now, and they consistently deliver outstanding results. Their candidate pool for finance and banking roles is deep and well-vetted. The pre-screening process saves our team countless hours, and the candidates they present are always well-prepared and genuinely interested in our opportunities. They are a true extension of our talent acquisition team.', rating: 5, isFeatured: false },
+   233→    { name: 'Marcus Chen', title: 'Chief Product Officer', company: 'Streamline SaaS', content: 'TalentBridge helped us build our product team from scratch when we launched our Series A. They found us exceptional product managers, designers, and data analysts who have been instrumental in achieving 300% growth in our first year. Their network in the SaaS and technology space is remarkable, and they consistently bring us candidates who are not just qualified but truly passionate about building great products.', rating: 5, isFeatured: false },
+   234→    { name: 'Sophia Laurent', title: 'Managing Director', company: 'Apex Consulting Group', content: 'In the consulting industry, your people are your product. TalentBridge understands this better than anyone. They have helped us recruit senior consultants and partners who bring both deep expertise and strong client relationship skills. Their ability to assess cultural fit alongside technical competence has been invaluable in maintaining our firm\'s reputation for excellence.', rating: 5, isFeatured: false },
+   235→  ];
+   236→
+   237→  for (const testimonial of testimonials) {
+   238→    await db.testimonial.create({ data: testimonial });
+   239→  }
+   240→
+   241→  // Create Admin
+   242→  await db.admin.create({
+   243→    data: {
+   244→      name: 'Super Admin',
+   245→      email: 'admin@talentbridge.com',
+   246→      password: '$2b$10$K7L1OJ45/4Y2nIvhRVpCe.FSmhDdWoXehVzJptJ/op0lSsvqNu6GK', // hashed "password123"
+   247→      role: 'super_admin',
+   248→    },
+   249→  });
+   250→
+   251→  // Create Settings
+   252→  const settings = [
+   253→    { key: 'site_name', value: 'TalentBridge' },
+   254→    { key: 'site_tagline', value: 'Connecting Exceptional Talent with Leading Companies' },
+   255→    { key: 'site_email', value: 'contact@talentbridge.com' },
+   256→    { key: 'site_phone', value: '+1 (555) 123-4567' },
+   257→    { key: 'total_placements', value: '5000' },
+   258→    { key: 'companies_served', value: '350' },
+   259→    { key: 'success_rate', value: '96' },
+   260→    { key: 'candidate_pool', value: '50000' },
+   261→    { key: 'office_locations', value: '12' },
+   262→  ];
+   263→
+   264→  for (const setting of settings) {
+   265→    await db.setting.create({ data: setting });
+   266→  }
+   267→
+   268→  // Update job category counts
+   269→  const allJobs = await db.job.findMany({ where: { status: 'published' } });
+   270→  for (const cat of [techCat, healthCat, finCat, marketCat, engCat, salesCat, hrCat, legalCat]) {
+   271→    const count = allJobs.filter(j => j.categoryId === cat.id).length;
+   272→    await db.jobCategory.update({ where: { id: cat.id }, data: { jobCount: count } });
+   273→  }
+   274→
+   275→  console.log('Database seeded successfully!');
+   276→  console.log(`- Job Categories: 8`);
+   277→  console.log(`- Industries: 8`);
+   278→  console.log(`- Jobs: 16 (12 published, 4 draft, 4 featured)`);
+   279→  console.log(`- Blog Categories: 4`);
+   280→  console.log(`- Blogs: 8 (6 published, 2 draft)`);
+   281→  console.log(`- Testimonials: 6 (3 featured)`);
+   282→  console.log(`- Admin: 1`);
+   283→  console.log(`- Settings: 9`);
+   284→}
+   285→
+   286→main()
+   287→  .catch((e) => {
+   288→    console.error('Seed error:', e);
+   289→    process.exit(1);
+   290→  })
+   291→  .finally(async () => {
+   292→    await db.$disconnect();
+   293→  });

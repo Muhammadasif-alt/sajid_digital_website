@@ -1,0 +1,45 @@
+import { Navbar } from "@/components/navbar";
+import { Footer } from "@/components/footer";
+import { AboutSection } from "@/components/sections/about";
+import { WhyChooseUsSection } from "@/components/sections/why-choose-us";
+import { CounterSection } from "@/components/sections/counter";
+import { ContactSection } from "@/components/sections/contact";
+import { Sparkles } from "lucide-react";
+
+export const metadata = {
+  title: "About Us | Sajad Digital Services",
+  description:
+    "Sajad Digital Services (SDS) is a trusted platform empowering individuals for career growth, digital success and overseas opportunities across Pakistan.",
+};
+
+export default function AboutPage() {
+  return (
+    <div className="min-h-screen flex flex-col">
+      <Navbar />
+      <main className="flex-1">
+        {/* Page hero */}
+        <div className="relative bg-navy-dark overflow-hidden pt-24">
+          <div className="absolute inset-0 bg-[linear-gradient(rgba(200,169,81,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(200,169,81,0.05)_1px,transparent_1px)] bg-[size:40px_40px]" />
+          <div className="absolute top-0 -right-20 w-72 h-72 bg-gold/10 rounded-full blur-[100px]" />
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 relative">
+            <span className="inline-flex items-center gap-1.5 text-gold text-xs font-bold uppercase tracking-wider mb-3">
+              <Sparkles className="h-3.5 w-3.5" /> About SDS
+            </span>
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white">
+              Empowering Careers, <span className="text-gradient-gold">Enhancing Businesses</span>
+            </h1>
+            <p className="text-white/60 mt-3 max-w-2xl text-lg">
+              Your trusted partner for career growth, digital success &amp; overseas opportunities.
+            </p>
+          </div>
+        </div>
+
+        <AboutSection />
+        <CounterSection />
+        <WhyChooseUsSection />
+        <ContactSection />
+      </main>
+      <Footer />
+    </div>
+  );
+}

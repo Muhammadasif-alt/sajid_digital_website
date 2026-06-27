@@ -1,0 +1,227 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Admin {
+  id        String   @id @default(cuid())
+  name      String
+  email     String   @unique
+  password  String
+  role      String   @default("admin")
+  avatar    String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Job {
+  id              String        @id @default(cuid())
+  title           String
+  slug            String        @unique
+  description     String        @db.Text
+  responsibilities String       @db.Text
+  requirements    String        @db.Text
+  benefits        String?       @db.Text
+  salaryMin       Int?
+  salaryMax       Int?
+  currency        String        @default("USD")
+  whatsapp        String?
+  location        String
+  city            String?
+  employmentType  String        @default("Full-time")
+  department      String
+  experience      String        @default("Mid-level")
+  education       String        @default("Bachelor's")
+  workMode        String        @default("On-site")
+  deadline        DateTime?
+  status          String        @default("draft")
+  isFeatured      Boolean       @default(false)
+  seoTitle        String?
+  seoDescription  String?
+  featuredImage   String?
+  categoryId      String?
+  category        JobCategory?  @relation(fields: [categoryId], references: [id])
+  applications    Application[]
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+}
+
+model JobCategory {
+  id          String   @id @default(cuid())
+  name        String
+  slug        String   @unique
+  icon        String?
+  description String?  @db.Text
+  jobCount    Int      @default(0)
+  jobs        Job[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model BlogCategory {
+  id        String   @id @default(cuid())
+  name      String
+  slug      String   @unique
+  blogs     Blog[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Blog {
+  id              String         @id @default(cuid())
+  title           String
+  slug            String         @unique
+  excerpt         String?        @db.Text
+  content         String         @db.Text
+  featuredImage   String?
+  categoryId      String?
+  category        BlogCategory?  @relation(fields: [categoryId], references: [id])
+  author          String         @default("TalentBridge Team")
+  tags            String?
+  seoTitle        String?
+  seoDescription  String?
+  status          String         @default("draft")
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+}
+
+model Application {
+  id          String   @id @default(cuid())
+  jobId       String
+  job         Job      @relation(fields: [jobId], references: [id])
+  fullName    String
+  email       String
+  phone       String?
+  resumeUrl   String?
+  coverLetter String?  @db.Text
+  status      String   @default("pending")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Message {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  phone     String?
+  subject   String
+  message   String   @db.Text
+  isRead    Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Testimonial {
+  id         String   @id @default(cuid())
+  name       String
+  title      String
+  company    String
+  avatar     String?
+  content    String   @db.Text
+  rating     Int      @default(5)
+  isFeatured Boolean  @default(false)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+model Newsletter {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+}
+
+model Setting {
+  id    String @id @default(cuid())
+  key   String @unique
+  value String
+}
+
+model Industry {
+  id        String   @id @default(cuid())
+  name      String
+  slug      String   @unique
+  icon      String?
+  description String?  @db.Text
+  jobCount  Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// Government / Private job announcements (official postings we inform people about).
+model Announcement {
+  id            String    @id @default(cuid())
+  title         String
+  slug          String    @unique
+  organization  String
+  sector        String    @default("Government") // Government | Private | Semi-Government
+  location      String    @default("Pakistan")
+  description   String    @db.Text
+  details       String    @db.Text
+  officialLink  String?   @db.Text
+  featuredImage String    @db.Text
+  whatsapp      String?
+  lastDate      DateTime?
+  status        String    @default("draft") // draft | published | closed
+  isFeatured    Boolean   @default(false)
+  views         Int       @default(0)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
+
+// IT courses we sell (SEO, Web Dev, Video & Graphic Design, etc.).
+model Course {
+  id            String   @id @default(cuid())
+  title         String
+  slug          String   @unique
+  category      String   @default("General")
+  description   String   @db.Text
+  details       String   @db.Text
+  price         Int?
+  currency      String   @default("PKR")
+  discountPrice Int?
+  duration      String?  // e.g. "3 Months"
+  level         String   @default("Beginner")
+  featuredImage String   @db.Text
+  whatsapp      String?
+  status        String   @default("draft")
+  isFeatured    Boolean  @default(false)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+// Partner institutions & MoUs (admin-managed, shown on home + /partners).
+model Partner {
+  id          String   @id @default(cuid())
+  name        String
+  type        String   @default("Partner") // Partner | MoU
+  logo        String   @db.Text
+  website     String?  @db.Text
+  description String?  @db.Text
+  status      String   @default("published") // draft | published
+  sortOrder   Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+// Free services offered under MOU (for disabled persons & some govt employees).
+model Service {
+  id            String   @id @default(cuid())
+  title         String
+  slug          String   @unique
+  description   String   @db.Text
+  details       String?  @db.Text
+  eligibility   String   @default("Disabled persons & Govt employees")
+  icon          String?
+  featuredImage String?  @db.Text
+  whatsapp      String?
+  isFree        Boolean  @default(true)
+  status        String   @default("draft")
+  isFeatured    Boolean  @default(false)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
