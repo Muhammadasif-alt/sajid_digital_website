@@ -1,6 +1,5 @@
 ﻿import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import Script from "next/script";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/toaster";
 import "./globals.css";
@@ -54,13 +53,12 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        {/* Google AdSense */}
-        <Script
-          id="google-adsense"
+        {/* Google AdSense — literal tag so the verification crawler sees it in raw HTML */}
+        {/* eslint-disable-next-line @next/next/no-sync-scripts */}
+        <script
           async
           src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE_CLIENT}`}
           crossOrigin="anonymous"
-          strategy="afterInteractive"
         />
       </head>
       <body
