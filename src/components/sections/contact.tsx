@@ -55,6 +55,7 @@ export function ContactSection() {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [sendError, setSendError] = useState("");
 
   const validate = () => {
     const newErrors: Record<string, string> = {};
@@ -69,16 +70,22 @@ export function ContactSection() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!validate()) return;
+    setSendError("");
     setLoading(true);
     try {
-      await fetch("/api/contact", {
+      const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        setSendError(err.error || "Could not send your message. Please try again or contact us on WhatsApp.");
+        return;
+      }
       setSubmitted(true);
     } catch {
-      // Error handling
+      setSendError("Network error. Please check your connection and try again.");
     } finally {
       setLoading(false);
     }
@@ -234,6 +241,11 @@ export function ContactSection() {
                       />
                       {errors.message && <p className="text-xs text-destructive">{errors.message}</p>}
                     </div>
+                    {sendError && (
+                      <div className="text-sm text-red-500 bg-red-500/10 border border-red-500/20 rounded-lg px-3 py-2">
+                        {sendError}
+                      </div>
+                    )}
                     <Button
                       type="submit"
                       disabled={loading}
