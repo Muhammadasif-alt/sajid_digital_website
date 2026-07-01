@@ -25,8 +25,15 @@ function useNavClick() {
     (href: string) => {
       if (href.startsWith("#")) {
         if (pathname === "/") {
-          const el = document.querySelector(href);
-          if (el) el.scrollIntoView({ behavior: "smooth" });
+          // Already on the home page: just scroll, never append to the URL hash
+          // (this is what caused the /#home#home stacking).
+          if (href === "#home") {
+            window.scrollTo({ top: 0, behavior: "smooth" });
+            window.history.replaceState(null, "", "/");
+          } else {
+            const el = document.querySelector(href);
+            if (el) el.scrollIntoView({ behavior: "smooth" });
+          }
         } else {
           router.push("/" + href);
         }

@@ -15,6 +15,9 @@ import {
 const PHONE = "0315-7033832";
 const EMAIL = "sajaddigitalservices@gmail.com";
 const WHATSAPP = "https://wa.me/923157033832";
+const WHATSAPP_GREETING =
+  "Assalam-o-Alaikum!\n\nThanks for contacting Sajad Digital Services. 😊\n\nHow may we assist you today?";
+const WHATSAPP_LINK = `${WHATSAPP}?text=${encodeURIComponent(WHATSAPP_GREETING)}`;
 
 const quickLinks = [
   { label: "Home", href: "#home" },
@@ -163,7 +166,7 @@ export function Footer() {
 
       {/* Floating WhatsApp button */}
       <a
-        href="https://wa.me/923157033832?text=Assalam%20o%20Alaikum%2C%20mujhe%20Sajad%20Digital%20Services%20ke%20baare%20me%20maloomat%20chahiye."
+        href={WHATSAPP_LINK}
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Chat on WhatsApp"

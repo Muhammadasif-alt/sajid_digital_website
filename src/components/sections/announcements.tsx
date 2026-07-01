@@ -23,7 +23,7 @@ export function AnnouncementsSection() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("/api/announcements?status=published&limit=6")
+    fetch("/api/announcements?status=published&limit=4")
       .then((r) => r.json())
       .then((d) => setItems(d.announcements || []))
       .catch(() => {})
@@ -47,8 +47,8 @@ export function AnnouncementsSection() {
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {(loading ? Array.from({ length: 3 }) : items).map((a: Announcement | unknown, i) => {
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {(loading ? Array.from({ length: 4 }) : items).map((a: Announcement | unknown, i) => {
             if (loading) return <div key={i} className="h-72 rounded-2xl bg-muted animate-pulse" />;
             const item = a as Announcement;
             return (

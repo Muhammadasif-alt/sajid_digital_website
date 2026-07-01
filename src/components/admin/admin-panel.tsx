@@ -61,6 +61,8 @@ import {
   HeartHandshake,
   ExternalLink,
   Handshake,
+  Link2,
+  Check,
 } from "lucide-react";
 import { AnnouncementsTab } from "./announcements-tab";
 import { CoursesTab } from "./courses-tab";
@@ -264,6 +266,25 @@ function JobsTab() {
   const [saving, setSaving] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [formError, setFormError] = useState("");
+  const [copiedId, setCopiedId] = useState<string | null>(null);
+
+  // Copy the public shareable link of a job (to post in WhatsApp groups, etc.).
+  const copyJobLink = async (job: JobRow) => {
+    const url = `${window.location.origin}/jobs/${job.slug}`;
+    try {
+      await navigator.clipboard.writeText(url);
+    } catch {
+      // Fallback for browsers that block the async clipboard API.
+      const ta = document.createElement("textarea");
+      ta.value = url;
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand("copy");
+      document.body.removeChild(ta);
+    }
+    setCopiedId(job.id);
+    setTimeout(() => setCopiedId((c) => (c === job.id ? null : c)), 1800);
+  };
 
   const handleBannerUpload = async (file: File) => {
     setFormError("");
@@ -519,6 +540,9 @@ function JobsTab() {
                   </td>
                   <td className="px-4 py-3 text-right">
                     <div className="flex items-center justify-end gap-1">
+                      <Button variant="ghost" size="icon" className={`h-8 w-8 ${copiedId === j.id ? "text-emerald-600" : ""}`} onClick={() => copyJobLink(j)} title="Copy shareable link">
+                        {copiedId === j.id ? <Check className="h-3.5 w-3.5" /> : <Link2 className="h-3.5 w-3.5" />}
+                      </Button>
                       <a href={`/jobs/${j.slug}`} target="_blank" rel="noopener noreferrer" title="View on site" className="h-8 w-8 inline-flex items-center justify-center rounded-md hover:bg-muted"><ExternalLink className="h-3.5 w-3.5" /></a>
                       <Button variant="ghost" size="icon" className="h-8 w-8" onClick={() => togglePublish(j)} title={j.status === "published" ? "Unpublish" : "Publish"}>
                         {j.status === "published" ? <EyeOff className="h-3.5 w-3.5" /> : <Eye className="h-3.5 w-3.5" />}

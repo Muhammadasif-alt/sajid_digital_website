@@ -2,6 +2,7 @@ import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { HeroSection } from "@/components/sections/hero";
 import { JobsCarouselSection } from "@/components/sections/jobs-carousel";
+import { AnnouncementsSection } from "@/components/sections/announcements";
 import { ServicesGridSection } from "@/components/sections/services-grid";
 import { WhyChooseUsSection } from "@/components/sections/why-choose-us";
 import { AboutSection } from "@/components/sections/about";
@@ -16,6 +17,7 @@ export default function Home() {
       <main className="flex-1">
         <HeroSection />
         <JobsCarouselSection />
+        <AnnouncementsSection />
         <ServicesGridSection />
         <WhyChooseUsSection />
         <AboutSection />
