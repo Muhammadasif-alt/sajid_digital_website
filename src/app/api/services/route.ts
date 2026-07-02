@@ -14,6 +14,7 @@ const schema = z.object({
   isFree: z.boolean().optional().default(true),
   status: z.enum(['draft', 'published', 'closed']).optional().default('draft'),
   isFeatured: z.boolean().optional().default(false),
+  sortOrder: z.number().optional().default(0),
 });
 
 function makeSlug(title: string) {
@@ -31,7 +32,7 @@ export async function GET(request: Request) {
 
     const services = await db.service.findMany({
       where,
-      orderBy: [{ isFeatured: 'desc' }, { createdAt: 'desc' }],
+      orderBy: [{ sortOrder: 'asc' }, { isFeatured: 'desc' }, { createdAt: 'desc' }],
       take: limit,
     });
     return NextResponse.json({ services });

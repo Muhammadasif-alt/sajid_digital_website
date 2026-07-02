@@ -26,13 +26,14 @@ interface Row {
   isFree: boolean;
   status: string;
   isFeatured: boolean;
+  sortOrder: number;
 }
 
 const ELIGIBILITY = ["Disabled persons", "Govt employees", "Disabled persons & Govt employees", "Everyone", "Students"];
 
 const EMPTY = {
   title: "", description: "", details: "", eligibility: "Disabled persons & Govt employees",
-  icon: "", featuredImage: "", whatsapp: "0300-7033832", isFree: true, status: "draft", isFeatured: false,
+  icon: "", featuredImage: "", whatsapp: "0300-7033832", isFree: true, status: "draft", isFeatured: false, sortOrder: 0,
 };
 
 export function ServicesTab() {
@@ -85,7 +86,7 @@ export function ServicesTab() {
     setForm({
       title: r.title, description: r.description, details: r.details ?? "", eligibility: r.eligibility,
       icon: r.icon ?? "", featuredImage: r.featuredImage ?? "", whatsapp: r.whatsapp ?? "0300-7033832",
-      isFree: r.isFree, status: r.status, isFeatured: r.isFeatured,
+      isFree: r.isFree, status: r.status, isFeatured: r.isFeatured, sortOrder: r.sortOrder ?? 0,
     });
     setDialogOpen(true);
   };
@@ -114,6 +115,7 @@ export function ServicesTab() {
                 <div className="space-y-2 sm:col-span-2"><Label>Short Description *</Label><Textarea value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })} rows={2} placeholder="One-line summary" /></div>
                 <div className="space-y-2 sm:col-span-2"><Label>Full Details</Label><Textarea value={form.details} onChange={(e) => setForm({ ...form, details: e.target.value })} rows={4} placeholder="What's included, how to avail, MOU info (one point per line)" /></div>
                 <div className="space-y-2"><Label>WhatsApp (apply)</Label><Input value={form.whatsapp} onChange={(e) => setForm({ ...form, whatsapp: e.target.value })} placeholder="0300-7033832" /></div>
+                <div className="space-y-2"><Label>Display Order <span className="text-xs text-muted-foreground font-normal">(1 = first, 2 = second…)</span></Label><Input type="number" min={0} value={form.sortOrder} onChange={(e) => setForm({ ...form, sortOrder: Number(e.target.value) || 0 })} placeholder="1" /></div>
                 <div className="space-y-2"><Label>Status</Label>
                   <Select value={form.status} onValueChange={(v) => setForm({ ...form, status: v })}>
                     <SelectTrigger><SelectValue /></SelectTrigger>
@@ -134,15 +136,17 @@ export function ServicesTab() {
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead><tr className="bg-muted/50 border-b border-border/50">
+              <th className="text-left px-4 py-3 font-medium text-muted-foreground w-16">Order</th>
               <th className="text-left px-4 py-3 font-medium text-muted-foreground">Service</th>
               <th className="text-left px-4 py-3 font-medium text-muted-foreground hidden md:table-cell">Eligibility</th>
               <th className="text-left px-4 py-3 font-medium text-muted-foreground">Status</th>
               <th className="text-right px-4 py-3 font-medium text-muted-foreground">Actions</th>
             </tr></thead>
             <tbody>
-              {loading ? Array.from({ length: 4 }).map((_, i) => <tr key={i}><td colSpan={4} className="px-4 py-3"><Skeleton className="h-5 w-full" /></td></tr>)
+              {loading ? Array.from({ length: 4 }).map((_, i) => <tr key={i}><td colSpan={5} className="px-4 py-3"><Skeleton className="h-5 w-full" /></td></tr>)
                 : items.map((r) => (
                 <tr key={r.id} className="border-b border-border/30 hover:bg-muted/30 transition-colors">
+                  <td className="px-4 py-3"><span className="inline-flex items-center justify-center w-7 h-7 rounded-lg bg-muted font-semibold text-xs">{r.sortOrder ?? 0}</span></td>
                   <td className="px-4 py-3">
                     <div className="font-medium">{r.title}</div>
                     <div className="text-xs text-muted-foreground line-clamp-1">{r.description}</div>

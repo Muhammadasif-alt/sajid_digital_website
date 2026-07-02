@@ -14,6 +14,7 @@ const updateSchema = z.object({
   isFree: z.boolean().optional(),
   status: z.enum(['draft', 'published', 'closed']).optional(),
   isFeatured: z.boolean().optional(),
+  sortOrder: z.number().optional(),
 });
 
 export async function GET(request: Request, { params }: { params: Promise<{ id: string }> }) {

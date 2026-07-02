@@ -222,6 +222,7 @@ model Service {
   isFree        Boolean  @default(true)
   status        String   @default("draft")
   isFeatured    Boolean  @default(false)
+  sortOrder     Int      @default(0) // admin-controlled display order (lower = shown first)
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 }
