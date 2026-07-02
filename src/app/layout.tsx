@@ -21,6 +21,9 @@ const SITE_URL = "https://www.sajaddigitalservices.com";
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   alternates: { canonical: "/" },
+  verification: {
+    google: "IvxbHAkJccapR6z4u9-GsSZN3LpOUAsybnyzfbsusi0",
+  },
   title: "Sajad Digital Services | Career Growth, Digital Success & Overseas Opportunities",
   description:
     "Sajad Digital Services (SDS) — your trusted partner for job assistance, career counseling, CV writing, overseas education guidance, digital marketing and more across Pakistan.",
