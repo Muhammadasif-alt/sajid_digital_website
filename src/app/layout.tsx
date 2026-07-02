@@ -16,7 +16,11 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const SITE_URL = "https://www.sajaddigitalservices.com";
+
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
+  alternates: { canonical: "/" },
   title: "Sajad Digital Services | Career Growth, Digital Success & Overseas Opportunities",
   description:
     "Sajad Digital Services (SDS) — your trusted partner for job assistance, career counseling, CV writing, overseas education guidance, digital marketing and more across Pakistan.",
@@ -64,6 +68,34 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} font-sans antialiased`}
       >
+        {/* Structured data — helps Google identify the business & link the site to its Google profile */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "LocalBusiness",
+              name: "Sajad Digital Services",
+              image: `${SITE_URL}/logo.png`,
+              url: SITE_URL,
+              telephone: "+92-300-7033832",
+              description:
+                "Sajad Digital Services (SDS) — job assistance, career counseling, CV writing, overseas opportunities and digital services across Pakistan.",
+              address: {
+                "@type": "PostalAddress",
+                streetAddress: "Opposite DC Office, Ghalla Mandi Road",
+                addressLocality: "Lodhran",
+                postalCode: "59320",
+                addressCountry: "PK",
+              },
+              sameAs: [
+                "https://www.facebook.com/share/18qNMa4FNx/",
+                "https://www.instagram.com/sajaddigitalservices",
+                "https://www.tiktok.com/@sajaddigitalservices",
+              ],
+            }),
+          }}
+        />
         <ThemeProvider>
           {children}
           <Toaster />
