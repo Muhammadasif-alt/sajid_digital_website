@@ -3,7 +3,7 @@ import { Footer } from "@/components/footer";
 import { HeroSection } from "@/components/sections/hero";
 import { JobsCarouselSection } from "@/components/sections/jobs-carousel";
 import { AnnouncementsSection } from "@/components/sections/announcements";
-import { ServicesGridSection } from "@/components/sections/services-grid";
+import { FreeServicesSection } from "@/components/sections/free-services";
 import { WhyChooseUsSection } from "@/components/sections/why-choose-us";
 import { AboutSection } from "@/components/sections/about";
 import { CounterSection } from "@/components/sections/counter";
@@ -18,7 +18,7 @@ export default function Home() {
         <HeroSection />
         <JobsCarouselSection />
         <AnnouncementsSection />
-        <ServicesGridSection />
+        <FreeServicesSection />
         <WhyChooseUsSection />
         <AboutSection />
         <CounterSection />
