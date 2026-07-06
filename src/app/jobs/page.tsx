@@ -26,7 +26,7 @@ export default async function JobsPage() {
         {/* Header */}
         <div className="relative bg-navy-dark overflow-hidden pt-24">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/blue-hero-bg.webp" alt="" className="absolute inset-0 w-full h-full object-cover opacity-40" />
+          <img src="/hero-bg.webp" alt="" className="absolute inset-0 w-full h-full object-cover opacity-40" />
           <div className="absolute inset-0 bg-gradient-to-r from-navy-dark/92 via-navy-dark/80 to-navy-dark/55" />
           <div className="absolute top-0 -right-20 w-72 h-72 bg-gold/10 rounded-full blur-[100px]" />
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 relative">

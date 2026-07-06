@@ -31,7 +31,7 @@ export function AboutSection() {
             <div className="absolute -inset-3 bg-gradient-to-br from-gold/20 to-navy/10 rounded-3xl blur-xl" />
             <div className="relative rounded-3xl overflow-hidden border border-border shadow-xl">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/Images/job-assistance.webp" alt="About Sajad Digital Services" loading="lazy" decoding="async" className="w-full h-full object-cover" />
+              <img src="/Images/digital.webp" alt="About Sajad Digital Services" loading="lazy" decoding="async" className="w-full h-full object-cover" />
             </div>
             {/* floating logo badge */}
             <div className="absolute -bottom-5 -right-3 bg-card rounded-2xl shadow-lg border border-border px-5 py-3 flex items-center gap-3">
