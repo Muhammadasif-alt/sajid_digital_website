@@ -1,8 +1,7 @@
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
-import { Badge } from "@/components/ui/badge";
-import { Sparkles, ArrowRight, MessageCircle } from "lucide-react";
-import { SERVICES, serviceWaLink } from "@/lib/services-data";
+import { Sparkles } from "lucide-react";
+import { ServicesPageGrid } from "@/components/sections/services-page-grid";
 
 export const metadata = {
   title: "Our Services | Sajad Digital Services",
@@ -32,34 +31,9 @@ export default function ServicesPage() {
           </div>
         </div>
 
-        {/* Grid */}
+        {/* Grid — admin-managed services from the database */}
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
-            {SERVICES.map((s) => {
-              const Icon = s.icon;
-              return (
-                <a
-                  key={s.title}
-                  href={serviceWaLink(s.title)}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group flex flex-col items-center text-center rounded-2xl bg-card border border-border hover:border-gold/50 shadow-sm hover:shadow-xl hover:shadow-gold/10 hover:-translate-y-1 p-6 transition-all duration-300"
-                >
-                  <div className="w-16 h-16 rounded-2xl bg-gold/12 border border-gold/25 flex items-center justify-center mb-4 group-hover:bg-gold group-hover:scale-110 transition-all duration-300">
-                    <Icon className="h-8 w-8 text-gold group-hover:text-navy-dark transition-colors" />
-                  </div>
-                  <h3 className="text-base font-bold text-foreground leading-snug group-hover:text-gold transition-colors">
-                    {s.title}
-                  </h3>
-                  <p className="mt-2 text-sm text-muted-foreground leading-relaxed flex-1">{s.desc}</p>
-                  <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-gold">
-                    <MessageCircle className="h-4 w-4" /> Get Started
-                    <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-1 transition-transform" />
-                  </span>
-                </a>
-              );
-            })}
-          </div>
+          <ServicesPageGrid />
         </div>
       </main>
       <Footer />
