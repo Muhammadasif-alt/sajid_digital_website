@@ -1,6 +1,7 @@
 "use client";
 
-import { useCallback } from "react";
+import { useCallback, useEffect, useState } from "react";
+import Link from "next/link";
 import { useRouter, usePathname } from "next/navigation";
 import {
   Mail,
@@ -29,15 +30,6 @@ const quickLinks = [
   { label: "Contact", href: "/contact" },
 ];
 
-const serviceLinks = [
-  "Job Assistance",
-  "Career Counseling",
-  "Overseas Guidance",
-  "Digital Marketing",
-  "CV Writing",
-  "Graphic Designing",
-];
-
 function TikTokIcon({ className }: { className?: string }) {
   return (
     <svg viewBox="0 0 24 24" className={className} fill="currentColor" aria-hidden="true">
@@ -55,6 +47,15 @@ const socials = [
 export function Footer() {
   const router = useRouter();
   const pathname = usePathname();
+
+  // Services shown in the footer come from the admin (published services only).
+  const [services, setServices] = useState<{ slug: string; title: string }[]>([]);
+  useEffect(() => {
+    fetch("/api/services?status=published&limit=6")
+      .then((r) => r.json())
+      .then((d) => setServices((d.services || []).map((s: { slug: string; title: string }) => ({ slug: s.slug, title: s.title }))))
+      .catch(() => {});
+  }, []);
 
   const go = useCallback(
     (href: string) => {
@@ -115,17 +116,25 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Services */}
+          {/* Services (admin-managed) */}
           <div>
             <h4 className="font-bold text-gold mb-4 text-sm uppercase tracking-wide">Our Services</h4>
             <ul className="space-y-2.5">
-              {serviceLinks.map((l) => (
-                <li key={l}>
-                  <button onClick={() => go("#services")} className="text-sm text-white/60 hover:text-gold transition-colors text-left">
-                    {l}
-                  </button>
+              {services.length > 0 ? (
+                services.map((s) => (
+                  <li key={s.slug}>
+                    <Link href={`/services/${s.slug}`} className="text-sm text-white/60 hover:text-gold transition-colors text-left line-clamp-1">
+                      {s.title}
+                    </Link>
+                  </li>
+                ))
+              ) : (
+                <li>
+                  <Link href="/services" className="text-sm text-white/60 hover:text-gold transition-colors">
+                    All Services
+                  </Link>
                 </li>
-              ))}
+              )}
             </ul>
           </div>
 
