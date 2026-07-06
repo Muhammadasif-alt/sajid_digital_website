@@ -11,6 +11,7 @@ interface Service {
   slug: string;
   description: string;
   icon: string | null;
+  featuredImage: string | null;
   isFree: boolean;
 }
 
@@ -62,19 +63,29 @@ export function ServicesPageGrid() {
         <Link
           key={s.id}
           href={`/services/${s.slug}`}
-          className="group flex flex-col rounded-2xl bg-card border border-border hover:border-gold/50 shadow-sm hover:shadow-xl hover:shadow-gold/10 hover:-translate-y-1 p-6 transition-all duration-300"
+          className="group flex flex-col rounded-2xl bg-card border border-border hover:border-gold/50 shadow-sm hover:shadow-xl hover:shadow-gold/10 hover:-translate-y-1 overflow-hidden transition-all duration-300"
         >
-          <div className="w-16 h-16 rounded-2xl bg-gold/12 border border-gold/25 flex items-center justify-center mb-4 group-hover:bg-gold group-hover:scale-110 transition-all duration-300">
-            <ServiceIcon name={s.icon} className="h-8 w-8 text-gold group-hover:text-navy-dark transition-colors" />
+          <div className="relative h-40 w-full overflow-hidden bg-navy">
+            {s.featuredImage ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img src={s.featuredImage} alt={s.title} loading="lazy" decoding="async" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+            ) : (
+              <div className="w-full h-full flex items-center justify-center">
+                <ServiceIcon name={s.icon} className="h-10 w-10 text-gold/50" />
+              </div>
+            )}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
           </div>
-          <h3 className="text-base font-bold text-foreground leading-snug group-hover:text-gold transition-colors">
-            {s.title}
-          </h3>
-          <p className="mt-2 text-sm text-muted-foreground leading-relaxed flex-1">{s.description}</p>
-          <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-gold">
-            Learn More
-            <ChevronRight className="h-3.5 w-3.5 group-hover:translate-x-1 transition-transform" />
-          </span>
+          <div className="flex flex-col flex-1 p-6">
+            <h3 className="text-base font-bold text-foreground leading-snug group-hover:text-gold transition-colors">
+              {s.title}
+            </h3>
+            <p className="mt-2 text-sm text-muted-foreground leading-relaxed flex-1">{s.description}</p>
+            <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-gold">
+              Learn More
+              <ChevronRight className="h-3.5 w-3.5 group-hover:translate-x-1 transition-transform" />
+            </span>
+          </div>
         </Link>
       ))}
     </div>

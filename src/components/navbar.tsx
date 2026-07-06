@@ -11,7 +11,7 @@ import { Menu, ArrowRight, Sun, Moon } from "lucide-react";
 const navLinks = [
   { label: "Home", href: "#home" },
   { label: "Services", href: "/services" },
-  { label: "Why SDS", href: "#why-choose" },
+  { label: "Why SDS", href: "/why-sds" },
   { label: "About Us", href: "/about" },
   { label: "Jobs", href: "/jobs" },
   { label: "Blog", href: "/blog" },

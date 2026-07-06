@@ -24,7 +24,7 @@ const quickLinks = [
   { label: "Home", href: "#home" },
   { label: "About Us", href: "/about" },
   { label: "Services", href: "/services" },
-  { label: "Why SDS", href: "#why-choose" },
+  { label: "Why SDS", href: "/why-sds" },
   { label: "Jobs", href: "/jobs" },
   { label: "Blog", href: "/blog" },
   { label: "Contact", href: "/contact" },

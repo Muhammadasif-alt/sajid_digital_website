@@ -9,7 +9,7 @@ const schema = z.object({
   details: z.string().optional(),
   eligibility: z.string().optional().default('Disabled persons & Govt employees'),
   icon: z.string().optional(),
-  featuredImage: z.string().optional(),
+  featuredImage: z.string().min(1, 'Banner image is required'),
   whatsapp: z.string().optional(),
   isFree: z.boolean().optional().default(true),
   status: z.enum(['draft', 'published', 'closed']).optional().default('draft'),

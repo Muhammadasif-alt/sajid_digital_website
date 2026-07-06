@@ -59,6 +59,7 @@ export function ServicesTab() {
   const handleSave = async () => {
     setError("");
     if (!form.title || !form.description) { setError("Title and description are required."); return; }
+    if (!form.featuredImage) { setError("Banner image is required for every service."); return; }
     setSaving(true);
     try {
       const res = editing
@@ -102,7 +103,8 @@ export function ServicesTab() {
           <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
             <DialogHeader><DialogTitle>{editing ? "Edit" : "Create"} Service</DialogTitle></DialogHeader>
             <div className="space-y-4 pt-2">
-              <BannerUpload value={form.featuredImage} onChange={(url) => setForm({ ...form, featuredImage: url })} hint="optional service image" />
+              <Label>Banner Image * <span className="text-xs text-muted-foreground font-normal">(required — shown on the service card)</span></Label>
+              <BannerUpload value={form.featuredImage} onChange={(url) => setForm({ ...form, featuredImage: url })} hint="required service image" />
               <div className="grid sm:grid-cols-2 gap-4">
                 <div className="space-y-2 sm:col-span-2"><Label>Service Title *</Label><Input value={form.title} onChange={(e) => setForm({ ...form, title: e.target.value })} placeholder="e.g. Free Web Development Training" /></div>
                 <div className="space-y-2"><Label>Eligibility</Label>

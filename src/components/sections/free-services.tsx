@@ -10,7 +10,7 @@ import { ServiceIcon } from "@/components/service-icon";
 
 interface Service {
   id: string; title: string; slug: string; description: string;
-  icon: string | null; isFree: boolean;
+  icon: string | null; featuredImage: string | null; isFree: boolean;
 }
 
 export function FreeServicesSection() {
@@ -49,15 +49,25 @@ export function FreeServicesSection() {
             return (
               <motion.div key={item.id} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.4, delay: (i % 4) * 0.08 }}>
                 <Link href={`/services/${item.slug}`} className="block h-full group">
-                  <div className="h-full rounded-2xl border border-border/50 bg-card p-6 hover:border-gold/40 hover:shadow-xl hover:shadow-gold/10 transition-all hover:-translate-y-1">
-                    <div className="w-12 h-12 rounded-xl bg-navy/5 dark:bg-gold/10 flex items-center justify-center mb-4 group-hover:bg-navy/10 dark:group-hover:bg-gold/20 transition-colors">
-                      <ServiceIcon name={item.icon} className="h-6 w-6 text-navy dark:text-gold" />
+                  <div className="h-full rounded-2xl border border-border/50 bg-card overflow-hidden hover:border-gold/40 hover:shadow-xl hover:shadow-gold/10 transition-all hover:-translate-y-1">
+                    <div className="relative h-40 w-full overflow-hidden bg-navy">
+                      {item.featuredImage ? (
+                        // eslint-disable-next-line @next/next/no-img-element
+                        <img src={item.featuredImage} alt={item.title} loading="lazy" decoding="async" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                      ) : (
+                        <div className="w-full h-full flex items-center justify-center">
+                          <ServiceIcon name={item.icon} className="h-9 w-9 text-gold/50" />
+                        </div>
+                      )}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
                     </div>
-                    <h3 className="font-bold text-foreground group-hover:text-navy dark:group-hover:text-gold transition-colors">{item.title}</h3>
-                    <p className="text-sm text-muted-foreground mt-2 line-clamp-2">{item.description}</p>
-                    <span className="text-navy dark:text-gold font-semibold text-sm flex items-center mt-3">
-                      Learn More <ChevronRight className="h-4 w-4 ml-1 group-hover:translate-x-1 transition-transform" />
-                    </span>
+                    <div className="p-6">
+                      <h3 className="font-bold text-foreground group-hover:text-navy dark:group-hover:text-gold transition-colors">{item.title}</h3>
+                      <p className="text-sm text-muted-foreground mt-2 line-clamp-2">{item.description}</p>
+                      <span className="text-navy dark:text-gold font-semibold text-sm flex items-center mt-3">
+                        Learn More <ChevronRight className="h-4 w-4 ml-1 group-hover:translate-x-1 transition-transform" />
+                      </span>
+                    </div>
                   </div>
                 </Link>
               </motion.div>
