@@ -55,10 +55,9 @@ export default async function CoursesPage() {
               {courses.map((c) => (
                 <Link key={c.id} href={`/courses/${c.slug}`} className="block h-full group">
                   <div className="h-full rounded-2xl border border-border/50 overflow-hidden hover:border-gold/40 hover:shadow-xl hover:shadow-gold/10 transition-all hover:-translate-y-1 bg-card">
-                    <div className="relative h-40 w-full overflow-hidden bg-navy">
+                    <div className="relative h-40 w-full overflow-hidden bg-muted">
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img src={c.featuredImage} alt={c.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
                       <div className="absolute top-3 left-3 flex gap-2">
                         {c.isFeatured && <Badge className="bg-gold text-navy-dark border-0 text-[10px] font-bold uppercase">★ Featured</Badge>}
                         <Badge className="bg-white/90 text-navy text-[10px] font-medium border">{c.category}</Badge>

@@ -35,7 +35,7 @@ export function JobCard({ job, index = 0 }: { job: JobWithCategory; index?: numb
       <Link href={`/jobs/${job.slug}`} className="block h-full">
         <Card className="group h-full border-border/50 hover:border-gold/40 shadow-sm hover:shadow-xl hover:shadow-gold/10 transition-all duration-300 overflow-hidden hover:-translate-y-1">
           {/* Banner image */}
-          <div className="relative h-44 w-full overflow-hidden bg-navy">
+          <div className="relative h-44 w-full overflow-hidden bg-muted">
             {job.featuredImage ? (
               // eslint-disable-next-line @next/next/no-img-element
               <img
@@ -50,7 +50,6 @@ export function JobCard({ job, index = 0 }: { job: JobWithCategory; index?: numb
                 <Briefcase className="h-10 w-10 text-gold/40" />
               </div>
             )}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
             <div className="absolute top-3 left-3 flex items-center gap-2">
               {job.isFeatured && (
                 <Badge className="bg-gold text-navy-dark border-0 text-[10px] font-bold uppercase tracking-wider shadow-lg">

@@ -51,7 +51,7 @@ export default async function BlogPage() {
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {blogs.map((b) => (
                 <Link key={b.id} href={`/blog/${b.slug}`} className="group flex flex-col rounded-2xl overflow-hidden bg-card border border-border hover:border-gold/50 shadow-sm hover:shadow-xl hover:shadow-gold/10 hover:-translate-y-1 transition-all duration-300">
-                  <div className="relative h-48 overflow-hidden bg-navy-dark">
+                  <div className="relative h-48 overflow-hidden bg-muted">
                     {b.featuredImage ? (
                       // eslint-disable-next-line @next/next/no-img-element
                       <img src={b.featuredImage} alt={b.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
