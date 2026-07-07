@@ -68,6 +68,7 @@ import { AnnouncementsTab } from "./announcements-tab";
 import { CoursesTab } from "./courses-tab";
 import { ServicesTab } from "./services-tab";
 import { PartnersTab } from "./partners-tab";
+import { BannerUpload } from "./banner-upload";
 
 /* ============================================================
    TYPES
@@ -103,6 +104,10 @@ interface BlogRow {
   status: string;
   author: string;
   createdAt: string;
+  content?: string;
+  excerpt?: string | null;
+  tags?: string | null;
+  featuredImage?: string | null;
   category: { id: string; name: string } | null;
 }
 
@@ -570,7 +575,7 @@ function BlogsTab() {
   const [loading, setLoading] = useState(true);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editing, setEditing] = useState<BlogRow | null>(null);
-  const [form, setForm] = useState({ title: "", content: "", excerpt: "", author: "SAJAD Digital Services Team", status: "draft" as string, tags: "" });
+  const [form, setForm] = useState({ title: "", content: "", excerpt: "", author: "SAJAD Digital Services Team", status: "draft" as string, tags: "", featuredImage: "" });
   const [saving, setSaving] = useState(false);
 
   const fetchBlogs = useCallback(async () => {
@@ -595,7 +600,7 @@ function BlogsTab() {
       }
       setDialogOpen(false);
       setEditing(null);
-      setForm({ title: "", content: "", excerpt: "", author: "SAJAD Digital Services Team", status: "draft", tags: "" });
+      setForm({ title: "", content: "", excerpt: "", author: "SAJAD Digital Services Team", status: "draft", tags: "", featuredImage: "" });
       fetchBlogs();
     } catch { /* */ } finally { setSaving(false); }
   };
@@ -614,7 +619,7 @@ function BlogsTab() {
 
   const openEdit = (blog: BlogRow) => {
     setEditing(blog);
-    setForm({ title: blog.title, content: "", excerpt: "", author: blog.author, status: blog.status, tags: "" });
+    setForm({ title: blog.title, content: blog.content ?? "", excerpt: blog.excerpt ?? "", author: blog.author, status: blog.status, tags: blog.tags ?? "", featuredImage: blog.featuredImage ?? "" });
     setDialogOpen(true);
   };
 
@@ -629,6 +634,7 @@ function BlogsTab() {
           <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
             <DialogHeader><DialogTitle>{editing ? "Edit Blog" : "Create Blog"}</DialogTitle></DialogHeader>
             <div className="space-y-4 pt-2">
+              <BannerUpload value={form.featuredImage} onChange={(url) => setForm({ ...form, featuredImage: url })} hint="blog cover image (optional)" />
               <div className="space-y-2"><Label>Title *</Label><Input value={form.title} onChange={(e) => setForm({ ...form, title: e.target.value })} /></div>
               <div className="space-y-2"><Label>Excerpt</Label><Textarea value={form.excerpt} onChange={(e) => setForm({ ...form, excerpt: e.target.value })} rows={2} /></div>
               <div className="space-y-2"><Label>Content *</Label><Textarea value={form.content} onChange={(e) => setForm({ ...form, content: e.target.value })} rows={6} placeholder="Write your blog content here..." /></div>
