@@ -33,7 +33,7 @@ const contactInfo = [
   {
     icon: MapPin,
     label: "Location",
-    value: "Lahore, Pakistan",
+    value: "Lodhran, Pakistan",
     description: "Serving clients nationwide & overseas",
   },
   {

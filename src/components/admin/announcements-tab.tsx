@@ -118,7 +118,7 @@ export function AnnouncementsTab() {
                     <SelectContent><SelectItem value="Government">Government</SelectItem><SelectItem value="Private">Private</SelectItem><SelectItem value="Semi-Government">Semi-Government</SelectItem></SelectContent>
                   </Select>
                 </div>
-                <div className="space-y-2"><Label>Location</Label><Input value={form.location} onChange={(e) => setForm({ ...form, location: e.target.value })} placeholder="e.g. Lahore, Punjab" /></div>
+                <div className="space-y-2"><Label>Location</Label><Input value={form.location} onChange={(e) => setForm({ ...form, location: e.target.value })} placeholder="e.g. Lodhran, Punjab" /></div>
                 <div className="space-y-2"><Label>Last Date to Apply</Label><Input type="date" value={form.lastDate} onChange={(e) => setForm({ ...form, lastDate: e.target.value })} /></div>
                 <div className="space-y-2 sm:col-span-2"><Label>Short Description *</Label><Textarea value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })} rows={2} placeholder="One-line summary shown on the card" /></div>
                 <div className="space-y-2 sm:col-span-2"><Label>Full Details *</Label><Textarea value={form.details} onChange={(e) => setForm({ ...form, details: e.target.value })} rows={6} placeholder="Eligibility, posts, how to apply, etc. (one point per line)" /></div>

@@ -153,7 +153,7 @@ export function Footer() {
                 </a>
               </li>
               <li className="flex items-center gap-2">
-                <MapPin className="h-4 w-4 text-gold shrink-0" /> Lahore, Pakistan
+                <MapPin className="h-4 w-4 text-gold shrink-0" /> Lodhran, Pakistan
               </li>
               <li className="flex items-center gap-2">
                 <Clock className="h-4 w-4 text-gold shrink-0" /> Mon - Sat: 9AM - 7PM
