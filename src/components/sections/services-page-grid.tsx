@@ -65,7 +65,7 @@ export function ServicesPageGrid() {
           href={`/services/${s.slug}`}
           className="group flex flex-col rounded-2xl bg-card border border-border hover:border-gold/50 shadow-sm hover:shadow-xl hover:shadow-gold/10 hover:-translate-y-1 overflow-hidden transition-all duration-300"
         >
-          <div className="relative h-40 w-full overflow-hidden bg-navy">
+          <div className="relative h-48 w-full overflow-hidden bg-muted">
             {s.featuredImage ? (
               // eslint-disable-next-line @next/next/no-img-element
               <img src={s.featuredImage} alt={s.title} loading="lazy" decoding="async" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
@@ -74,7 +74,6 @@ export function ServicesPageGrid() {
                 <ServiceIcon name={s.icon} className="h-10 w-10 text-gold/50" />
               </div>
             )}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
           </div>
           <div className="flex flex-col flex-1 p-6">
             <h3 className="text-base font-bold text-foreground leading-snug group-hover:text-gold transition-colors">

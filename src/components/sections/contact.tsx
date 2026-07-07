@@ -33,7 +33,7 @@ const contactInfo = [
   {
     icon: MapPin,
     label: "Location",
-    value: "Lodhran, Pakistan",
+    value: "Opposite DC Office, Ghalla Mandi Road, Lodhran",
     description: "Serving clients nationwide & overseas",
   },
   {

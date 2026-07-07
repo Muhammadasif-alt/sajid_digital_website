@@ -50,7 +50,7 @@ export function FreeServicesSection() {
               <motion.div key={item.id} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.4, delay: (i % 4) * 0.08 }}>
                 <Link href={`/services/${item.slug}`} className="block h-full group">
                   <div className="h-full rounded-2xl border border-border/50 bg-card overflow-hidden hover:border-gold/40 hover:shadow-xl hover:shadow-gold/10 transition-all hover:-translate-y-1">
-                    <div className="relative h-40 w-full overflow-hidden bg-navy">
+                    <div className="relative h-48 w-full overflow-hidden bg-muted">
                       {item.featuredImage ? (
                         // eslint-disable-next-line @next/next/no-img-element
                         <img src={item.featuredImage} alt={item.title} loading="lazy" decoding="async" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
@@ -59,7 +59,6 @@ export function FreeServicesSection() {
                           <ServiceIcon name={item.icon} className="h-9 w-9 text-gold/50" />
                         </div>
                       )}
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
                     </div>
                     <div className="p-6">
                       <h3 className="font-bold text-foreground group-hover:text-navy dark:group-hover:text-gold transition-colors">{item.title}</h3>
