@@ -32,7 +32,9 @@ export async function GET(request: Request) {
 
     const services = await db.service.findMany({
       where,
-      orderBy: [{ sortOrder: 'asc' }, { isFeatured: 'desc' }, { createdAt: 'desc' }],
+      // sortOrder first (admin control), then oldest-first so the earliest
+      // added service stays at the front when order numbers are equal.
+      orderBy: [{ sortOrder: 'asc' }, { createdAt: 'asc' }],
       take: limit,
     });
     return NextResponse.json({ services });
