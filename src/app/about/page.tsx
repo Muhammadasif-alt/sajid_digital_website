@@ -4,7 +4,7 @@ import { AboutSection } from "@/components/sections/about";
 import { TeamSection } from "@/components/sections/team";
 import { WhyChooseUsSection } from "@/components/sections/why-choose-us";
 import { CounterSection } from "@/components/sections/counter";
-import { ContactSection } from "@/components/sections/contact";
+import { CtaBand } from "@/components/sections/cta-band";
 import { Sparkles } from "lucide-react";
 
 export const metadata = {
@@ -42,7 +42,10 @@ export default function AboutPage() {
         <TeamSection />
         <CounterSection />
         <WhyChooseUsSection />
-        <ContactSection />
+        <CtaBand
+          title="Want to work with us?"
+          subtitle="Talk to our team about your career, your studies or your business — we'll tell you honestly what we can do for you."
+        />
       </main>
       <Footer />
     </div>

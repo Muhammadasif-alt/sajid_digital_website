@@ -2,7 +2,7 @@ import { db } from "@/lib/db";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { CounterSection } from "@/components/sections/counter";
-import { ContactSection } from "@/components/sections/contact";
+import { CtaBand } from "@/components/sections/cta-band";
 import { Trophy, Star, Quote } from "lucide-react";
 
 export const dynamic = "force-dynamic";
@@ -81,7 +81,10 @@ export default async function SuccessStoriesPage() {
         </div>
 
         <CounterSection />
-        <ContactSection />
+        <CtaBand
+          title="Your story could be next."
+          subtitle="Every success here started with one simple message. Tell us your goal and we'll help you get there."
+        />
       </main>
       <Footer />
     </div>

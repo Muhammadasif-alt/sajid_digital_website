@@ -2,7 +2,7 @@ import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { WhyChooseUsSection } from "@/components/sections/why-choose-us";
 import { CounterSection } from "@/components/sections/counter";
-import { ContactSection } from "@/components/sections/contact";
+import { CtaBand } from "@/components/sections/cta-band";
 import { MouSection } from "@/components/sections/mou-section";
 import { Badge } from "@/components/ui/badge";
 import { Sparkles, BadgeCheck, BookOpen } from "lucide-react";
@@ -141,7 +141,10 @@ export default function WhySdsPage() {
 
         <WhyChooseUsSection />
         <CounterSection />
-        <ContactSection />
+        <CtaBand
+          title="Ready to take the next step?"
+          subtitle="Thousands of people from Lodhran and across Pakistan already trust SDS. Let's see what we can do for you."
+        />
       </main>
       <Footer />
     </div>

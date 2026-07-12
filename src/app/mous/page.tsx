@@ -2,7 +2,7 @@ import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { MouSection } from "@/components/sections/mou-section";
 import { PartnersSection } from "@/components/sections/partners";
-import { ContactSection } from "@/components/sections/contact";
+import { CtaBand } from "@/components/sections/cta-band";
 import { Handshake, BadgeCheck } from "lucide-react";
 
 export const metadata = {
@@ -58,7 +58,10 @@ export default function MousPage() {
         {/* Partner logos */}
         <PartnersSection />
 
-        <ContactSection />
+        <CtaBand
+          title="Want to partner with SDS?"
+          subtitle="We work with government departments, institutions and organisations. Reach out and let's discuss a collaboration."
+        />
       </main>
       <Footer />
     </div>
