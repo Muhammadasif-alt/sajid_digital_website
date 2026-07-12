@@ -321,7 +321,7 @@ function JobsTab() {
       const params = new URLSearchParams();
       if (search) params.set("search", search);
       if (statusFilter !== "all") params.set("status", statusFilter);
-      params.set("limit", "50");
+      params.set("limit", "200");
       const res = await fetch(`/api/jobs?${params}`);
       const data = await res.json();
       setJobs(data.jobs || []);
@@ -585,7 +585,7 @@ function BlogsTab() {
   const fetchBlogs = useCallback(async () => {
     setLoading(true);
     try {
-      const res = await fetch("/api/blogs?limit=50");
+      const res = await fetch("/api/blogs?limit=200");
       const data = await res.json();
       setBlogs(data.blogs || []);
     } catch { /* */ } finally { setLoading(false); }
