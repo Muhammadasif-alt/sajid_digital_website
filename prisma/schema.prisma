@@ -120,7 +120,8 @@ model Testimonial {
   name       String
   title      String
   company    String
-  avatar     String?
+  avatar     String?  @db.Text
+  video      String?  @db.Text
   content    String   @db.Text
   rating     Int      @default(5)
   isFeatured Boolean  @default(false)

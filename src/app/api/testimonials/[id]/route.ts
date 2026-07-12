@@ -11,6 +11,7 @@ const updateSchema = z.object({
   rating: z.number().min(1).max(5).optional(),
   isFeatured: z.boolean().optional(),
   avatar: z.string().nullable().optional(),
+  video: z.string().nullable().optional(),
 });
 
 export async function PUT(

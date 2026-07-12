@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Badge } from "@/components/ui/badge";
-import { Trophy, Star, Quote } from "lucide-react";
+import { Trophy, Star, Quote, PlayCircle } from "lucide-react";
 
 interface Story {
   id: string;
@@ -13,6 +13,7 @@ interface Story {
   content: string;
   rating: number;
   avatar: string | null;
+  video: string | null;
 }
 
 /**
@@ -60,16 +61,27 @@ export function SuccessStoriesSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: (i % 3) * 0.08 }}
-              className="rounded-2xl bg-card border border-border p-6 hover:border-gold/40 hover:shadow-xl hover:shadow-gold/10 transition-all"
+              className="flex flex-col rounded-2xl bg-card border border-border p-6 hover:border-gold/40 hover:shadow-xl hover:shadow-gold/10 transition-all"
             >
               <Quote className="h-7 w-7 text-gold/40 mb-3" />
-              <p className="text-foreground/90 leading-relaxed">{s.content}</p>
+              <p className="text-foreground/90 leading-relaxed flex-1">{s.content}</p>
 
               <div className="flex gap-0.5 mt-4">
                 {Array.from({ length: s.rating }).map((_, j) => (
                   <Star key={j} className="h-4 w-4 fill-gold text-gold" />
                 ))}
               </div>
+
+              {s.video && (
+                <a
+                  href={s.video}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-4 inline-flex items-center gap-2 self-start rounded-xl bg-gold/10 border border-gold/25 px-3.5 py-2 text-sm font-semibold text-gold hover:bg-gold hover:text-navy-dark transition-colors"
+                >
+                  <PlayCircle className="h-4 w-4" /> Watch video review
+                </a>
+              )}
 
               <div className="flex items-center gap-3 mt-5 pt-5 border-t border-border">
                 {s.avatar ? (

@@ -122,6 +122,8 @@ interface TestimonialRow {
   content: string;
   rating: number;
   isFeatured: boolean;
+  avatar: string | null;
+  video: string | null;
 }
 
 interface MessageRow {
@@ -700,7 +702,7 @@ function TestimonialsTab() {
   const [loading, setLoading] = useState(true);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editing, setEditing] = useState<TestimonialRow | null>(null);
-  const [form, setForm] = useState({ name: "", title: "", company: "", content: "", rating: 5, isFeatured: false });
+  const [form, setForm] = useState({ name: "", title: "", company: "", content: "", rating: 5, isFeatured: false, avatar: "", video: "" });
   const [saving, setSaving] = useState(false);
 
   const fetchItems = useCallback(async () => {
@@ -725,7 +727,7 @@ function TestimonialsTab() {
       }
       setDialogOpen(false);
       setEditing(null);
-      setForm({ name: "", title: "", company: "", content: "", rating: 5, isFeatured: false });
+      setForm({ name: "", title: "", company: "", content: "", rating: 5, isFeatured: false, avatar: "", video: "" });
       fetchItems();
     } catch { /* */ } finally { setSaving(false); }
   };
@@ -738,7 +740,10 @@ function TestimonialsTab() {
 
   const openEdit = (t: TestimonialRow) => {
     setEditing(t);
-    setForm({ name: t.name, title: t.title, company: t.company, content: t.content, rating: t.rating, isFeatured: t.isFeatured });
+    setForm({
+      name: t.name, title: t.title, company: t.company, content: t.content,
+      rating: t.rating, isFeatured: t.isFeatured, avatar: t.avatar ?? "", video: t.video ?? "",
+    });
     setDialogOpen(true);
   };
 
@@ -750,9 +755,24 @@ function TestimonialsTab() {
           <DialogTrigger asChild>
             <Button size="sm" className="bg-navy dark:bg-gold dark:text-navy-dark text-white"><Plus className="h-4 w-4 mr-1" /> New</Button>
           </DialogTrigger>
-          <DialogContent>
-            <DialogHeader><DialogTitle>{editing ? "Edit" : "Add"} Testimonial</DialogTitle></DialogHeader>
+          <DialogContent className="max-h-[90vh] overflow-y-auto">
+            <DialogHeader><DialogTitle>{editing ? "Edit" : "Add"} Success Story</DialogTitle></DialogHeader>
             <div className="space-y-4 pt-2">
+              <div className="space-y-2">
+                <Label>Photo <span className="text-xs text-muted-foreground font-normal">(optional — the student&apos;s picture)</span></Label>
+                <BannerUpload value={form.avatar} onChange={(url) => setForm({ ...form, avatar: url })} hint="student photo" />
+              </div>
+              <div className="space-y-2">
+                <Label>Video Review Link <span className="text-xs text-muted-foreground font-normal">(optional — YouTube / Facebook / TikTok link)</span></Label>
+                <Input
+                  value={form.video}
+                  onChange={(e) => setForm({ ...form, video: e.target.value })}
+                  placeholder="https://youtube.com/watch?v=..."
+                />
+                <p className="text-xs text-muted-foreground">
+                  Video pehle YouTube ya Facebook par upload karein, phir uska link yahan paste karein.
+                </p>
+              </div>
               <div className="grid sm:grid-cols-2 gap-4">
                 <div className="space-y-2"><Label>Name *</Label><Input value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} /></div>
                 <div className="space-y-2"><Label>Title *</Label><Input value={form.title} onChange={(e) => setForm({ ...form, title: e.target.value })} /></div>
@@ -778,11 +798,16 @@ function TestimonialsTab() {
           <Card key={t.id} className="border-border/50">
             <CardContent className="p-4">
               <div className="flex items-start justify-between gap-4">
+                {t.avatar && (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img src={t.avatar} alt={t.name} className="w-12 h-12 rounded-full object-cover flex-shrink-0" />
+                )}
                 <div className="min-w-0 flex-1">
-                  <div className="flex items-center gap-2 mb-1">
+                  <div className="flex items-center gap-2 mb-1 flex-wrap">
                     <span className="font-semibold text-sm">{t.name}</span>
                     <span className="text-xs text-muted-foreground">{t.title}, {t.company}</span>
                     {t.isFeatured && <Badge className="text-[10px] bg-gold/10 text-gold border-gold/20">Featured</Badge>}
+                    {t.video && <Badge variant="outline" className="text-[10px]">Video</Badge>}
                   </div>
                   <div className="flex gap-0.5 mb-1">{Array.from({ length: t.rating }).map((_, i) => <Star key={i} className="h-3 w-3 fill-gold text-gold" />)}</div>
                   <p className="text-xs text-muted-foreground line-clamp-2">{t.content}</p>

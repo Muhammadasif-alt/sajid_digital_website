@@ -10,7 +10,8 @@ const testimonialSchema = z.object({
   content: z.string().min(10, 'Content must be at least 10 characters'),
   rating: z.number().min(1).max(5).optional().default(5),
   isFeatured: z.boolean().optional().default(false),
-  avatar: z.string().optional(),
+  avatar: z.string().optional().nullable(),
+  video: z.string().optional().nullable(),
 });
 
 export async function GET() {
