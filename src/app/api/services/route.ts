@@ -53,7 +53,15 @@ export async function POST(request: Request) {
     const existing = await db.service.findUnique({ where: { slug: base } });
     const slug = existing ? `${base}-${Math.random().toString(36).slice(2, 7)}` : base;
 
-    const service = await db.service.create({ data: { ...data, slug } });
+    // No explicit display order? Put the new service at the end of the list
+    // instead of at 0, which would push it in front of everything else.
+    let sortOrder = data.sortOrder;
+    if (!sortOrder) {
+      const last = await db.service.findFirst({ orderBy: { sortOrder: 'desc' }, select: { sortOrder: true } });
+      sortOrder = (last?.sortOrder ?? 0) + 1;
+    }
+
+    const service = await db.service.create({ data: { ...data, sortOrder, slug } });
     return NextResponse.json({ service }, { status: 201 });
   } catch (error) {
     if (error instanceof z.ZodError) {
