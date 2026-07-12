@@ -4,7 +4,8 @@ import { WhyChooseUsSection } from "@/components/sections/why-choose-us";
 import { CounterSection } from "@/components/sections/counter";
 import { ContactSection } from "@/components/sections/contact";
 import { MouSection } from "@/components/sections/mou-section";
-import { Sparkles, BadgeCheck } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { Sparkles, BadgeCheck, BookOpen } from "lucide-react";
 
 export const metadata = {
   title: "Why SDS | Sajad Digital Services",
@@ -78,6 +79,59 @@ export default function WhySdsPage() {
                   </li>
                 ))}
               </ul>
+            </div>
+          </div>
+        </section>
+
+        {/* Our Story */}
+        <section className="py-16 lg:py-24 bg-muted/30">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+            <div className="relative">
+              <div className="absolute -inset-3 bg-gradient-to-br from-gold/20 to-navy/10 rounded-3xl blur-xl" />
+              <div className="relative rounded-3xl overflow-hidden border border-border shadow-xl">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/Images/job-assistance.webp"
+                  alt="The story of Sajad Digital Services"
+                  loading="lazy"
+                  decoding="async"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            </div>
+
+            <div>
+              <Badge variant="outline" className="mb-4 text-xs font-bold tracking-wider uppercase border-gold/40 text-gold">
+                <BookOpen className="h-3.5 w-3.5 mr-1.5" /> Our Story
+              </Badge>
+              <h2 className="text-3xl sm:text-4xl font-extrabold text-foreground">
+                It Started With One <span className="text-gradient-gold">Simple Problem</span>
+              </h2>
+
+              <div className="mt-5 space-y-4 text-muted-foreground text-lg leading-relaxed">
+                <p>
+                  In a city like Lodhran, talent was never the problem — <span className="font-semibold text-foreground">access</span> was.
+                  Bright students were losing government jobs because nobody told them a form was
+                  due. Graduates were sending out weak CVs. Families were paying agents for overseas
+                  jobs that never existed.
+                </p>
+                <p>
+                  Sajad Digital Services was started to fix exactly that: to put honest guidance,
+                  professional documentation and real opportunities within reach of ordinary people —
+                  at a price they could actually afford.
+                </p>
+                <p>
+                  What began as a small setup helping a handful of students has grown into a trusted
+                  name serving <span className="font-semibold text-foreground">15,000+ clients</span> across Pakistan and overseas.
+                  Along the way we earned official MoUs with <span className="font-semibold text-foreground">Rescue 1122 Lodhran</span> and the{" "}
+                  <span className="font-semibold text-foreground">District Traffic Police Lodhran</span> — because the institutions
+                  that serve our community chose to work with us too.
+                </p>
+                <p className="text-foreground/90 font-medium">
+                  Our promise has not changed since day one: no false hopes, no hidden charges — just
+                  honest work that moves your career forward.
+                </p>
+              </div>
             </div>
           </div>
         </section>
