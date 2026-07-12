@@ -757,10 +757,14 @@ function TestimonialsTab() {
           <DialogContent className="max-h-[90vh] overflow-y-auto">
             <DialogHeader><DialogTitle>{editing ? "Edit" : "Add"} Success Story</DialogTitle></DialogHeader>
             <div className="space-y-4 pt-2">
-              <div className="space-y-2">
-                <Label>Photo <span className="text-xs text-muted-foreground font-normal">(optional — the student&apos;s picture)</span></Label>
-                <BannerUpload value={form.avatar} onChange={(url) => setForm({ ...form, avatar: url })} hint="student photo" />
-              </div>
+              <BannerUpload
+                label="Photo"
+                hint="optional — the student's picture"
+                value={form.avatar}
+                onChange={(url) => setForm({ ...form, avatar: url })}
+                square
+                sizeNote="Recommended: 800 × 800 px (1:1 square)"
+              />
               <div className="space-y-2">
                 <Label>Video Review Link <span className="text-xs text-muted-foreground font-normal">(optional — YouTube / Facebook / TikTok link)</span></Label>
                 <Input
@@ -799,7 +803,7 @@ function TestimonialsTab() {
               <div className="flex items-start justify-between gap-4">
                 {t.avatar && (
                   // eslint-disable-next-line @next/next/no-img-element
-                  <img src={t.avatar} alt={t.name} className="w-12 h-12 rounded-full object-cover flex-shrink-0" />
+                  <img src={t.avatar} alt={t.name} className="w-12 h-12 aspect-square rounded-xl object-cover flex-shrink-0" />
                 )}
                 <div className="min-w-0 flex-1">
                   <div className="flex items-center gap-2 mb-1 flex-wrap">

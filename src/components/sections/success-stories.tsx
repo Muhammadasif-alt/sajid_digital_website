@@ -85,15 +85,17 @@ export function SuccessStoriesSection() {
 
               <div className="flex items-center gap-3 mt-5 pt-5 border-t border-border">
                 {s.avatar ? (
+                  // 1:1 crop — photos are uploaded square (800 × 800).
                   // eslint-disable-next-line @next/next/no-img-element
                   <img
                     src={s.avatar}
                     alt={s.name}
                     loading="lazy"
-                    className="w-11 h-11 rounded-full object-cover flex-shrink-0"
+                    decoding="async"
+                    className="w-14 h-14 aspect-square rounded-xl object-cover border border-border flex-shrink-0"
                   />
                 ) : (
-                  <div className="w-11 h-11 rounded-full bg-gold/15 flex items-center justify-center font-bold text-gold flex-shrink-0">
+                  <div className="w-14 h-14 aspect-square rounded-xl bg-gold/15 flex items-center justify-center font-bold text-lg text-gold flex-shrink-0">
                     {s.name.charAt(0)}
                   </div>
                 )}

@@ -10,15 +10,21 @@ export function BannerUpload({
   label = "Banner Image",
   required = false,
   hint = "shown on the website card & detail page",
+  square = false,
+  sizeNote,
 }: {
   value: string;
   onChange: (url: string) => void;
   label?: string;
   required?: boolean;
   hint?: string;
+  /** Preview the image as a 1:1 crop — matches how square photos render on the site. */
+  square?: boolean;
+  sizeNote?: string;
 }) {
   const [uploading, setUploading] = useState(false);
   const [error, setError] = useState("");
+  const box = square ? "w-40 h-40" : "w-full h-40";
 
   const handleUpload = async (file: File) => {
     setError("");
@@ -47,9 +53,9 @@ export function BannerUpload({
         <span className="text-xs text-muted-foreground font-normal">({hint})</span>
       </Label>
       {value ? (
-        <div className="relative rounded-xl overflow-hidden border border-border/50">
+        <div className={`relative rounded-xl overflow-hidden border border-border/50 ${square ? "w-40" : ""}`}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={value} alt="Banner preview" className="w-full h-40 object-cover" />
+          <img src={value} alt="Banner preview" className={`${box} object-cover`} />
           <button
             type="button"
             onClick={() => onChange("")}
@@ -59,14 +65,16 @@ export function BannerUpload({
           </button>
         </div>
       ) : (
-        <label className="flex flex-col items-center justify-center h-40 border-2 border-dashed border-border rounded-xl cursor-pointer hover:border-gold/50 hover:bg-muted/30 transition-colors">
+        <label className={`${box} flex flex-col items-center justify-center border-2 border-dashed border-border rounded-xl cursor-pointer hover:border-gold/50 hover:bg-muted/30 transition-colors`}>
           {uploading ? (
             <Loader2 className="h-6 w-6 text-gold animate-spin" />
           ) : (
             <>
               <ImagePlus className="h-7 w-7 text-muted-foreground mb-2" />
               <span className="text-sm text-muted-foreground">Click to upload</span>
-              <span className="text-[10px] text-muted-foreground mt-1">JPG, PNG, WEBP &middot; max 5 MB</span>
+              <span className="text-[10px] text-muted-foreground mt-1 text-center px-2">
+                {sizeNote || "JPG, PNG, WEBP · max 5 MB"}
+              </span>
             </>
           )}
           <input
