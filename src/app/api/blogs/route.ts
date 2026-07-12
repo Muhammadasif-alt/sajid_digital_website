@@ -2,6 +2,7 @@
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
 import { getSession } from '@/lib/auth';
+import { imageUrl } from '@/lib/image-url';
 
 const blogSchema = z.object({
   title: z.string().min(3, 'Title must be at least 3 characters'),
@@ -46,7 +47,15 @@ export async function GET(request: Request) {
       db.blog.count({ where }),
     ]);
 
-    return NextResponse.json({ blogs, total, pages: Math.ceil(total / limit), currentPage: page });
+    return NextResponse.json({
+      blogs: blogs.map((b) => ({
+        ...b,
+        featuredImage: imageUrl('blog', b.id, b.featuredImage, b.updatedAt, 700),
+      })),
+      total,
+      pages: Math.ceil(total / limit),
+      currentPage: page,
+    });
   } catch {
     return NextResponse.json({ error: 'Failed to fetch blogs' }, { status: 500 });
   }

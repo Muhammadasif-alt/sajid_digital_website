@@ -1,4 +1,5 @@
 import { db } from "@/lib/db";
+import { imageUrl } from "@/lib/image-url";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { JobCard, type JobWithCategory } from "@/components/job-card";
@@ -12,11 +13,18 @@ export const metadata = {
 };
 
 export default async function JobsPage() {
-  const jobs = await db.job.findMany({
+  const rows = await db.job.findMany({
     where: { status: "published" },
     include: { category: true },
     orderBy: [{ isFeatured: "desc" }, { createdAt: "desc" }],
   });
+
+  // JobCard is a client component — swap the base64 blob for a /api/img URL so it
+  // never gets serialized into the RSC payload.
+  const jobs = rows.map((job) => ({
+    ...job,
+    featuredImage: imageUrl("job", job.id, job.featuredImage, job.updatedAt, 700),
+  }));
 
   return (
     <div className="min-h-screen flex flex-col">

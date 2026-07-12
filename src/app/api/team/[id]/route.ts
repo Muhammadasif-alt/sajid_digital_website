@@ -2,6 +2,7 @@ import { db } from '@/lib/db';
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
 import { getSession } from '@/lib/auth';
+import { keepExistingImage } from '@/lib/image-url';
 
 const updateSchema = z.object({
   name: z.string().min(2).optional(),
@@ -17,7 +18,7 @@ export async function PUT(request: Request, { params }: { params: Promise<{ id: 
   if (!session) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   try {
     const { id } = await params;
-    const data = updateSchema.parse(await request.json());
+    const data = keepExistingImage(updateSchema.parse(await request.json()), 'photo');
     const member = await db.teamMember.update({ where: { id }, data });
     return NextResponse.json({ member });
   } catch (error) {

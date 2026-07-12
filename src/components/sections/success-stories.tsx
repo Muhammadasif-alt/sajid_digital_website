@@ -53,7 +53,16 @@ export function SuccessStoriesSection() {
           </p>
         </motion.div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {/* One or two stories shouldn't sit lonely in the left column — centre them. */}
+        <div
+          className={
+            stories.length === 1
+              ? "grid gap-6 max-w-xl mx-auto"
+              : stories.length === 2
+                ? "grid sm:grid-cols-2 gap-6 max-w-4xl mx-auto"
+                : "grid sm:grid-cols-2 lg:grid-cols-3 gap-6"
+          }
+        >
           {stories.map((s, i) => (
             <motion.div
               key={s.id}
@@ -100,10 +109,13 @@ export function SuccessStoriesSection() {
                   </div>
                 )}
                 <div className="min-w-0">
-                  <div className="font-bold text-foreground text-sm truncate">{s.name}</div>
-                  <div className="text-xs text-muted-foreground truncate">
+                  <div className="font-bold text-foreground text-sm">{s.name}</div>
+                  <div className="text-xs text-muted-foreground leading-relaxed">
+                    {/* Don't repeat the company when the title already names it. */}
                     {s.title}
-                    {s.company ? ` · ${s.company}` : ""}
+                    {s.company && !s.title.toLowerCase().includes(s.company.toLowerCase())
+                      ? ` · ${s.company}`
+                      : ""}
                   </div>
                 </div>
               </div>

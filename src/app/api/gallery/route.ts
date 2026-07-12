@@ -2,6 +2,7 @@ import { db } from '@/lib/db';
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
 import { getSession } from '@/lib/auth';
+import { imageUrl } from '@/lib/image-url';
 
 const schema = z.object({
   title: z.string().min(2, 'Title is required'),
@@ -24,7 +25,12 @@ export async function GET(request: Request) {
       orderBy: [{ sortOrder: 'asc' }, { createdAt: 'desc' }],
       take: limit,
     });
-    return NextResponse.json({ items });
+    return NextResponse.json({
+      items: items.map((i) => ({
+        ...i,
+        image: imageUrl('gallery', i.id, i.image, i.updatedAt, 800),
+      })),
+    });
   } catch {
     return NextResponse.json({ error: 'Failed to fetch gallery' }, { status: 500 });
   }

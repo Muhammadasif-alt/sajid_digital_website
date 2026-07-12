@@ -2,6 +2,7 @@
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
 import { getSession } from '@/lib/auth';
+import { keepExistingImage } from '@/lib/image-url';
 
 const updateSchema = z.object({
   name: z.string().min(2).optional(),
@@ -23,7 +24,7 @@ export async function PUT(
   try {
     const { id } = await params;
     const body = await request.json();
-    const validated = updateSchema.parse(body);
+    const validated = keepExistingImage(updateSchema.parse(body), 'avatar');
     const testimonial = await db.testimonial.update({ where: { id }, data: validated });
     return NextResponse.json({ testimonial });
   } catch (error) {

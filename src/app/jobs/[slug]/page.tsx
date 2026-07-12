@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { db } from "@/lib/db";
+import { imageUrl } from "@/lib/image-url";
 import { whatsappLink } from "@/lib/utils";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
@@ -60,6 +61,7 @@ export default async function JobDetailPage({
     job.whatsapp,
     `Hello! I'm interested in applying for the "${job.title}" position. Please share the details.`
   );
+  const heroImage = imageUrl("job", job.id, job.featuredImage, job.updatedAt, 1200) ?? undefined;
 
   const metaItems = [
     { icon: MapPin, label: "Location", value: job.location },
@@ -79,7 +81,7 @@ export default async function JobDetailPage({
         <div className="relative h-72 sm:h-96 w-full overflow-hidden bg-navy-dark">
           {job.featuredImage ? (
             // eslint-disable-next-line @next/next/no-img-element
-            <img src={job.featuredImage} alt={job.title} className="w-full h-full object-cover" />
+            <img src={heroImage} alt={job.title} className="w-full h-full object-cover" />
           ) : (
             <div className="w-full h-full bg-gradient-to-br from-navy via-navy-light to-navy-dark" />
           )}

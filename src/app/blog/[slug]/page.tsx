@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { db } from "@/lib/db";
+import { imageUrl } from "@/lib/image-url";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { Badge } from "@/components/ui/badge";
@@ -25,6 +26,8 @@ export default async function BlogDetailPage({ params }: { params: Promise<{ slu
   const { slug } = await params;
   const blog = await db.blog.findUnique({ where: { slug }, include: { category: true } });
   if (!blog || blog.status !== "published") notFound();
+
+  const heroImage = imageUrl("blog", blog.id, blog.featuredImage, blog.updatedAt, 1200) ?? undefined;
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -57,7 +60,7 @@ export default async function BlogDetailPage({ params }: { params: Promise<{ slu
           {blog.featuredImage && (
             <div className="rounded-2xl overflow-hidden border border-border shadow-lg mb-8 bg-navy-dark">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={blog.featuredImage} alt={blog.title} className="w-full h-auto object-cover" />
+              <img src={heroImage} alt={blog.title} className="w-full h-auto object-cover" />
             </div>
           )}
           {blog.excerpt && (

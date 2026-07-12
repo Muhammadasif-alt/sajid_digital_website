@@ -2,6 +2,7 @@
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
 import { getSession } from '@/lib/auth';
+import { imageUrl } from '@/lib/image-url';
 
 const testimonialSchema = z.object({
   name: z.string().min(2, 'Name is required'),
@@ -19,7 +20,12 @@ export async function GET() {
     const testimonials = await db.testimonial.findMany({
       orderBy: [{ isFeatured: 'desc' }, { createdAt: 'desc' }],
     });
-    return NextResponse.json({ testimonials });
+    return NextResponse.json({
+      testimonials: testimonials.map((t) => ({
+        ...t,
+        avatar: imageUrl('testimonial', t.id, t.avatar, t.updatedAt, 400),
+      })),
+    });
   } catch {
     return NextResponse.json({ error: 'Failed to fetch testimonials' }, { status: 500 });
   }

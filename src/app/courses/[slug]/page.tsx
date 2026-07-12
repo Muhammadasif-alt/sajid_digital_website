@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { db } from "@/lib/db";
+import { imageUrl } from "@/lib/image-url";
 import { whatsappLink } from "@/lib/utils";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
@@ -24,6 +25,7 @@ export default async function CourseDetailPage({ params }: { params: Promise<{ s
   const details = toList(c.details);
   const waLink = whatsappLink(c.whatsapp, `Hello! I'm interested in enrolling in the "${c.title}" course. Please share the details.`);
   const hasDiscount = c.discountPrice && c.price && c.discountPrice < c.price;
+  const heroImage = imageUrl("course", c.id, c.featuredImage, c.updatedAt, 1200) ?? undefined;
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -31,7 +33,7 @@ export default async function CourseDetailPage({ params }: { params: Promise<{ s
       <main className="flex-1">
         <div className="relative h-72 sm:h-96 w-full overflow-hidden bg-navy-dark">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={c.featuredImage} alt={c.title} className="w-full h-full object-cover" />
+          <img src={heroImage} alt={c.title} className="w-full h-full object-cover" />
           <div className="absolute inset-0 bg-gradient-to-t from-navy-dark via-navy-dark/70 to-navy-dark/30" />
           <div className="absolute inset-0 flex flex-col justify-end">
             <div className="max-w-5xl mx-auto w-full px-4 sm:px-6 lg:px-8 pb-8">

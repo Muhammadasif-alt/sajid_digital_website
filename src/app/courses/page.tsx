@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { db } from "@/lib/db";
+import { imageUrl } from "@/lib/image-url";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { Badge } from "@/components/ui/badge";
@@ -57,7 +58,7 @@ export default async function CoursesPage() {
                   <div className="h-full rounded-2xl border border-border/50 overflow-hidden hover:border-gold/40 hover:shadow-xl hover:shadow-gold/10 transition-all hover:-translate-y-1 bg-card">
                     <div className="relative h-40 w-full overflow-hidden bg-muted">
                       {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img src={c.featuredImage} alt={c.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                      <img src={imageUrl("course", c.id, c.featuredImage, c.updatedAt, 700) ?? undefined} alt={c.title} loading="lazy" decoding="async" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                       <div className="absolute top-3 left-3 flex gap-2">
                         {c.isFeatured && <Badge className="bg-gold text-navy-dark border-0 text-[10px] font-bold uppercase">★ Featured</Badge>}
                         <Badge className="bg-white/90 text-navy text-[10px] font-medium border">{c.category}</Badge>

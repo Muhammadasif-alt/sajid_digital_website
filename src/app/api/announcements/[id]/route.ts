@@ -2,6 +2,7 @@ import { db } from '@/lib/db';
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
 import { getSession } from '@/lib/auth';
+import { keepExistingImage } from '@/lib/image-url';
 
 const updateSchema = z.object({
   title: z.string().min(3).optional(),
@@ -35,7 +36,7 @@ export async function PUT(request: Request, { params }: { params: Promise<{ id: 
   try {
     const { id } = await params;
     const body = await request.json();
-    const { lastDate, ...rest } = updateSchema.parse(body);
+    const { lastDate, ...rest } = keepExistingImage(updateSchema.parse(body), 'featuredImage');
     const announcement = await db.announcement.update({
       where: { id },
       data: { ...rest, ...(lastDate !== undefined ? { lastDate: lastDate ? new Date(lastDate) : null } : {}) },

@@ -2,6 +2,7 @@ import { db } from '@/lib/db';
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
 import { getSession } from '@/lib/auth';
+import { keepExistingImage } from '@/lib/image-url';
 
 const updateSchema = z.object({
   title: z.string().min(3).optional(),
@@ -36,7 +37,7 @@ export async function PUT(request: Request, { params }: { params: Promise<{ id: 
   try {
     const { id } = await params;
     const body = await request.json();
-    const data = updateSchema.parse(body);
+    const data = keepExistingImage(updateSchema.parse(body), 'featuredImage');
     const course = await db.course.update({ where: { id }, data });
     return NextResponse.json({ course });
   } catch (error) {

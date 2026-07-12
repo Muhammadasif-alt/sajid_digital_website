@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { db } from "@/lib/db";
+import { imageUrl } from "@/lib/image-url";
 import { whatsappLink } from "@/lib/utils";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
@@ -24,6 +25,7 @@ export default async function AnnouncementDetailPage({ params }: { params: Promi
 
   const details = toList(a.details);
   const waLink = whatsappLink(a.whatsapp, `Hello! I need information about the "${a.title}" announcement.`);
+  const heroImage = imageUrl("announcement", a.id, a.featuredImage, a.updatedAt, 1200) ?? undefined;
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -31,7 +33,7 @@ export default async function AnnouncementDetailPage({ params }: { params: Promi
       <main className="flex-1">
         <div className="relative h-72 sm:h-96 w-full overflow-hidden bg-navy-dark">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={a.featuredImage} alt={a.title} className="w-full h-full object-cover" />
+          <img src={heroImage} alt={a.title} className="w-full h-full object-cover" />
           <div className="absolute inset-0 bg-gradient-to-t from-navy-dark via-navy-dark/70 to-navy-dark/30" />
           <div className="absolute inset-0 flex flex-col justify-end">
             <div className="max-w-5xl mx-auto w-full px-4 sm:px-6 lg:px-8 pb-8">

@@ -26,8 +26,18 @@ export async function GET() {
       db.message.count({ where: { isRead: false } }),
       db.testimonial.count(),
       db.newsletter.count(),
-      db.job.findMany({ take: 5, orderBy: { createdAt: 'desc' }, include: { category: true } }),
-      db.blog.findMany({ take: 5, orderBy: { createdAt: 'desc' }, include: { category: true } }),
+      // Only the columns the dashboard actually renders — pulling whole rows
+      // dragged 10 base64 banners into every dashboard load.
+      db.job.findMany({
+        take: 5,
+        orderBy: { createdAt: 'desc' },
+        select: { id: true, title: true, status: true, location: true, createdAt: true, category: { select: { name: true } } },
+      }),
+      db.blog.findMany({
+        take: 5,
+        orderBy: { createdAt: 'desc' },
+        select: { id: true, title: true, status: true, author: true, createdAt: true, category: { select: { name: true } } },
+      }),
       db.message.findMany({ take: 5, orderBy: { createdAt: 'desc' } }),
     ]);
 

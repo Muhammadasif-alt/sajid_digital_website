@@ -2,6 +2,7 @@ import { db } from '@/lib/db';
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
 import { getSession } from '@/lib/auth';
+import { keepExistingImage } from '@/lib/image-url';
 
 const jobUpdateSchema = z.object({
   title: z.string().min(3).optional(),
@@ -58,7 +59,7 @@ export async function PUT(
   try {
     const { id } = await params;
     const body = await request.json();
-    const validated = jobUpdateSchema.parse(body);
+    const validated = keepExistingImage(jobUpdateSchema.parse(body), 'featuredImage');
 
     const job = await db.job.update({
       where: { id },

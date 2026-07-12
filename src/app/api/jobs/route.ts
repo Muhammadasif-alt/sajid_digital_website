@@ -2,6 +2,7 @@ import { db } from '@/lib/db';
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
 import { getSession } from '@/lib/auth';
+import { imageUrl } from '@/lib/image-url';
 
 const jobCreateSchema = z.object({
   title: z.string().min(3, 'Title must be at least 3 characters'),
@@ -72,7 +73,15 @@ export async function GET(request: Request) {
       db.job.count({ where }),
     ]);
 
-    return NextResponse.json({ jobs, total, pages: Math.ceil(total / limit), currentPage: page });
+    return NextResponse.json({
+      jobs: jobs.map((j) => ({
+        ...j,
+        featuredImage: imageUrl('job', j.id, j.featuredImage, j.updatedAt, 700),
+      })),
+      total,
+      pages: Math.ceil(total / limit),
+      currentPage: page,
+    });
   } catch {
     return NextResponse.json({ error: 'Failed to fetch jobs' }, { status: 500 });
   }

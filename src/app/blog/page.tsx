@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { db } from "@/lib/db";
+import { imageUrl } from "@/lib/image-url";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { Badge } from "@/components/ui/badge";
@@ -54,7 +55,7 @@ export default async function BlogPage() {
                   <div className="relative h-48 overflow-hidden bg-muted">
                     {b.featuredImage ? (
                       // eslint-disable-next-line @next/next/no-img-element
-                      <img src={b.featuredImage} alt={b.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                      <img src={imageUrl("blog", b.id, b.featuredImage, b.updatedAt, 700) ?? undefined} alt={b.title} loading="lazy" decoding="async" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                     ) : (
                       <div className="w-full h-full flex items-center justify-center"><Newspaper className="h-10 w-10 text-gold/40" /></div>
                     )}

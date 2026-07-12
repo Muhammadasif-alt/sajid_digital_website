@@ -2,6 +2,7 @@ import { db } from '@/lib/db';
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
 import { getSession } from '@/lib/auth';
+import { imageUrl } from '@/lib/image-url';
 
 const schema = z.object({
   title: z.string().min(3, 'Title must be at least 3 characters'),
@@ -46,7 +47,12 @@ export async function GET(request: Request) {
       orderBy: [{ isFeatured: 'desc' }, { createdAt: 'desc' }],
       take: limit,
     });
-    return NextResponse.json({ announcements });
+    return NextResponse.json({
+      announcements: announcements.map((a) => ({
+        ...a,
+        featuredImage: imageUrl('announcement', a.id, a.featuredImage, a.updatedAt, 700),
+      })),
+    });
   } catch {
     return NextResponse.json({ error: 'Failed to fetch announcements' }, { status: 500 });
   }
