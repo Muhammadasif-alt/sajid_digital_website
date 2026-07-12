@@ -23,7 +23,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
 import {
@@ -1062,7 +1061,7 @@ export function AdminPanel({ open, onClose, onLogout }: { open: boolean; onClose
                 </div>
               </div>
 
-              <nav className="flex-1 py-3 px-2 space-y-1">
+              <nav className="admin-scroll flex-1 min-h-0 overflow-y-auto py-3 px-2 space-y-1">
                 {tabs.map((tab) => {
                   const Icon = tab.icon;
                   const isActive = activeTab === tab.id;
@@ -1109,13 +1108,15 @@ export function AdminPanel({ open, onClose, onLogout }: { open: boolean; onClose
             </motion.aside>
 
             {/* Main content */}
-            <main className="flex-1 flex flex-col min-w-0">
+            <main className="flex-1 flex flex-col min-w-0 overflow-hidden">
               <header className="h-14 border-b border-border/50 flex items-center justify-between px-6 flex-shrink-0">
                 <h2 className="font-semibold text-lg capitalize">{activeTab}</h2>
                 <Badge variant="outline" className="text-[10px]">Admin Mode</Badge>
               </header>
 
-              <ScrollArea className="flex-1">
+              {/* min-h-0 is what lets this shrink inside the flex column — without it
+                  the panel grows to fit its content and the list can never scroll. */}
+              <div className="admin-scroll flex-1 min-h-0 overflow-y-auto">
                 <div className="p-6 max-w-7xl mx-auto">
                   {activeTab === "dashboard" && <DashboardTab onSwitch={switchTab} />}
                   {activeTab === "jobs" && <JobsTab />}
@@ -1129,7 +1130,7 @@ export function AdminPanel({ open, onClose, onLogout }: { open: boolean; onClose
                   {activeTab === "testimonials" && <TestimonialsTab />}
                   {activeTab === "messages" && <MessagesTab />}
                 </div>
-              </ScrollArea>
+              </div>
             </main>
           </div>
         </motion.div>
