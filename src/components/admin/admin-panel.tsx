@@ -63,11 +63,14 @@ import {
   Handshake,
   Link2,
   Check,
+  Images,
 } from "lucide-react";
 import { AnnouncementsTab } from "./announcements-tab";
 import { CoursesTab } from "./courses-tab";
 import { ServicesTab } from "./services-tab";
 import { PartnersTab } from "./partners-tab";
+import { TeamTab } from "./team-tab";
+import { GalleryTab } from "./gallery-tab";
 import { BannerUpload } from "./banner-upload";
 
 /* ============================================================
@@ -986,8 +989,10 @@ const tabs = [
   { id: "courses", label: "IT Courses", icon: GraduationCap },
   { id: "services", label: "Services", icon: HeartHandshake },
   { id: "partners", label: "Partners & MoUs", icon: Handshake },
+  { id: "team", label: "Team", icon: Users },
+  { id: "gallery", label: "Gallery", icon: Images },
   { id: "blogs", label: "Blogs", icon: FileText },
-  { id: "testimonials", label: "Testimonials", icon: Star },
+  { id: "testimonials", label: "Success Stories", icon: Star },
   { id: "messages", label: "Messages", icon: MessageSquare },
 ];
 
@@ -1093,6 +1098,8 @@ export function AdminPanel({ open, onClose, onLogout }: { open: boolean; onClose
                   {activeTab === "courses" && <CoursesTab />}
                   {activeTab === "services" && <ServicesTab />}
                   {activeTab === "partners" && <PartnersTab />}
+                  {activeTab === "team" && <TeamTab />}
+                  {activeTab === "gallery" && <GalleryTab />}
                   {activeTab === "blogs" && <BlogsTab />}
                   {activeTab === "testimonials" && <TestimonialsTab />}
                   {activeTab === "messages" && <MessagesTab />}

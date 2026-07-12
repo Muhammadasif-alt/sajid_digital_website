@@ -1,6 +1,7 @@
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { AboutSection } from "@/components/sections/about";
+import { TeamSection } from "@/components/sections/team";
 import { WhyChooseUsSection } from "@/components/sections/why-choose-us";
 import { CounterSection } from "@/components/sections/counter";
 import { ContactSection } from "@/components/sections/contact";
@@ -38,6 +39,7 @@ export default function AboutPage() {
         </div>
 
         <AboutSection />
+        <TeamSection />
         <CounterSection />
         <WhyChooseUsSection />
         <ContactSection />

@@ -25,7 +25,10 @@ const quickLinks = [
   { label: "About Us", href: "/about" },
   { label: "Services", href: "/services" },
   { label: "Why SDS", href: "/why-sds" },
+  { label: "Success Stories", href: "/success-stories" },
   { label: "Jobs", href: "/jobs" },
+  { label: "MoUs", href: "/mous" },
+  { label: "Gallery", href: "/gallery" },
   { label: "Blog", href: "/blog" },
   { label: "Contact", href: "/contact" },
 ];

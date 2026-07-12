@@ -208,6 +208,31 @@ model Partner {
   updatedAt   DateTime @updatedAt
 }
 
+// Team members shown on the About page (admin-managed).
+model TeamMember {
+  id        String   @id @default(cuid())
+  name      String
+  role      String
+  photo     String?  @db.Text
+  bio       String?  @db.Text
+  status    String   @default("published") // draft | published
+  sortOrder Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// Gallery images — events & photos (admin-managed).
+model GalleryItem {
+  id        String   @id @default(cuid())
+  title     String
+  image     String   @db.Text
+  caption   String?  @db.Text
+  status    String   @default("published") // draft | published
+  sortOrder Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
 // Free services offered under MOU (for disabled persons & some govt employees).
 model Service {
   id            String   @id @default(cuid())
