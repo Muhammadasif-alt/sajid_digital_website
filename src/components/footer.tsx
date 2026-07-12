@@ -22,13 +22,11 @@ const WHATSAPP_LINK = `${WHATSAPP}?text=${encodeURIComponent(WHATSAPP_GREETING)}
 
 const quickLinks = [
   { label: "Home", href: "#home" },
-  { label: "About Us", href: "/about" },
+  { label: "About", href: "/about" },
+  { label: "Our Story", href: "/our-story" },
   { label: "Services", href: "/services" },
-  { label: "Why SDS", href: "/why-sds" },
-  { label: "Success Stories", href: "/success-stories" },
   { label: "Jobs", href: "/jobs" },
-  { label: "MoUs", href: "/mous" },
-  { label: "Gallery", href: "/gallery" },
+  { label: "Partners", href: "/partners" },
   { label: "Blog", href: "/blog" },
   { label: "Contact", href: "/contact" },
 ];

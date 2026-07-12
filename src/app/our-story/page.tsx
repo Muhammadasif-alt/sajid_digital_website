@@ -3,14 +3,14 @@ import { Footer } from "@/components/footer";
 import { WhyChooseUsSection } from "@/components/sections/why-choose-us";
 import { CounterSection } from "@/components/sections/counter";
 import { CtaBand } from "@/components/sections/cta-band";
-import { MouSection } from "@/components/sections/mou-section";
+import { GallerySection } from "@/components/sections/gallery-section";
 import { Badge } from "@/components/ui/badge";
-import { Sparkles, BadgeCheck, BookOpen } from "lucide-react";
+import { BadgeCheck, BookOpen } from "lucide-react";
 
 export const metadata = {
-  title: "Why SDS | Sajad Digital Services",
+  title: "Our Story | Sajad Digital Services",
   description:
-    "Why thousands trust Sajad Digital Services — official MoU with Rescue 1122 Lodhran, trusted by government & educational institutions, expert team and reliable services across Pakistan.",
+    "The story behind Sajad Digital Services — how a small setup in Lodhran grew into a trusted name serving 15,000+ clients, with official MoUs with Rescue 1122 and the District Traffic Police.",
 };
 
 const trustPoints = [
@@ -36,14 +36,14 @@ export default function WhySdsPage() {
           <div className="absolute top-0 -right-20 w-72 h-72 bg-gold/10 rounded-full blur-[100px]" />
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 relative">
             <span className="inline-flex items-center gap-1.5 text-gold text-xs font-bold uppercase tracking-wider mb-3">
-              <Sparkles className="h-3.5 w-3.5" /> Why Choose SDS
+              <BookOpen className="h-3.5 w-3.5" /> Our Story
             </span>
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white">
-              Why Choose <span className="text-gradient-gold">Sajad Digital Services?</span>
+              The Journey Behind <span className="text-gradient-gold">Sajad Digital Services</span>
             </h1>
             <p className="text-white/60 mt-3 max-w-2xl text-lg">
-              Trusted, professional and client-focused digital solutions — strengthened by official
-              collaborations and MoUs with leading institutions.
+              From one small setup in Lodhran to a trusted name serving thousands — here is how it
+              started, and why people keep choosing us.
             </p>
           </div>
         </div>
@@ -136,8 +136,8 @@ export default function WhySdsPage() {
           </div>
         </section>
 
-        {/* Official MoUs — admin-managed, image on one side + text on the other */}
-        <MouSection />
+        {/* Photos from the journey — admin-managed */}
+        <GallerySection />
 
         <WhyChooseUsSection />
         <CounterSection />

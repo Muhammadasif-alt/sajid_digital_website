@@ -8,15 +8,13 @@ export const dynamic = "force-dynamic";
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticRoutes: MetadataRoute.Sitemap = [
     "",
+    "/about",
+    "/our-story",
     "/services",
-    "/why-sds",
-    "/success-stories",
     "/jobs",
     "/announcements",
-    "/mous",
-    "/gallery",
+    "/partners",
     "/blog",
-    "/about",
     "/contact",
   ].map((path) => ({
     url: `${SITE}${path}`,

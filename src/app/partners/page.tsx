@@ -6,9 +6,9 @@ import { CtaBand } from "@/components/sections/cta-band";
 import { Handshake, BadgeCheck } from "lucide-react";
 
 export const metadata = {
-  title: "MoUs & Partnerships | Sajad Digital Services",
+  title: "Partners | Sajad Digital Services",
   description:
-    "Official Memorandums of Understanding between Sajad Digital Services and reputable institutions — Rescue 1122 Lodhran, District Traffic Police Lodhran and more.",
+    "Institutions that work with Sajad Digital Services — official MoUs with Rescue 1122 Lodhran, District Traffic Police Lodhran and other trusted partners.",
 };
 
 const highlights = [
@@ -18,7 +18,7 @@ const highlights = [
   "Subsidised services for partner departments",
 ];
 
-export default function MousPage() {
+export default function PartnersPage() {
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar />
@@ -31,14 +31,14 @@ export default function MousPage() {
           <div className="absolute top-0 -right-20 w-72 h-72 bg-gold/10 rounded-full blur-[100px]" />
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-28 relative">
             <span className="inline-flex items-center gap-1.5 text-gold text-xs font-bold uppercase tracking-wider mb-3">
-              <Handshake className="h-3.5 w-3.5" /> Partnerships &amp; MoUs
+              <Handshake className="h-3.5 w-3.5" /> Our Partners
             </span>
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white max-w-3xl">
-              Agreements With <span className="text-gradient-gold">Trusted Institutions</span>
+              Working With <span className="text-gradient-gold">Trusted Institutions</span>
             </h1>
             <p className="text-white/70 mt-4 max-w-2xl text-lg">
-              Our credibility is strengthened through official Memorandums of Understanding with
-              leading government departments and educational organizations.
+              Our credibility is strengthened through official agreements (MoUs) with leading
+              government departments and educational organizations.
             </p>
 
             <ul className="mt-8 grid sm:grid-cols-2 gap-3 max-w-2xl">

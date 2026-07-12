@@ -10,13 +10,11 @@ import { Menu, ArrowRight, Sun, Moon } from "lucide-react";
 
 const navLinks = [
   { label: "Home", href: "#home" },
+  { label: "About", href: "/about" },
+  { label: "Our Story", href: "/our-story" },
   { label: "Services", href: "/services" },
-  { label: "Why SDS", href: "/why-sds" },
-  { label: "Success Stories", href: "/success-stories" },
-  { label: "About Us", href: "/about" },
   { label: "Jobs", href: "/jobs" },
-  { label: "MoUs", href: "/mous" },
-  { label: "Gallery", href: "/gallery" },
+  { label: "Partners", href: "/partners" },
   { label: "Blog", href: "/blog" },
   { label: "Contact", href: "/contact" },
 ];
@@ -116,7 +114,7 @@ function NavDesktop() {
               <button
                 key={link.label}
                 onClick={() => handleNavClick(link.href)}
-                className="px-2 py-2 text-[13.5px] font-semibold text-foreground/75 hover:text-gold transition-colors rounded-lg whitespace-nowrap"
+                className="px-3 py-2 text-sm font-semibold text-foreground/75 hover:text-gold transition-colors rounded-lg whitespace-nowrap"
               >
                 {link.label}
               </button>

@@ -7,6 +7,15 @@ const nextConfig: NextConfig = {
     ignoreBuildErrors: true,
   },
   reactStrictMode: false,
+  // Old URLs stay alive after the rename (shared links, Google's index).
+  async redirects() {
+    return [
+      { source: "/why-sds", destination: "/our-story", permanent: true },
+      { source: "/mous", destination: "/partners", permanent: true },
+      { source: "/gallery", destination: "/our-story", permanent: true },
+      { source: "/success-stories", destination: "/about", permanent: true },
+    ];
+  },
 };
 
 export default nextConfig;
