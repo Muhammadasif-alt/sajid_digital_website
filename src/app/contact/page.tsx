@@ -3,12 +3,16 @@ import { Footer } from "@/components/footer";
 import { ContactSection } from "@/components/sections/contact";
 import { FaqSection } from "@/components/sections/faq";
 import { MessageSquare } from "lucide-react";
+import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata = {
-  title: "Contact Us | Sajad Digital Services",
+export const metadata: Metadata = pageMetadata({
+  title: "Contact Us",
   description:
-    "Get in touch with Sajad Digital Services for job assistance, career counseling, overseas opportunities and digital services. Call or WhatsApp 0315-7033832.",
-};
+    "Get in touch with Sajad Digital Services, Lodhran — call, WhatsApp or visit us Opposite DC Office, Ghalla Mandi Road, Lodhran. We reply fast.",
+  path: "/contact",
+  keywords: ["contact Sajad Digital Services", "Sajad Digital Services Lodhran address", "digital services near me Lodhran"],
+});
 
 export default function ContactPage() {
   return (

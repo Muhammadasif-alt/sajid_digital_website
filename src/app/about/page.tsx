@@ -6,12 +6,16 @@ import { WhyChooseUsSection } from "@/components/sections/why-choose-us";
 import { CounterSection } from "@/components/sections/counter";
 import { CtaBand } from "@/components/sections/cta-band";
 import { Sparkles } from "lucide-react";
+import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata = {
-  title: "About Us | Sajad Digital Services",
+export const metadata: Metadata = pageMetadata({
+  title: "About Us",
   description:
-    "Sajad Digital Services (SDS) is a trusted platform empowering individuals for career growth, digital success and overseas opportunities across Pakistan.",
-};
+    "Learn about Sajad Digital Services (SDS), Lodhran — a trusted team empowering students and professionals with jobs, career guidance, overseas opportunities and complete digital services across Pakistan.",
+  path: "/about",
+  keywords: ["about Sajad Digital Services", "SDS Lodhran", "digital services company Lodhran"],
+});
 
 export default function AboutPage() {
   return (

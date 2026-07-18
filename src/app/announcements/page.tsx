@@ -5,13 +5,18 @@ import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { Badge } from "@/components/ui/badge";
 import { Megaphone, MapPin, Building2, CalendarClock, ChevronRight } from "lucide-react";
+import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 
 export const dynamic = "force-dynamic";
 
-export const metadata = {
-  title: "Job Announcements | SAJAD DIGITAL SERVICES",
-  description: "Latest Government & Private job announcements across Pakistan with full details.",
-};
+export const metadata: Metadata = pageMetadata({
+  title: "Job Announcements & Updates",
+  description:
+    "Latest government, semi-government and private job announcements across Pakistan — verified updates from Sajad Digital Services, Lodhran.",
+  path: "/announcements",
+  keywords: ["job announcements Pakistan", "government jobs Lodhran", "latest job updates"],
+});
 
 const sectorColors: Record<string, string> = {
   Government: "bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-950/30 dark:text-emerald-400 dark:border-emerald-800",

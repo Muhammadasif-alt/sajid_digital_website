@@ -5,13 +5,18 @@ import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { Badge } from "@/components/ui/badge";
 import { GraduationCap, Clock, BarChart3, ChevronRight } from "lucide-react";
+import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 
 export const dynamic = "force-dynamic";
 
-export const metadata = {
-  title: "IT Courses | SAJAD DIGITAL SERVICES",
-  description: "Learn Web Development, Graphic Designing, Video Editing, SEO and more. Enroll on WhatsApp.",
-};
+export const metadata: Metadata = pageMetadata({
+  title: "IT Courses",
+  description:
+    "Practical IT courses — SEO, web development, graphic and video design, freelancing and more — at Sajad Digital Services, Lodhran.",
+  path: "/courses",
+  keywords: ["IT courses Lodhran", "web development course Pakistan", "freelancing course Lodhran", "SEO course"],
+});
 
 function priceLabel(price: number | null, discount: number | null, currency: string) {
   if (!price) return "Free";

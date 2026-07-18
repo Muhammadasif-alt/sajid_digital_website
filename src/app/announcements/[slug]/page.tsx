@@ -1,8 +1,10 @@
 import { notFound } from "next/navigation";
+import type { Metadata } from "next";
 import Link from "next/link";
 import { db } from "@/lib/db";
 import { imageUrl } from "@/lib/image-url";
 import { whatsappLink } from "@/lib/utils";
+import { pageMetadata, breadcrumbLd, ldJson } from "@/lib/seo";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { Badge } from "@/components/ui/badge";
@@ -18,6 +20,21 @@ function toList(text: string | null | undefined): string[] {
   return text.split("\n").map((l) => l.replace(/^[-•*]\s*/, "").trim()).filter(Boolean);
 }
 
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  const a = await db.announcement.findUnique({ where: { slug } });
+  if (!a) return { title: "Announcement Not Found" };
+  const desc = (a.description || "").replace(/\s+/g, " ").slice(0, 155) || `${a.title} — ${a.organization}. Details on Sajad Digital Services.`;
+  return pageMetadata({
+    title: `${a.title} — ${a.organization}`,
+    description: desc,
+    path: `/announcements/${a.slug}`,
+    keywords: [a.title, a.organization, `${a.sector} jobs`, "jobs announcement Pakistan", "latest jobs Lodhran"],
+    image: imageUrl("announcement", a.id, a.featuredImage, a.updatedAt, 1200) ?? "/logo.png",
+    type: "article",
+  });
+}
+
 export default async function AnnouncementDetailPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const a = await db.announcement.findUnique({ where: { slug } });
@@ -27,8 +44,15 @@ export default async function AnnouncementDetailPage({ params }: { params: Promi
   const waLink = whatsappLink(a.whatsapp, `Hello! I need information about the "${a.title}" announcement.`);
   const heroImage = imageUrl("announcement", a.id, a.featuredImage, a.updatedAt, 1200) ?? undefined;
 
+  const crumbs = breadcrumbLd([
+    { name: "Home", path: "/" },
+    { name: "Announcements", path: "/announcements" },
+    { name: a.title, path: `/announcements/${a.slug}` },
+  ]);
+
   return (
     <div className="min-h-screen flex flex-col">
+      <script type="application/ld+json" dangerouslySetInnerHTML={ldJson(crumbs)} />
       <Navbar />
       <main className="flex-1">
         <div className="relative h-72 sm:h-96 w-full overflow-hidden bg-navy-dark">

@@ -1,7 +1,9 @@
 import { notFound } from "next/navigation";
+import type { Metadata } from "next";
 import Link from "next/link";
 import { db } from "@/lib/db";
 import { whatsappLink } from "@/lib/utils";
+import { pageMetadata, breadcrumbLd, ldJson, SITE_URL } from "@/lib/seo";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { Badge } from "@/components/ui/badge";
@@ -17,6 +19,20 @@ function toList(text: string | null | undefined): string[] {
   return text.split("\n").map((l) => l.replace(/^[-•*]\s*/, "").trim()).filter(Boolean);
 }
 
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  const s = await db.service.findUnique({ where: { slug } });
+  if (!s) return { title: "Service Not Found" };
+  const desc = (s.description || "").replace(/\s+/g, " ").slice(0, 155) || `${s.title} by Sajad Digital Services, Lodhran.`;
+  return pageMetadata({
+    title: s.title,
+    description: desc,
+    path: `/services/${s.slug}`,
+    keywords: [s.title, `${s.title} Lodhran`, `${s.title} Pakistan`, `${s.title} services`],
+    type: "article",
+  });
+}
+
 export default async function ServiceDetailPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const s = await db.service.findUnique({ where: { slug } });
@@ -25,8 +41,29 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
   const points = toList(s.details);
   const waLink = whatsappLink(s.whatsapp, `Hello! I'm interested in your "${s.title}" service. Please share the details.`);
 
+  const serviceLd = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: s.title,
+    description: (s.description || "").replace(/\s+/g, " ").slice(0, 300),
+    serviceType: s.title,
+    provider: { "@type": "Organization", name: "Sajad Digital Services", url: SITE_URL },
+    areaServed: [
+      { "@type": "City", name: "Lodhran" },
+      { "@type": "Country", name: "Pakistan" },
+    ],
+    url: `${SITE_URL}/services/${s.slug}`,
+  };
+  const crumbs = breadcrumbLd([
+    { name: "Home", path: "/" },
+    { name: "Services", path: "/services" },
+    { name: s.title, path: `/services/${s.slug}` },
+  ]);
+
   return (
     <div className="min-h-screen flex flex-col">
+      <script type="application/ld+json" dangerouslySetInnerHTML={ldJson(serviceLd)} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={ldJson(crumbs)} />
       <Navbar />
       <main className="flex-1">
         {/* Header */}

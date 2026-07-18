@@ -1,7 +1,9 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { db } from "@/lib/db";
 import { imageUrl } from "@/lib/image-url";
+import { pageMetadata, breadcrumbLd, ldJson, SITE_URL } from "@/lib/seo";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { Badge } from "@/components/ui/badge";
@@ -12,14 +14,22 @@ export const dynamic = "force-dynamic";
 
 const WHATSAPP = "https://wa.me/923157033832";
 
-export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
   const blog = await db.blog.findUnique({ where: { slug } });
-  if (!blog) return { title: "Blog | Sajad Digital Services" };
-  return {
-    title: `${blog.seoTitle || blog.title} | Sajad Digital Services`,
-    description: blog.seoDescription || blog.excerpt || undefined,
-  };
+  if (!blog) return { title: "Article Not Found" };
+  const desc =
+    blog.seoDescription ||
+    blog.excerpt ||
+    (blog.content || "").replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").slice(0, 155);
+  return pageMetadata({
+    title: blog.seoTitle || blog.title,
+    description: desc,
+    path: `/blog/${blog.slug}`,
+    keywords: [blog.title, ...(blog.tags ? blog.tags.split(",").map((t) => t.trim()).filter(Boolean) : [])],
+    image: imageUrl("blog", blog.id, blog.featuredImage, blog.updatedAt, 1200) ?? "/logo.png",
+    type: "article",
+  });
 }
 
 export default async function BlogDetailPage({ params }: { params: Promise<{ slug: string }> }) {
@@ -29,8 +39,32 @@ export default async function BlogDetailPage({ params }: { params: Promise<{ slu
 
   const heroImage = imageUrl("blog", blog.id, blog.featuredImage, blog.updatedAt, 1200) ?? undefined;
 
+  const articleLd = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: blog.title,
+    description: blog.excerpt || undefined,
+    image: heroImage ? [heroImage] : undefined,
+    datePublished: new Date(blog.createdAt).toISOString(),
+    dateModified: new Date(blog.updatedAt).toISOString(),
+    author: { "@type": "Organization", name: blog.author || "Sajad Digital Services" },
+    publisher: {
+      "@type": "Organization",
+      name: "Sajad Digital Services",
+      logo: { "@type": "ImageObject", url: `${SITE_URL}/logo.png` },
+    },
+    mainEntityOfPage: `${SITE_URL}/blog/${blog.slug}`,
+  };
+  const crumbs = breadcrumbLd([
+    { name: "Home", path: "/" },
+    { name: "Blog", path: "/blog" },
+    { name: blog.title, path: `/blog/${blog.slug}` },
+  ]);
+
   return (
     <div className="min-h-screen flex flex-col">
+      <script type="application/ld+json" dangerouslySetInnerHTML={ldJson(articleLd)} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={ldJson(crumbs)} />
       <Navbar />
       <main className="flex-1">
         {/* Hero */}

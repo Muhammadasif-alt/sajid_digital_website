@@ -4,13 +4,18 @@ import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { JobCard, type JobWithCategory } from "@/components/job-card";
 import { Briefcase } from "lucide-react";
+import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 
 export const dynamic = "force-dynamic";
 
-export const metadata = {
-  title: "Open Positions | SAJAD DIGITAL SERVICES",
-  description: "Browse all current job openings and apply directly on WhatsApp.",
-};
+export const metadata: Metadata = pageMetadata({
+  title: "Latest Jobs & Career Updates",
+  description:
+    "Browse the latest local and overseas job openings and apply on WhatsApp. Government and private job updates from Sajad Digital Services, Lodhran.",
+  path: "/jobs",
+  keywords: ["latest jobs Lodhran", "jobs in Pakistan", "overseas jobs", "apply job WhatsApp"],
+});
 
 export default async function JobsPage() {
   const rows = await db.job.findMany({

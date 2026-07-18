@@ -4,12 +4,16 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Sparkles, BadgeCheck, MessageCircle, ArrowRight } from "lucide-react";
 import { ServicesPageGrid } from "@/components/sections/services-page-grid";
+import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata = {
-  title: "Our Services | Sajad Digital Services",
+export const metadata: Metadata = pageMetadata({
+  title: "Our Services",
   description:
-    "Job assistance, career counseling, CV writing, overseas education, digital marketing, graphic designing, freelancing and more — all in one place.",
-};
+    "Job assistance, career counseling, CV writing, overseas employment, foreign scholarships, freelancing, website design and digital marketing — all in one place at Sajad Digital Services, Lodhran.",
+  path: "/services",
+  keywords: ["digital services Lodhran", "career services Pakistan", "job assistance services"],
+});
 
 const WHATSAPP =
   "https://wa.me/923157033832?text=" +

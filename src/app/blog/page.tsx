@@ -5,14 +5,18 @@ import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { Badge } from "@/components/ui/badge";
 import { Newspaper, ArrowRight, CalendarDays, User } from "lucide-react";
+import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 
 export const dynamic = "force-dynamic";
 
-export const metadata = {
-  title: "Blog | Sajad Digital Services",
+export const metadata: Metadata = pageMetadata({
+  title: "Blog & Career Articles",
   description:
-    "Career tips, government & private job guides, study-abroad advice, freelancing and digital marketing insights from Sajad Digital Services.",
-};
+    "Career tips, job guides, study-abroad advice and digital skills articles from Sajad Digital Services, Lodhran.",
+  path: "/blog",
+  keywords: ["career blog Pakistan", "job tips Lodhran", "study abroad guide"],
+});
 
 export default async function BlogPage() {
   const blogs = await db.blog.findMany({

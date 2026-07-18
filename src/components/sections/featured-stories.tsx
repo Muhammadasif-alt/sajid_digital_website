@@ -78,14 +78,15 @@ export function FeaturedStoriesSection() {
                 className="flex flex-col rounded-2xl bg-card border border-border overflow-hidden hover:border-gold/40 hover:shadow-xl hover:shadow-gold/10 hover:-translate-y-1 transition-all duration-300"
               >
                 {s.image && (
-                  <div className="relative h-52 w-full overflow-hidden bg-muted">
+                  <div className="relative w-full aspect-square overflow-hidden bg-gradient-to-br from-muted to-muted/40 flex items-center justify-center">
+                    {/* object-contain so the whole photo is visible — never crops the face */}
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
                       src={s.image}
                       alt={s.title}
                       loading="lazy"
                       decoding="async"
-                      className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                      className="w-full h-full object-contain"
                     />
                   </div>
                 )}

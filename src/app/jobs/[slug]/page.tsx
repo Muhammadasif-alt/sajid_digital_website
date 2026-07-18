@@ -1,8 +1,10 @@
 import { notFound } from "next/navigation";
+import type { Metadata } from "next";
 import Link from "next/link";
 import { db } from "@/lib/db";
 import { imageUrl } from "@/lib/image-url";
 import { whatsappLink } from "@/lib/utils";
+import { pageMetadata, breadcrumbLd, ldJson, SITE_URL } from "@/lib/seo";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { Badge } from "@/components/ui/badge";
@@ -38,6 +40,23 @@ function formatSalary(min: number | null, max: number | null, currency: string) 
   return null;
 }
 
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  const job = await db.job.findUnique({ where: { slug }, include: { category: true } });
+  if (!job) return { title: "Job Not Found" };
+  const desc =
+    (job.description || "").replace(/\s+/g, " ").slice(0, 155) ||
+    `Apply for ${job.title} in ${job.location} with Sajad Digital Services.`;
+  return pageMetadata({
+    title: `${job.title} — ${job.location}`,
+    description: desc,
+    path: `/jobs/${job.slug}`,
+    keywords: [job.title, `${job.title} ${job.location}`, `${job.department} jobs`, "jobs in Pakistan", "apply job Lodhran"],
+    image: imageUrl("job", job.id, job.featuredImage, job.updatedAt, 1200) ?? "/logo.png",
+    type: "article",
+  });
+}
+
 export default async function JobDetailPage({
   params,
 }: {
@@ -63,6 +82,53 @@ export default async function JobDetailPage({
   );
   const heroImage = imageUrl("job", job.id, job.featuredImage, job.updatedAt, 1200) ?? undefined;
 
+  // JobPosting structured data — lets this job appear in Google Jobs / rich results.
+  const jobLd = {
+    "@context": "https://schema.org",
+    "@type": "JobPosting",
+    title: job.title,
+    description: `<p>${(job.description || job.title).replace(/</g, "&lt;")}</p>`,
+    datePosted: new Date(job.createdAt).toISOString(),
+    ...(job.deadline ? { validThrough: new Date(job.deadline).toISOString() } : {}),
+    employmentType: (job.employmentType || "FULL_TIME").toUpperCase().replace(/[ -]/g, "_"),
+    hiringOrganization: {
+      "@type": "Organization",
+      name: "Sajad Digital Services",
+      sameAs: SITE_URL,
+      logo: `${SITE_URL}/logo.png`,
+    },
+    jobLocation: {
+      "@type": "Place",
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: job.city || job.location,
+        addressRegion: job.location,
+        addressCountry: "PK",
+      },
+    },
+    ...(job.salaryMin || job.salaryMax
+      ? {
+          baseSalary: {
+            "@type": "MonetaryAmount",
+            currency: job.currency || "PKR",
+            value: {
+              "@type": "QuantitativeValue",
+              ...(job.salaryMin ? { minValue: job.salaryMin } : {}),
+              ...(job.salaryMax ? { maxValue: job.salaryMax } : {}),
+              unitText: "MONTH",
+            },
+          },
+        }
+      : {}),
+    directApply: true,
+  };
+
+  const crumbs = breadcrumbLd([
+    { name: "Home", path: "/" },
+    { name: "Jobs", path: "/jobs" },
+    { name: job.title, path: `/jobs/${job.slug}` },
+  ]);
+
   const metaItems = [
     { icon: MapPin, label: "Location", value: job.location },
     { icon: Briefcase, label: "Experience", value: job.experience },
@@ -74,6 +140,8 @@ export default async function JobDetailPage({
 
   return (
     <div className="min-h-screen flex flex-col">
+      <script type="application/ld+json" dangerouslySetInnerHTML={ldJson(jobLd)} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={ldJson(crumbs)} />
       <Navbar />
 
       <main className="flex-1">

@@ -6,12 +6,16 @@ import { CtaBand } from "@/components/sections/cta-band";
 import { GallerySection } from "@/components/sections/gallery-section";
 import { Badge } from "@/components/ui/badge";
 import { BadgeCheck, BookOpen } from "lucide-react";
+import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata = {
-  title: "Our Story | Sajad Digital Services",
+export const metadata: Metadata = pageMetadata({
+  title: "Our Story",
   description:
-    "The story behind Sajad Digital Services — how a small setup in Lodhran grew into a trusted name serving 15,000+ clients, with official MoUs with Rescue 1122 and the District Traffic Police.",
-};
+    "The journey behind Sajad Digital Services — from a small setup in Lodhran to a trusted name serving 15,000+ clients, with official MoUs with Rescue 1122 and District Traffic Police Lodhran.",
+  path: "/our-story",
+  keywords: ["Sajad Digital Services story", "about SDS Lodhran"],
+});
 
 const trustPoints = [
   "Official MoU with Rescue 1122 Lodhran",

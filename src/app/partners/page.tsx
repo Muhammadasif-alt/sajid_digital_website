@@ -4,12 +4,16 @@ import { MouSection } from "@/components/sections/mou-section";
 import { PartnersSection } from "@/components/sections/partners";
 import { CtaBand } from "@/components/sections/cta-band";
 import { Handshake, BadgeCheck } from "lucide-react";
+import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata = {
-  title: "Partners | Sajad Digital Services",
+export const metadata: Metadata = pageMetadata({
+  title: "Partners & MoUs",
   description:
     "Institutions that work with Sajad Digital Services — official MoUs with Rescue 1122 Lodhran, District Traffic Police Lodhran and other trusted partners.",
-};
+  path: "/partners",
+  keywords: ["Sajad Digital Services partners", "MoU Rescue 1122 Lodhran", "government partnerships Lodhran"],
+});
 
 const highlights = [
   "Official MoU with Rescue 1122 Lodhran",
