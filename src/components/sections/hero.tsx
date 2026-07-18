@@ -34,10 +34,10 @@ function HeroCopy() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gold/10 border border-gold/30 mb-5"
+        className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gold/15 border border-gold/40 mb-5 backdrop-blur-sm"
       >
         <Rocket className="h-4 w-4 text-gold" />
-        <span className="text-sm font-semibold text-foreground">
+        <span className="text-sm font-semibold text-white">
           Empowering Careers, Enhancing Businesses
         </span>
       </motion.div>
@@ -51,14 +51,14 @@ function HeroCopy() {
       >
         <span className="text-gold">Sajad Digital</span>
         <br />
-        <span className="text-foreground">Services</span>
+        <span className="text-white">Services</span>
       </motion.h1>
 
       <motion.p
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.25 }}
-        className="mt-4 text-lg sm:text-xl text-foreground/80 font-medium"
+        className="mt-4 text-lg sm:text-xl text-white/90 font-medium"
       >
         Your Trusted Partner for{" "}
         <span className="text-gold font-semibold">Career Growth, Digital Success</span>{" "}
@@ -69,7 +69,7 @@ function HeroCopy() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.35 }}
-        className="mt-3 text-base text-muted-foreground"
+        className="mt-3 text-base text-white/70"
       >
         We provide reliable digital solutions to help you build your career,
         grow your business and achieve your goals.
@@ -82,7 +82,7 @@ function HeroCopy() {
         className="mt-5 grid grid-cols-2 gap-x-6 gap-y-2 max-w-md"
       >
         {highlights.map((h) => (
-          <div key={h} className="flex items-center gap-2 text-sm font-medium text-foreground/80">
+          <div key={h} className="flex items-center gap-2 text-sm font-medium text-white/85">
             <CheckCircle2 className="h-4 w-4 text-gold shrink-0" /> {h}
           </div>
         ))}
@@ -105,7 +105,7 @@ function HeroCopy() {
           onClick={() => scrollTo("#contact")}
           size="lg"
           variant="outline"
-          className="border-foreground/20 text-foreground hover:bg-navy hover:text-white hover:border-navy rounded-xl font-bold h-13 px-8 w-full sm:w-auto"
+          className="border-white/30 text-white bg-white/5 hover:bg-white hover:text-navy-dark hover:border-white rounded-xl font-bold h-13 px-8 w-full sm:w-auto backdrop-blur-sm"
         >
           <Phone className="h-4 w-4 mr-2" /> Contact Us
         </Button>
@@ -114,31 +114,29 @@ function HeroCopy() {
   );
 }
 
+// The most attractive image in the pool leads the home hero.
+const HERO_IMAGE = "/Images/digital.webp";
+
 export function HeroSection() {
   return (
     <section id="home" className="relative overflow-hidden">
-      {/* MOBILE: stacked copy + full image */}
-      <div className="lg:hidden">
-        <div className="px-4 sm:px-6 pt-24 pb-8">
+      {/* MOBILE: image with copy overlaid */}
+      <div className="lg:hidden relative min-h-[560px] flex items-end">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={HERO_IMAGE} alt="Sajad Digital Services" className="absolute inset-0 w-full h-full object-cover" />
+        <div className="absolute inset-0 bg-gradient-to-t from-navy-dark via-navy-dark/85 to-navy-dark/55" />
+        <div className="relative px-4 sm:px-6 pt-28 pb-10 w-full">
           <HeroCopy />
-        </div>
-        <div className="relative w-full">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/white-hero-bg.webp" alt="Sajad Digital Services" className="w-full h-auto dark:hidden" />
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/blue-hero-bg.webp" alt="Sajad Digital Services" className="w-full h-auto hidden dark:block" />
         </div>
       </div>
 
       {/* DESKTOP: full cover image with copy overlaid on the left */}
       <div className="hidden lg:block pt-24">
-        <div className="relative">
+        <div className="relative h-[640px]">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/white-hero-bg.webp" alt="Sajad Digital Services" className="w-full h-auto dark:hidden" />
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/blue-hero-bg.webp" alt="Sajad Digital Services" className="w-full h-auto hidden dark:block" />
-          {/* legibility veil on the left only */}
-          <div className="absolute inset-0 bg-gradient-to-r from-background/85 via-background/45 to-transparent dark:from-navy-dark/85 dark:via-navy-dark/45" />
+          <img src={HERO_IMAGE} alt="Sajad Digital Services" className="absolute inset-0 w-full h-full object-cover" />
+          {/* legibility veil, darker on the left where the copy sits */}
+          <div className="absolute inset-0 bg-gradient-to-r from-navy-dark via-navy-dark/85 to-navy-dark/40" />
           <div className="absolute inset-0 flex items-center">
             <div className="max-w-7xl mx-auto px-8 w-full">
               <HeroCopy />

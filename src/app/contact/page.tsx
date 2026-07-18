@@ -23,7 +23,7 @@ export default function ContactPage() {
         <div className="relative overflow-hidden pt-24">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src="/hero-bg.webp"
+            src="/Images/web-designers-at-work-1.webp"
             alt="Contact Sajad Digital Services"
             className="absolute inset-0 w-full h-full object-cover"
           />
