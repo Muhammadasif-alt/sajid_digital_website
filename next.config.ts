@@ -13,7 +13,6 @@ const nextConfig: NextConfig = {
       { source: "/why-sds", destination: "/our-story", permanent: true },
       { source: "/mous", destination: "/partners", permanent: true },
       { source: "/gallery", destination: "/our-story", permanent: true },
-      { source: "/success-stories", destination: "/about", permanent: true },
     ];
   },
 };

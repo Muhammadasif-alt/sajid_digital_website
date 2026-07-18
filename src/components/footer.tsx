@@ -26,6 +26,7 @@ const quickLinks = [
   { label: "Our Story", href: "/our-story" },
   { label: "Services", href: "/services" },
   { label: "Jobs", href: "/jobs" },
+  { label: "Success Stories", href: "/success-stories" },
   { label: "Partners", href: "/partners" },
   { label: "Blog", href: "/blog" },
   { label: "Contact", href: "/contact" },
