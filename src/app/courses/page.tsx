@@ -36,7 +36,7 @@ export default async function CoursesPage() {
       <main className="flex-1">
         <div className="relative bg-navy-dark overflow-hidden">
           <div className="absolute top-0 -right-20 w-72 h-72 bg-gold/10 rounded-full blur-[100px]" />
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 relative">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 sm:py-36 relative">
             <span className="inline-flex items-center gap-1.5 text-gold text-xs font-semibold uppercase tracking-wider mb-3">
               <GraduationCap className="h-3.5 w-3.5" /> Learn & Earn
             </span>

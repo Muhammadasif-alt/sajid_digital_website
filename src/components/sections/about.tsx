@@ -19,7 +19,7 @@ export function AboutSection() {
   return (
     <section id="about" className="py-20 lg:py-28 bg-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+        <div className="grid lg:grid-cols-[1.15fr_1fr] gap-12 lg:gap-16 items-center">
           {/* Image */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
@@ -31,7 +31,7 @@ export function AboutSection() {
             <div className="absolute -inset-3 bg-gradient-to-br from-gold/20 to-navy/10 rounded-3xl blur-xl" />
             <div className="relative rounded-3xl overflow-hidden border border-border shadow-xl">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/Images/digital.webp" alt="About Sajad Digital Services" loading="lazy" decoding="async" className="w-full h-full object-cover" />
+              <img src="/Images/digital.webp" alt="About Sajad Digital Services" loading="lazy" decoding="async" className="w-full h-[380px] sm:h-[460px] lg:h-[560px] object-cover" />
             </div>
             {/* floating logo badge */}
             <div className="absolute -bottom-5 -right-3 bg-card rounded-2xl shadow-lg border border-border px-5 py-3 flex items-center gap-3">
