@@ -1,6 +1,7 @@
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { HeroSection } from "@/components/sections/hero";
+import { FeaturedStoriesSection } from "@/components/sections/featured-stories";
 import { JobsCarouselSection } from "@/components/sections/jobs-carousel";
 import { AnnouncementsSection } from "@/components/sections/announcements";
 import { FreeServicesSection } from "@/components/sections/free-services";
@@ -17,6 +18,7 @@ export default function Home() {
       <Navbar />
       <main className="flex-1">
         <HeroSection />
+        <FeaturedStoriesSection />
         <JobsCarouselSection />
         <AnnouncementsSection />
         <FreeServicesSection />

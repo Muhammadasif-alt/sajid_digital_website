@@ -20,6 +20,7 @@ const SOURCES: Record<string, { model: string; field: string }> = {
   gallery: { model: 'galleryItem', field: 'image' },
   team: { model: 'teamMember', field: 'photo' },
   testimonial: { model: 'testimonial', field: 'avatar' },
+  successStory: { model: 'successStory', field: 'image' },
 };
 
 export async function GET(

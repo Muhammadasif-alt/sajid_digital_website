@@ -33,7 +33,7 @@ export function SuccessStoriesSection() {
   if (stories.length === 0) return null;
 
   return (
-    <section id="success-stories" className="py-20 lg:py-28 bg-muted/30">
+    <section id="reviews" className="py-20 lg:py-28 bg-muted/30">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -43,13 +43,13 @@ export function SuccessStoriesSection() {
           className="text-center mb-14"
         >
           <Badge variant="outline" className="mb-4 text-xs font-bold tracking-wider uppercase border-gold/40 text-gold">
-            <Trophy className="h-3 w-3 mr-1.5" /> Success Stories
+            <Trophy className="h-3 w-3 mr-1.5" /> Client Reviews
           </Badge>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground">
-            Students Who <span className="text-gradient-gold">Made It</span>
+            What Our <span className="text-gradient-gold">Clients Say</span>
           </h2>
           <p className="mt-4 text-muted-foreground text-lg max-w-2xl mx-auto">
-            Real journeys of students and clients who built their careers with SDS.
+            Real words from students and clients who built their careers with SDS.
           </p>
         </motion.div>
 

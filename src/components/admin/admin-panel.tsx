@@ -63,6 +63,7 @@ import {
   Link2,
   Check,
   Images,
+  Trophy,
 } from "lucide-react";
 import { AnnouncementsTab } from "./announcements-tab";
 import { CoursesTab } from "./courses-tab";
@@ -70,6 +71,7 @@ import { ServicesTab } from "./services-tab";
 import { PartnersTab } from "./partners-tab";
 import { TeamTab } from "./team-tab";
 import { GalleryTab } from "./gallery-tab";
+import { SuccessStoriesTab } from "./success-stories-tab";
 import { BannerUpload } from "./banner-upload";
 
 /* ============================================================
@@ -1012,6 +1014,7 @@ function CategoriesTab() {
    ============================================================ */
 const tabs = [
   { id: "dashboard", label: "Dashboard", icon: LayoutDashboard },
+  { id: "success-stories", label: "Success Stories", icon: Trophy },
   { id: "jobs", label: "Jobs", icon: Briefcase },
   { id: "announcements", label: "Announcements", icon: Megaphone },
   { id: "courses", label: "IT Courses", icon: GraduationCap },
@@ -1020,7 +1023,7 @@ const tabs = [
   { id: "team", label: "Team", icon: Users },
   { id: "gallery", label: "Gallery", icon: Images },
   { id: "blogs", label: "Blogs", icon: FileText },
-  { id: "testimonials", label: "Success Stories", icon: Star },
+  { id: "testimonials", label: "Reviews", icon: Star },
   { id: "messages", label: "Messages", icon: MessageSquare },
 ];
 
@@ -1114,7 +1117,7 @@ export function AdminPanel({ open, onClose, onLogout }: { open: boolean; onClose
             {/* Main content */}
             <main className="flex-1 flex flex-col min-w-0 overflow-hidden">
               <header className="h-14 border-b border-border/50 flex items-center justify-between px-6 flex-shrink-0">
-                <h2 className="font-semibold text-lg capitalize">{activeTab}</h2>
+                <h2 className="font-semibold text-lg capitalize">{activeTab.replace(/-/g, " ")}</h2>
                 <Badge variant="outline" className="text-[10px]">Admin Mode</Badge>
               </header>
 
@@ -1123,6 +1126,7 @@ export function AdminPanel({ open, onClose, onLogout }: { open: boolean; onClose
               <div className="admin-scroll flex-1 min-h-0 overflow-y-auto">
                 <div className="p-6 max-w-7xl mx-auto">
                   {activeTab === "dashboard" && <DashboardTab onSwitch={switchTab} />}
+                  {activeTab === "success-stories" && <SuccessStoriesTab />}
                   {activeTab === "jobs" && <JobsTab />}
                   {activeTab === "announcements" && <AnnouncementsTab />}
                   {activeTab === "courses" && <CoursesTab />}

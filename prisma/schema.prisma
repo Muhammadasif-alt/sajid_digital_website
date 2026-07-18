@@ -222,6 +222,19 @@ model TeamMember {
   updatedAt DateTime @updatedAt
 }
 
+// Success stories — admin-written showcase cards (title + description + image),
+// ordered by the admin, shown above Jobs on the home page. Not testimonials.
+model SuccessStory {
+  id          String   @id @default(cuid())
+  title       String
+  description String   @db.Text
+  image       String?  @db.Text
+  status      String   @default("published") // draft | published
+  sortOrder   Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
 // Gallery images — events & photos (admin-managed).
 model GalleryItem {
   id        String   @id @default(cuid())
