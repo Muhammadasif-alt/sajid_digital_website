@@ -32,9 +32,7 @@ export default async function BlogPage() {
         <div className="relative bg-navy-dark overflow-hidden pt-24">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/Images/team4.webp" alt="" className="absolute inset-0 w-full h-full object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-r from-navy-dark/85 via-navy-dark/35 to-transparent" />
-          <div className="absolute inset-0 bg-[linear-gradient(rgba(200,169,81,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(200,169,81,0.05)_1px,transparent_1px)] bg-[size:40px_40px]" />
-          <div className="absolute top-0 -right-20 w-72 h-72 bg-gold/10 rounded-full blur-[100px]" />
+          <div className="absolute inset-0 bg-gradient-to-r from-navy-dark/85 via-navy-dark/35 to-transparent" />          <div className="absolute top-0 -right-20 w-72 h-72 bg-gold/10 rounded-full blur-[100px]" />
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 sm:py-36 relative">
             <span className="inline-flex items-center gap-1.5 text-gold text-xs font-bold uppercase tracking-wider mb-3">
               <Newspaper className="h-3.5 w-3.5" /> Our Blog

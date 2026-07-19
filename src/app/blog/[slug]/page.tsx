@@ -68,9 +68,7 @@ export default async function BlogDetailPage({ params }: { params: Promise<{ slu
       <Navbar />
       <main className="flex-1">
         {/* Hero */}
-        <div className="relative bg-navy-dark overflow-hidden pt-24">
-          <div className="absolute inset-0 bg-[linear-gradient(rgba(200,169,81,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(200,169,81,0.05)_1px,transparent_1px)] bg-[size:40px_40px]" />
-          <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-16 relative">
+        <div className="relative bg-navy-dark overflow-hidden pt-24">          <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-16 relative">
             <Link href="/blog" className="inline-flex items-center gap-1.5 text-gold text-sm font-semibold mb-5 hover:underline">
               <ArrowLeft className="h-4 w-4" /> Back to Blog
             </Link>
