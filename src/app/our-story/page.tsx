@@ -85,7 +85,7 @@ export default async function OurStoryPage() {
               <div className="relative rounded-3xl overflow-hidden border border-border shadow-xl">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src="/Images/digital-branding.webp"
+                  src="/Images/overseas.webp"
                   alt="Sajad Digital Services"
                   loading="lazy"
                   decoding="async"

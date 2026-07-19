@@ -119,7 +119,7 @@ export default function SuccessStoriesPage() {
               <div className="relative rounded-3xl overflow-hidden border border-border shadow-xl">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src="/Images/job-assistance.webp"
+                  src="/Images/office-meeting.webp"
                   alt="Students supported by Sajad Digital Services"
                   loading="lazy"
                   decoding="async"
