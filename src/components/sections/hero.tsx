@@ -115,7 +115,7 @@ function HeroCopy() {
 }
 
 // The most attractive image in the pool leads the home hero.
-const HERO_IMAGE = "/Images/home-hero.webp";
+const HERO_IMAGE = "/Images/Hero_Home.webp";
 
 export function HeroSection() {
   return (
