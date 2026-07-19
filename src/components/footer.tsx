@@ -62,6 +62,15 @@ export function Footer() {
   const go = useCallback(
     (href: string) => {
       if (href.startsWith("#")) {
+        // Home never carries a hash — keep the main page URL clean ("/").
+        if (href === "#home") {
+          if (pathname === "/") {
+            window.scrollTo({ top: 0, behavior: "smooth" });
+          } else {
+            router.push("/");
+          }
+          return;
+        }
         if (pathname === "/") {
           document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
         } else {

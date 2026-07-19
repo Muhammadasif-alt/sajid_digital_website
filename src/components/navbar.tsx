@@ -24,16 +24,20 @@ function useNavClick() {
   return useCallback(
     (href: string) => {
       if (href.startsWith("#")) {
-        if (pathname === "/") {
-          // Already on the home page: just scroll, never append to the URL hash
-          // (this is what caused the /#home#home stacking).
-          if (href === "#home") {
+        // Home never carries a hash — the main page URL stays clean ("/").
+        if (href === "#home") {
+          if (pathname === "/") {
             window.scrollTo({ top: 0, behavior: "smooth" });
             window.history.replaceState(null, "", "/");
           } else {
-            const el = document.querySelector(href);
-            if (el) el.scrollIntoView({ behavior: "smooth" });
+            router.push("/");
           }
+          return;
+        }
+        // Other section links (e.g. #contact, #services)
+        if (pathname === "/") {
+          const el = document.querySelector(href);
+          if (el) el.scrollIntoView({ behavior: "smooth" });
         } else {
           router.push("/" + href);
         }
@@ -96,7 +100,7 @@ function NavDesktop() {
         <div className="flex items-center justify-between h-24">
           {/* Logo */}
           <a
-            href="#home"
+            href="/"
             onClick={(e) => {
               e.preventDefault();
               handleNavClick("#home");
@@ -149,7 +153,7 @@ function NavMobile() {
       <div className="px-4 sm:px-6">
         <div className="flex items-center justify-between h-18">
           <a
-            href="#home"
+            href="/"
             onClick={(e) => {
               e.preventDefault();
               handleNavClick("#home");
@@ -207,6 +211,16 @@ function NavMobile() {
 }
 
 export function Navbar() {
+  const pathname = usePathname();
+
+  // Safety net: on the home page, strip any stray "#home" (even stacked
+  // "#home#home#home") from the URL so the main page URL stays clean ("/").
+  useEffect(() => {
+    if (pathname === "/" && typeof window !== "undefined" && window.location.hash.startsWith("#home")) {
+      window.history.replaceState(null, "", "/");
+    }
+  }, [pathname]);
+
   return (
     <>
       <NavDesktop />
