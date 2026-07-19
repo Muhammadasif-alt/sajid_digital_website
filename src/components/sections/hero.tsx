@@ -121,7 +121,7 @@ export function HeroSection() {
   return (
     <section id="home" className="relative overflow-hidden">
       {/* MOBILE: image with copy overlaid */}
-      <div className="lg:hidden relative min-h-[560px] flex items-end">
+      <div className="lg:hidden relative min-h-[640px] flex items-end">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src={HERO_IMAGE} alt="Sajad Digital Services" className="absolute inset-0 w-full h-full object-cover" />
         <div className="absolute inset-0 bg-gradient-to-t from-navy-dark/90 via-navy-dark/45 to-navy-dark/20" />
@@ -132,7 +132,7 @@ export function HeroSection() {
 
       {/* DESKTOP: full cover image with copy overlaid on the left */}
       <div className="hidden lg:block pt-24">
-        <div className="relative h-[640px]">
+        <div className="relative h-[760px]">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={HERO_IMAGE} alt="Sajad Digital Services" className="absolute inset-0 w-full h-full object-cover" />
           {/* light veil only on the left where the copy sits — image stays clear on the right */}
