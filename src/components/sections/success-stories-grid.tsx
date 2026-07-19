@@ -85,36 +85,27 @@ export function SuccessStoriesGrid() {
       </div>
 
       {totalPages > 1 && (
-        <div className="flex items-center justify-center gap-2 mt-12">
+        <div className="flex items-center justify-center gap-5 mt-12">
           <button
             onClick={() => goTo(page - 1)}
             disabled={page === 1}
-            className="inline-flex items-center gap-1 h-10 px-4 rounded-lg border border-border bg-background text-sm font-semibold hover:border-gold hover:text-gold disabled:opacity-40 disabled:pointer-events-none transition-colors"
+            aria-label="Previous page"
+            className="w-12 h-12 rounded-full border border-border bg-background flex items-center justify-center hover:border-gold hover:text-gold disabled:opacity-40 disabled:pointer-events-none transition-colors"
           >
-            <ChevronLeft className="h-4 w-4" /> Prev
+            <ChevronLeft className="h-5 w-5" />
           </button>
 
-          {Array.from({ length: totalPages }).map((_, i) => (
-            <button
-              key={i}
-              onClick={() => goTo(i + 1)}
-              aria-current={page === i + 1 ? "page" : undefined}
-              className={`w-10 h-10 rounded-lg text-sm font-semibold transition-colors ${
-                page === i + 1
-                  ? "bg-gold text-navy-dark"
-                  : "border border-border bg-background hover:border-gold hover:text-gold"
-              }`}
-            >
-              {i + 1}
-            </button>
-          ))}
+          <span className="text-sm font-semibold text-muted-foreground tabular-nums">
+            Page <span className="text-foreground">{page}</span> of {totalPages}
+          </span>
 
           <button
             onClick={() => goTo(page + 1)}
             disabled={page === totalPages}
-            className="inline-flex items-center gap-1 h-10 px-4 rounded-lg border border-border bg-background text-sm font-semibold hover:border-gold hover:text-gold disabled:opacity-40 disabled:pointer-events-none transition-colors"
+            aria-label="Next page"
+            className="w-12 h-12 rounded-full border border-border bg-background flex items-center justify-center hover:border-gold hover:text-gold disabled:opacity-40 disabled:pointer-events-none transition-colors"
           >
-            Next <ChevronRight className="h-4 w-4" />
+            <ChevronRight className="h-5 w-5" />
           </button>
         </div>
       )}
