@@ -115,7 +115,7 @@ function HeroCopy() {
 }
 
 // The most attractive image in the pool leads the home hero.
-const HERO_IMAGE = "/Images/job-assistance.webp";
+const HERO_IMAGE = "/Images/home-hero.webp";
 
 export function HeroSection() {
   return (
@@ -124,7 +124,7 @@ export function HeroSection() {
       <div className="lg:hidden relative min-h-[560px] flex items-end">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src={HERO_IMAGE} alt="Sajad Digital Services" className="absolute inset-0 w-full h-full object-cover" />
-        <div className="absolute inset-0 bg-gradient-to-t from-navy-dark via-navy-dark/85 to-navy-dark/55" />
+        <div className="absolute inset-0 bg-gradient-to-t from-navy-dark/90 via-navy-dark/45 to-navy-dark/20" />
         <div className="relative px-4 sm:px-6 pt-28 pb-10 w-full">
           <HeroCopy />
         </div>
@@ -135,8 +135,8 @@ export function HeroSection() {
         <div className="relative h-[640px]">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={HERO_IMAGE} alt="Sajad Digital Services" className="absolute inset-0 w-full h-full object-cover" />
-          {/* legibility veil, darker on the left where the copy sits */}
-          <div className="absolute inset-0 bg-gradient-to-r from-navy-dark via-navy-dark/85 to-navy-dark/40" />
+          {/* light veil only on the left where the copy sits — image stays clear on the right */}
+          <div className="absolute inset-0 bg-gradient-to-r from-navy-dark/85 via-navy-dark/35 to-transparent" />
           <div className="absolute inset-0 flex items-center">
             <div className="max-w-7xl mx-auto px-8 w-full">
               <HeroCopy />
