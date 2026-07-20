@@ -2,8 +2,12 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/toaster";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import { SITE_KEYWORDS } from "@/lib/seo";
 import "./globals.css";
+
+// Google Analytics 4 — Measurement ID for the "SDS Website" stream.
+const GA_ID = "G-ZEQ79FE75Y";
 
 const ADSENSE_CLIENT = "ca-pub-2159056873710145";
 
@@ -185,6 +189,7 @@ export default function RootLayout({
           <Toaster />
         </ThemeProvider>
       </body>
+      <GoogleAnalytics gaId={GA_ID} />
     </html>
   );
 }
