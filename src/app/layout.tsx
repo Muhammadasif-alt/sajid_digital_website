@@ -133,6 +133,7 @@ export default function RootLayout({
                 "https://www.facebook.com/share/18qNMa4FNx/",
                 "https://www.instagram.com/sajaddigitalservices",
                 "https://www.tiktok.com/@sajaddigitalservices",
+                "https://www.youtube.com/@sajaddigitalservices",
               ],
             }),
           }}
@@ -159,6 +160,7 @@ export default function RootLayout({
                 "https://www.facebook.com/share/18qNMa4FNx/",
                 "https://www.instagram.com/sajaddigitalservices",
                 "https://www.tiktok.com/@sajaddigitalservices",
+                "https://www.youtube.com/@sajaddigitalservices",
               ],
             }),
           }}

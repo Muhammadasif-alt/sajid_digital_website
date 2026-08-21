@@ -10,6 +10,7 @@ import {
   Clock,
   Facebook,
   Instagram,
+  Youtube,
   Heart,
 } from "lucide-react";
 
@@ -44,6 +45,7 @@ const socials = [
   { icon: Facebook, href: "https://www.facebook.com/share/18qNMa4FNx/", label: "Facebook" },
   { icon: Instagram, href: "https://www.instagram.com/sajaddigitalservices?igsh=bnMwcmVldnl4Y3Fy", label: "Instagram" },
   { icon: TikTokIcon, href: "https://www.tiktok.com/@sajaddigitalservices?_r=1&_t=ZS-97YKkrvZLgl", label: "TikTok" },
+  { icon: Youtube, href: "https://www.youtube.com/@sajaddigitalservices", label: "YouTube" },
 ];
 
 export function Footer() {
