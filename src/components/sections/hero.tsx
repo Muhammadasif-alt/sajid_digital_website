@@ -27,7 +27,7 @@ function HeroCopy() {
       >
         <Rocket className="h-4 w-4 text-gold" />
         <span className="text-sm font-semibold text-white uppercase tracking-wider">
-          One Window Solution
+          Your Digital Growth Partner
         </span>
       </motion.div>
 
@@ -37,9 +37,9 @@ function HeroCopy() {
         transition={{ duration: 0.6, delay: 0.1 }}
         className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-extrabold leading-[1.06] tracking-tight"
       >
-        <span className="text-white">One Window Solution –</span>
+        <span className="text-white">One Window.</span>
         <br />
-        <span className="text-gold">Fast, Reliable, Digital</span>
+        <span className="text-gold">Endless Possibilities.</span>
       </motion.h1>
 
       <motion.p
@@ -48,8 +48,8 @@ function HeroCopy() {
         transition={{ duration: 0.5, delay: 0.28 }}
         className="mt-5 text-base sm:text-lg text-white/80 leading-relaxed"
       >
-        Sajad Digital Services (SDS) is your trusted partner for all digital solutions.
-        We provide reliable, fast and professional services to help you achieve your goals.
+        From high converting websites and eCommerce platforms to SEO and custom digital solutions,
+        Sajad Digital Services delivers reliable technology designed around your business goals.
       </motion.p>
 
       <motion.div
