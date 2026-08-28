@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { Badge } from "@/components/ui/badge";
-import { Trophy, Star, Quote, PlayCircle } from "lucide-react";
+import { Trophy, Star, Quote, PlayCircle, ChevronLeft, ChevronRight } from "lucide-react";
 
 interface Story {
   id: string;
@@ -17,20 +17,44 @@ interface Story {
 }
 
 /**
- * Client success stories on the home page. Renders nothing until the admin has
- * added at least one, so the page never shows an empty section.
+ * Client reviews on the home page. A horizontal slider that auto-advances,
+ * pauses on hover, and can be nudged with the arrows. Shows up to 3 per view on
+ * desktop. Renders nothing until the admin has added at least one review.
  */
 export function SuccessStoriesSection() {
   const [stories, setStories] = useState<Story[]>([]);
+  const scroller = useRef<HTMLDivElement>(null);
+  const paused = useRef(false);
 
   useEffect(() => {
     fetch("/api/testimonials")
       .then((r) => r.json())
-      .then((d) => setStories((d.testimonials || []).slice(0, 6)))
+      .then((d) => setStories((d.testimonials || []).slice(0, 12)))
       .catch(() => {});
   }, []);
 
+  // Auto-advance: step one "page" every 4s, loop back at the end.
+  useEffect(() => {
+    if (stories.length <= 3) return;
+    const id = setInterval(() => {
+      const el = scroller.current;
+      if (!el || paused.current) return;
+      const atEnd = el.scrollLeft + el.clientWidth >= el.scrollWidth - 8;
+      if (atEnd) el.scrollTo({ left: 0, behavior: "smooth" });
+      else el.scrollBy({ left: el.clientWidth * 0.9, behavior: "smooth" });
+    }, 4000);
+    return () => clearInterval(id);
+  }, [stories.length]);
+
   if (stories.length === 0) return null;
+
+  const scrollBy = (dir: number) => {
+    const el = scroller.current;
+    if (el) el.scrollBy({ left: dir * el.clientWidth * 0.9, behavior: "smooth" });
+  };
+
+  const itemWidth =
+    "min-w-[85%] sm:min-w-[calc((100%-1.5rem)/2)] lg:min-w-[calc((100%-3rem)/3)] max-w-full snap-start";
 
   return (
     <section id="reviews" className="py-20 lg:py-28 bg-muted/30">
@@ -40,37 +64,49 @@ export function SuccessStoriesSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="text-center mb-14"
+          className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-14 text-center sm:text-left"
         >
-          <Badge variant="outline" className="mb-4 text-xs font-bold tracking-wider uppercase border-gold/40 text-gold">
-            <Trophy className="h-3 w-3 mr-1.5" /> Client Reviews
-          </Badge>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground">
-            What Our <span className="text-gradient-gold">Clients Say</span>
-          </h2>
-          <p className="mt-4 text-muted-foreground text-lg max-w-2xl mx-auto">
-            Real words from students and clients who built their careers with SDS.
-          </p>
+          <div className="sm:max-w-xl mx-auto sm:mx-0">
+            <Badge variant="outline" className="mb-4 text-xs font-bold tracking-wider uppercase border-gold/40 text-gold">
+              <Trophy className="h-3 w-3 mr-1.5" /> Client Reviews
+            </Badge>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground">
+              What Our <span className="text-gradient-gold">Clients Say</span>
+            </h2>
+            <p className="mt-4 text-muted-foreground text-lg">
+              Real words from students and clients who built their careers with SDS.
+            </p>
+          </div>
+          {stories.length > 3 && (
+            <div className="flex items-center justify-center gap-2">
+              <button
+                onClick={() => scrollBy(-1)}
+                aria-label="Previous"
+                className="w-11 h-11 rounded-full border border-border bg-background hover:border-gold hover:text-gold flex items-center justify-center transition-colors"
+              >
+                <ChevronLeft className="h-5 w-5" />
+              </button>
+              <button
+                onClick={() => scrollBy(1)}
+                aria-label="Next"
+                className="w-11 h-11 rounded-full border border-border bg-background hover:border-gold hover:text-gold flex items-center justify-center transition-colors"
+              >
+                <ChevronRight className="h-5 w-5" />
+              </button>
+            </div>
+          )}
         </motion.div>
 
-        {/* One or two stories shouldn't sit lonely in the left column — centre them. */}
         <div
-          className={
-            stories.length === 1
-              ? "grid gap-6 max-w-xl mx-auto"
-              : stories.length === 2
-                ? "grid sm:grid-cols-2 gap-6 max-w-4xl mx-auto"
-                : "grid sm:grid-cols-2 lg:grid-cols-3 gap-6"
-          }
+          ref={scroller}
+          onMouseEnter={() => (paused.current = true)}
+          onMouseLeave={() => (paused.current = false)}
+          className="flex gap-6 overflow-x-auto pb-4 snap-x snap-mandatory scroll-smooth [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
         >
-          {stories.map((s, i) => (
-            <motion.div
+          {stories.map((s) => (
+            <article
               key={s.id}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: (i % 3) * 0.08 }}
-              className="flex flex-col rounded-2xl bg-card border border-border p-6 hover:border-gold/40 hover:shadow-xl hover:shadow-gold/10 transition-all"
+              className={`${itemWidth} flex flex-col rounded-2xl bg-card border border-border p-6 hover:border-gold/40 hover:shadow-xl hover:shadow-gold/10 transition-all`}
             >
               <Quote className="h-7 w-7 text-gold/40 mb-3" />
               <p className="text-foreground/90 leading-relaxed flex-1">{s.content}</p>
@@ -119,7 +155,7 @@ export function SuccessStoriesSection() {
                   </div>
                 </div>
               </div>
-            </motion.div>
+            </article>
           ))}
         </div>
       </div>
