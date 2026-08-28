@@ -2,13 +2,13 @@
 
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Phone, Rocket, CheckCircle2 } from "lucide-react";
+import { ArrowRight, Phone, Rocket, CheckCircle2, Users, Briefcase, HeartHandshake, Award } from "lucide-react";
 
 const stats = [
-  { value: "30,000+", label: "Students Reached" },
-  { value: "1,000+", label: "Students Got Jobs" },
-  { value: "15,000+", label: "Happy Clients" },
-  { value: "2+", label: "Years of Trust" },
+  { icon: Users,          value: "30,000+", label: "Students Reached" },
+  { icon: Briefcase,      value: "1,000+",  label: "Students Got Jobs" },
+  { icon: HeartHandshake, value: "15,000+", label: "Happy Clients" },
+  { icon: Award,          value: "5+",      label: "Years of Experience" },
 ];
 
 const highlights = ["Career Guidance", "Job Assistance", "Digital Growth", "Overseas Opportunities"];
@@ -138,7 +138,7 @@ export function HeroSection() {
 
       {/* Stats bar */}
       <div className="bg-navy-dark border-t border-white/10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -147,9 +147,12 @@ export function HeroSection() {
             className="grid grid-cols-2 lg:grid-cols-4 divide-x divide-white/10"
           >
             {stats.map((s) => (
-              <div key={s.label} className="flex flex-col items-center justify-center py-6 px-4 text-center">
-                <span className="text-2xl sm:text-3xl font-extrabold text-gold leading-none">{s.value}</span>
-                <span className="mt-1.5 text-sm font-medium text-white/70">{s.label}</span>
+              <div key={s.label} className="flex items-center justify-center gap-3 py-5 px-4">
+                <s.icon className="h-7 w-7 text-gold shrink-0" />
+                <div className="text-left">
+                  <div className="text-xl sm:text-2xl font-extrabold text-gold leading-none">{s.value}</div>
+                  <div className="mt-0.5 text-xs sm:text-sm font-medium text-white/65 leading-tight">{s.label}</div>
+                </div>
               </div>
             ))}
           </motion.div>
