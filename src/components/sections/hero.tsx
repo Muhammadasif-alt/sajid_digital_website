@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Phone, Rocket, CheckCircle2, Users, Briefcase, HeartHandshake, Award } from "lucide-react";
+import { ArrowRight, Rocket, Users, Briefcase, HeartHandshake, Award } from "lucide-react";
 
 const stats = [
   { icon: Users,          value: "30,000+", label: "Students Reached" },
@@ -10,8 +10,6 @@ const stats = [
   { icon: HeartHandshake, value: "15,000+", label: "Happy Clients" },
   { icon: Award,          value: "5+",      label: "Years of Experience" },
 ];
-
-const highlights = ["Career Guidance", "Job Assistance", "Digital Growth", "Overseas Opportunities"];
 
 function scrollTo(id: string) {
   const el = document.querySelector(id);
@@ -28,62 +26,37 @@ function HeroCopy() {
         className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gold/15 border border-gold/40 mb-5 backdrop-blur-sm"
       >
         <Rocket className="h-4 w-4 text-gold" />
-        <span className="text-sm font-semibold text-white">
-          Empowering Careers, Enhancing Businesses
+        <span className="text-sm font-semibold text-white uppercase tracking-wider">
+          One Window Solution
         </span>
       </motion.div>
 
-      {/* Heading — golden */}
       <motion.h1
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.1 }}
-        className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-extrabold leading-[1.04] tracking-tight"
+        className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-extrabold leading-[1.06] tracking-tight"
       >
-        <span className="text-gold">Sajad Digital</span>
+        <span className="text-white">One Window Solution –</span>
         <br />
-        <span className="text-white">Services</span>
+        <span className="text-gold">Fast, Reliable, Digital</span>
       </motion.h1>
 
       <motion.p
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.25 }}
-        className="mt-4 text-lg sm:text-xl text-white/90 font-medium"
+        transition={{ duration: 0.5, delay: 0.28 }}
+        className="mt-5 text-base sm:text-lg text-white/80 leading-relaxed"
       >
-        Your Trusted Partner for{" "}
-        <span className="text-gold font-semibold">Career Growth, Digital Success</span>{" "}
-        &amp; Overseas Opportunities.
-      </motion.p>
-
-      <motion.p
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.35 }}
-        className="mt-3 text-base text-white/70"
-      >
-        We provide reliable digital solutions to help you build your career,
-        grow your business and achieve your goals.
+        Sajad Digital Services (SDS) is your trusted partner for all digital solutions.
+        We provide reliable, fast and professional services to help you achieve your goals.
       </motion.p>
 
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.42 }}
-        className="mt-5 grid grid-cols-2 gap-x-6 gap-y-2 max-w-md"
-      >
-        {highlights.map((h) => (
-          <div key={h} className="flex items-center gap-2 text-sm font-medium text-white/85">
-            <CheckCircle2 className="h-4 w-4 text-gold shrink-0" /> {h}
-          </div>
-        ))}
-      </motion.div>
-
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.5 }}
-        className="mt-7 flex flex-col sm:flex-row gap-3"
+        className="mt-8 flex flex-col sm:flex-row gap-3"
       >
         <Button
           onClick={() => scrollTo("#services")}
@@ -93,12 +66,12 @@ function HeroCopy() {
           Explore Services <ArrowRight className="h-4 w-4 ml-2" />
         </Button>
         <Button
-          onClick={() => scrollTo("#contact")}
+          onClick={() => scrollTo("#about")}
           size="lg"
           variant="outline"
           className="border-white/30 text-white bg-white/5 hover:bg-white hover:text-navy-dark hover:border-white rounded-xl font-bold h-13 px-8 w-full sm:w-auto backdrop-blur-sm"
         >
-          <Phone className="h-4 w-4 mr-2" /> Contact Us
+          About SDS <ArrowRight className="h-4 w-4 ml-2" />
         </Button>
       </motion.div>
     </div>

@@ -19,8 +19,8 @@ const workModeColors: Record<string, string> = {
 
 function formatSalary(min?: number | null, max?: number | null) {
   if (!min && !max) return null;
-  const fmt = (n: number) => `$${(n / 1000).toFixed(0)}K`;
-  if (min && max) return `${fmt(min)} - ${fmt(max)}`;
+  const fmt = (n: number) => `Rs ${n.toLocaleString("en-PK")}`;
+  if (min && max) return `${fmt(min)} – ${fmt(max)}`;
   return fmt(min || max || 0);
 }
 
@@ -34,8 +34,8 @@ export function JobCard({ job, index = 0 }: { job: JobWithCategory; index?: numb
     >
       <Link href={`/jobs/${job.slug}`} className="block h-full">
         <Card className="group h-full border-border/50 hover:border-gold/40 shadow-sm hover:shadow-xl hover:shadow-gold/10 transition-all duration-300 overflow-hidden hover:-translate-y-1">
-          {/* Banner image */}
-          <div className="relative h-44 w-full overflow-hidden bg-muted">
+          {/* Banner image — 4:3 ratio, full image visible (no crop) */}
+          <div className="relative aspect-[4/3] w-full overflow-hidden bg-muted">
             {job.featuredImage ? (
               // eslint-disable-next-line @next/next/no-img-element
               <img
@@ -43,7 +43,7 @@ export function JobCard({ job, index = 0 }: { job: JobWithCategory; index?: numb
                 alt={job.title}
                 loading="lazy"
                 decoding="async"
-                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-105"
               />
             ) : (
               <div className="w-full h-full bg-gradient-to-br from-navy via-navy-light to-navy flex items-center justify-center">
