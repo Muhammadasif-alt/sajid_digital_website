@@ -114,8 +114,8 @@ function HeroCopy() {
   );
 }
 
-// The most attractive image in the pool leads the home hero.
-const HERO_IMAGE = "/Images/Hero_Home.webp";
+// Branded SAJAD Digital hero banner — logo sits on the right, copy overlays the left.
+const HERO_IMAGE = "/Images/Hero-sajjad-digital.webp";
 
 export function HeroSection() {
   return (
