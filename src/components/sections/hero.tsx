@@ -2,22 +2,13 @@
 
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import {
-  ArrowRight,
-  Phone,
-  Rocket,
-  ShieldCheck,
-  Zap,
-  Award,
-  Headset,
-  CheckCircle2,
-} from "lucide-react";
+import { ArrowRight, Phone, Rocket, CheckCircle2 } from "lucide-react";
 
-const trust = [
-  { icon: ShieldCheck, title: "Trusted & Secure", sub: "100% Reliable Services" },
-  { icon: Zap, title: "Fast & Easy", sub: "Quick Support" },
-  { icon: Award, title: "Expert Guidance", sub: "Professional Support" },
-  { icon: Headset, title: "Your Success", sub: "Our #1 Goal" },
+const stats = [
+  { value: "30,000+", label: "Students Reached" },
+  { value: "1,000+", label: "Students Got Jobs" },
+  { value: "15,000+", label: "Happy Clients" },
+  { value: "2+", label: "Years of Trust" },
 ];
 
 const highlights = ["Career Guidance", "Job Assistance", "Digital Growth", "Overseas Opportunities"];
@@ -145,30 +136,24 @@ export function HeroSection() {
         </div>
       </div>
 
-      {/* Trust strip */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 lg:py-14">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="grid grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-4"
-        >
-          {trust.map((t) => (
-            <div
-              key={t.title}
-              className="flex items-center gap-3 rounded-xl bg-navy px-4 py-3.5 shadow-lg"
-            >
-              <div className="w-10 h-10 rounded-lg bg-gold/15 flex items-center justify-center shrink-0">
-                <t.icon className="h-5 w-5 text-gold" />
+      {/* Stats bar */}
+      <div className="bg-navy-dark border-t border-white/10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="grid grid-cols-2 lg:grid-cols-4 divide-x divide-white/10"
+          >
+            {stats.map((s) => (
+              <div key={s.label} className="flex flex-col items-center justify-center py-6 px-4 text-center">
+                <span className="text-2xl sm:text-3xl font-extrabold text-gold leading-none">{s.value}</span>
+                <span className="mt-1.5 text-sm font-medium text-white/70">{s.label}</span>
               </div>
-              <div className="text-left">
-                <div className="text-sm font-bold text-white leading-tight">{t.title}</div>
-                <div className="text-xs text-white/60">{t.sub}</div>
-              </div>
-            </div>
-          ))}
-        </motion.div>
+            ))}
+          </motion.div>
+        </div>
       </div>
     </section>
   );
