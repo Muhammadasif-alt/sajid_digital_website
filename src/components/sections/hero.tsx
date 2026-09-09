@@ -96,12 +96,12 @@ export function HeroSection() {
 
       {/* DESKTOP: full viewport height image with copy overlaid on the left */}
       <div className="hidden lg:block">
-        <div className="relative min-h-screen">
+        <div className="relative min-h-screen pt-24">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={HERO_IMAGE} alt="Sajad Digital Services" className="absolute inset-0 w-full h-full object-cover object-center" />
           {/* light veil only on the left where the copy sits — image stays clear on the right */}
           <div className="absolute inset-0 bg-gradient-to-r from-navy-dark/85 via-navy-dark/40 to-transparent" />
-          <div className="absolute top-24 bottom-0 left-0 right-0 flex items-center">
+          <div className="relative z-10 min-h-[calc(100vh-6rem)] flex items-center">
             <div className="max-w-7xl mx-auto px-8 w-full">
               <HeroCopy />
             </div>
