@@ -110,7 +110,7 @@ export function HeroSection() {
       </div>
 
       {/* Stats bar */}
-      <div className="bg-navy-dark border-t border-white/10">
+      <div className="bg-navy-dark dark:bg-navy-dark light:bg-slate-900 border-t border-white/10">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 16 }}

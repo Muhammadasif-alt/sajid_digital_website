@@ -581,7 +581,7 @@ function BlogsTab() {
   const [loading, setLoading] = useState(true);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editing, setEditing] = useState<BlogRow | null>(null);
-  const [form, setForm] = useState({ title: "", content: "", excerpt: "", author: "SAJAD Digital Services Team", status: "draft" as string, tags: "", featuredImage: "" });
+  const [form, setForm] = useState({ title: "", content: "", excerpt: "", author: "SAJAD Digital Services Team", status: "published" as string, tags: "", featuredImage: "" });
   const [saving, setSaving] = useState(false);
 
   const fetchBlogs = useCallback(async () => {
@@ -606,7 +606,7 @@ function BlogsTab() {
       }
       setDialogOpen(false);
       setEditing(null);
-      setForm({ title: "", content: "", excerpt: "", author: "SAJAD Digital Services Team", status: "draft", tags: "", featuredImage: "" });
+      setForm({ title: "", content: "", excerpt: "", author: "SAJAD Digital Services Team", status: "published", tags: "", featuredImage: "" });
       fetchBlogs();
     } catch { /* */ } finally { setSaving(false); }
   };
