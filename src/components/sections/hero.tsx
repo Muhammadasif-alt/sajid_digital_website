@@ -95,15 +95,12 @@ export function HeroSection() {
       </div>
 
       {/* DESKTOP: full viewport height image with copy overlaid on the left */}
-      <div className="hidden lg:flex h-screen flex-col relative">
+      <div className="hidden lg:flex min-h-screen items-center pt-24 relative">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={HERO_IMAGE} alt="Sajad Digital Services" className="absolute inset-0 w-full h-full object-cover object-center z-0" />
-        <div className="absolute inset-0 bg-gradient-to-r from-navy-dark/85 via-navy-dark/40 to-transparent z-0" />
-        {/* navbar height spacer — pushes content below fixed navbar */}
-        <div className="h-24 shrink-0" />
-        {/* content centered in remaining viewport space */}
-        <div className="relative z-10 flex-1 flex items-center">
-          <div className="max-w-7xl mx-auto px-8 w-full">
+        <img src={HERO_IMAGE} alt="Sajad Digital Services" className="absolute inset-0 w-full h-full object-cover object-center" />
+        <div className="absolute inset-0 bg-gradient-to-r from-navy-dark/85 via-navy-dark/40 to-transparent" />
+        <div className="relative z-10 w-full">
+          <div className="max-w-7xl mx-auto px-8">
             <HeroCopy />
           </div>
         </div>
