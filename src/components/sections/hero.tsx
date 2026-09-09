@@ -84,24 +84,24 @@ const HERO_IMAGE = "/Images/Hero-sajjad-digital.webp";
 export function HeroSection() {
   return (
     <section id="home" className="relative overflow-hidden">
-      {/* MOBILE: image with copy overlaid */}
-      <div className="lg:hidden relative min-h-[640px] flex items-end">
+      {/* MOBILE: full screen image with copy overlaid */}
+      <div className="lg:hidden relative min-h-screen flex items-end">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={HERO_IMAGE} alt="Sajad Digital Services" className="absolute inset-0 w-full h-full object-cover" />
-        <div className="absolute inset-0 bg-gradient-to-t from-navy-dark/90 via-navy-dark/45 to-navy-dark/20" />
-        <div className="relative px-4 sm:px-6 pt-28 pb-10 w-full">
+        <img src={HERO_IMAGE} alt="Sajad Digital Services" className="absolute inset-0 w-full h-full object-cover object-center" />
+        <div className="absolute inset-0 bg-gradient-to-t from-navy-dark/92 via-navy-dark/50 to-navy-dark/20" />
+        <div className="relative px-4 sm:px-6 pt-28 pb-12 w-full">
           <HeroCopy />
         </div>
       </div>
 
-      {/* DESKTOP: full cover image with copy overlaid on the left */}
-      <div className="hidden lg:block pt-24">
-        <div className="relative h-[760px]">
+      {/* DESKTOP: full viewport height image with copy overlaid on the left */}
+      <div className="hidden lg:block">
+        <div className="relative min-h-screen">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={HERO_IMAGE} alt="Sajad Digital Services" className="absolute inset-0 w-full h-full object-cover" />
+          <img src={HERO_IMAGE} alt="Sajad Digital Services" className="absolute inset-0 w-full h-full object-cover object-center" />
           {/* light veil only on the left where the copy sits — image stays clear on the right */}
-          <div className="absolute inset-0 bg-gradient-to-r from-navy-dark/85 via-navy-dark/35 to-transparent" />
-          <div className="absolute inset-0 flex items-center">
+          <div className="absolute inset-0 bg-gradient-to-r from-navy-dark/85 via-navy-dark/40 to-transparent" />
+          <div className="absolute inset-0 flex items-center pt-24">
             <div className="max-w-7xl mx-auto px-8 w-full">
               <HeroCopy />
             </div>
