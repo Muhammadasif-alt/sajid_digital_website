@@ -101,8 +101,8 @@ export function HeroSection() {
           <img src={HERO_IMAGE} alt="Sajad Digital Services" className="absolute inset-0 w-full h-full object-cover object-center" />
           {/* light veil only on the left where the copy sits — image stays clear on the right */}
           <div className="absolute inset-0 bg-gradient-to-r from-navy-dark/85 via-navy-dark/40 to-transparent" />
-          <div className="absolute inset-0 flex flex-col justify-center pt-24">
-            <div className="max-w-7xl mx-auto px-8 w-full">
+          <div className="absolute top-1/2 -translate-y-1/2 mt-12 w-full">
+            <div className="max-w-7xl mx-auto px-8">
               <HeroCopy />
             </div>
           </div>
