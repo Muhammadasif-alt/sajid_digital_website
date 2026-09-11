@@ -73,15 +73,18 @@ export async function GET(request: Request) {
       db.job.count({ where }),
     ]);
 
-    return NextResponse.json({
-      jobs: jobs.map((j) => ({
-        ...j,
-        featuredImage: imageUrl('job', j.id, j.featuredImage, j.updatedAt, 700),
-      })),
-      total,
-      pages: Math.ceil(total / limit),
-      currentPage: page,
-    });
+    return NextResponse.json(
+      {
+        jobs: jobs.map((j) => ({
+          ...j,
+          featuredImage: imageUrl('job', j.id, j.featuredImage, j.updatedAt, 700),
+        })),
+        total,
+        pages: Math.ceil(total / limit),
+        currentPage: page,
+      },
+      { headers: { 'Cache-Control': 'public, max-age=60, stale-while-revalidate=300' } }
+    );
   } catch {
     return NextResponse.json({ error: 'Failed to fetch jobs' }, { status: 500 });
   }

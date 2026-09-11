@@ -39,12 +39,15 @@ export async function GET(request: Request) {
       take: limit,
     });
 
-    return NextResponse.json({
-      services: services.map((s) => ({
-        ...s,
-        featuredImage: imageUrl('service', s.id, s.featuredImage, s.updatedAt, 700),
-      })),
-    });
+    return NextResponse.json(
+      {
+        services: services.map((s) => ({
+          ...s,
+          featuredImage: imageUrl('service', s.id, s.featuredImage, s.updatedAt, 700),
+        })),
+      },
+      { headers: { 'Cache-Control': 'public, max-age=60, stale-while-revalidate=300' } }
+    );
   } catch {
     return NextResponse.json({ error: 'Failed to fetch services' }, { status: 500 });
   }

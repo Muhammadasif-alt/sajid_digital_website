@@ -80,6 +80,8 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        {/* Preload hero image — it is the LCP element on every device */}
+        <link rel="preload" as="image" href="/Images/Hero-sajjad-digital.webp" fetchPriority="high" />
         {/* Google AdSense — literal tag so the verification crawler sees it in raw HTML */}
         {/* eslint-disable-next-line @next/next/no-sync-scripts */}
         <script

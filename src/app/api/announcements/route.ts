@@ -47,12 +47,15 @@ export async function GET(request: Request) {
       orderBy: [{ isFeatured: 'desc' }, { createdAt: 'desc' }],
       take: limit,
     });
-    return NextResponse.json({
-      announcements: announcements.map((a) => ({
-        ...a,
-        featuredImage: imageUrl('announcement', a.id, a.featuredImage, a.updatedAt, 700),
-      })),
-    });
+    return NextResponse.json(
+      {
+        announcements: announcements.map((a) => ({
+          ...a,
+          featuredImage: imageUrl('announcement', a.id, a.featuredImage, a.updatedAt, 700),
+        })),
+      },
+      { headers: { 'Cache-Control': 'public, max-age=60, stale-while-revalidate=300' } }
+    );
   } catch {
     return NextResponse.json({ error: 'Failed to fetch announcements' }, { status: 500 });
   }

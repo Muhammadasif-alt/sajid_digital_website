@@ -30,12 +30,15 @@ export async function GET(request: Request) {
       orderBy: [{ sortOrder: 'asc' }, { createdAt: 'desc' }],
       take: limit,
     });
-    return NextResponse.json({
-      partners: partners.map((p) => ({
-        ...p,
-        logo: imageUrl('partner', p.id, p.logo, p.updatedAt, 500),
-      })),
-    });
+    return NextResponse.json(
+      {
+        partners: partners.map((p) => ({
+          ...p,
+          logo: imageUrl('partner', p.id, p.logo, p.updatedAt, 500),
+        })),
+      },
+      { headers: { 'Cache-Control': 'public, max-age=60, stale-while-revalidate=300' } }
+    );
   } catch {
     return NextResponse.json({ error: 'Failed to fetch partners' }, { status: 500 });
   }

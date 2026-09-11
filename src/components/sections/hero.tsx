@@ -87,7 +87,7 @@ export function HeroSection() {
       {/* MOBILE: full screen image with copy overlaid */}
       <div className="lg:hidden relative min-h-screen flex items-end">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={HERO_IMAGE} alt="Sajad Digital Services" className="absolute inset-0 w-full h-full object-cover object-center" />
+        <img src={HERO_IMAGE} alt="Sajad Digital Services" fetchPriority="high" loading="eager" className="absolute inset-0 w-full h-full object-cover object-center" />
         <div className="absolute inset-0 bg-gradient-to-t from-navy-dark/92 via-navy-dark/50 to-navy-dark/20" />
         <div className="relative px-4 sm:px-6 pt-28 pb-12 w-full">
           <HeroCopy />
@@ -97,7 +97,7 @@ export function HeroSection() {
       {/* DESKTOP: full viewport height image with copy overlaid on the left */}
       <div className="hidden lg:flex min-h-screen items-center pt-24 relative">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={HERO_IMAGE} alt="Sajad Digital Services" className="absolute inset-0 w-full h-full object-cover object-center" />
+        <img src={HERO_IMAGE} alt="Sajad Digital Services" fetchPriority="high" loading="eager" className="absolute inset-0 w-full h-full object-cover object-center" />
         <div className="absolute inset-0 bg-gradient-to-r from-navy-dark/85 via-navy-dark/40 to-transparent" />
         <div className="relative z-10 w-full">
           <div className="max-w-7xl mx-auto px-8">

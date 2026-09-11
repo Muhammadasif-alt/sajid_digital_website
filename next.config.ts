@@ -2,11 +2,12 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   output: "standalone",
-  /* config options here */
+  compress: true,
   typescript: {
     ignoreBuildErrors: true,
   },
   reactStrictMode: false,
+  poweredByHeader: false,
   // Old URLs stay alive after the rename (shared links, Google's index).
   async redirects() {
     return [

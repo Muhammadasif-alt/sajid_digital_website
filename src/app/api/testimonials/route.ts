@@ -20,12 +20,15 @@ export async function GET() {
     const testimonials = await db.testimonial.findMany({
       orderBy: [{ isFeatured: 'desc' }, { createdAt: 'desc' }],
     });
-    return NextResponse.json({
-      testimonials: testimonials.map((t) => ({
-        ...t,
-        avatar: imageUrl('testimonial', t.id, t.avatar, t.updatedAt, 400),
-      })),
-    });
+    return NextResponse.json(
+      {
+        testimonials: testimonials.map((t) => ({
+          ...t,
+          avatar: imageUrl('testimonial', t.id, t.avatar, t.updatedAt, 400),
+        })),
+      },
+      { headers: { 'Cache-Control': 'public, max-age=60, stale-while-revalidate=300' } }
+    );
   } catch {
     return NextResponse.json({ error: 'Failed to fetch testimonials' }, { status: 500 });
   }
