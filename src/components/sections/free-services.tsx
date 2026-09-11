@@ -42,15 +42,15 @@ export function FreeServicesSection() {
           </p>
         </motion.div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-          {(loading ? Array.from({ length: 8 }) : items).map((s: Service | unknown, i) => {
-            if (loading) return <div key={i} className="h-44 rounded-2xl bg-muted animate-pulse" />;
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          {(loading ? Array.from({ length: 6 }) : items).map((s: Service | unknown, i) => {
+            if (loading) return <div key={i} className="aspect-[1200/630] rounded-2xl bg-muted animate-pulse" />;
             const item = s as Service;
             return (
-              <motion.div key={item.id} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.4, delay: (i % 4) * 0.08 }}>
+              <motion.div key={item.id} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.4, delay: (i % 3) * 0.08 }}>
                 <Link href={`/services/${item.slug}`} className="block h-full group">
                   <div className="h-full rounded-2xl border border-border/50 bg-card overflow-hidden hover:border-gold/40 hover:shadow-xl hover:shadow-gold/10 transition-all hover:-translate-y-1">
-                    <div className="relative h-48 w-full overflow-hidden bg-muted">
+                    <div className="relative aspect-[1200/630] w-full overflow-hidden bg-muted">
                       {item.featuredImage ? (
                         // eslint-disable-next-line @next/next/no-img-element
                         <img src={item.featuredImage} alt={item.title} loading="lazy" decoding="async" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
