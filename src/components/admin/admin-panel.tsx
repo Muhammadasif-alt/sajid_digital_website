@@ -260,8 +260,8 @@ function DashboardTab({ onSwitch }: { onSwitch: (tab: string) => void }) {
 const DEFAULT_WHATSAPP = "0300-7033832";
 const EMPTY_JOB_FORM = {
   title: "", description: "", location: "", employmentType: "Full-time",
-  workMode: "On-site", experience: "Mid-level", education: "Bachelor's",
-  department: "General", status: "draft" as string, isFeatured: false,
+  workMode: "On-site", experience: "", education: "",
+  department: "", status: "published" as string, isFeatured: false,
   salaryMin: "", salaryMax: "", responsibilities: "", requirements: "",
   benefits: "", featuredImage: "", whatsapp: DEFAULT_WHATSAPP,
 };
@@ -435,7 +435,7 @@ function JobsTab() {
             <div className="space-y-4 pt-2">
               {/* Banner image (mandatory) */}
               <div className="space-y-2">
-                <Label>Banner Image * <span className="text-xs text-muted-foreground font-normal">(shown on the website card &amp; detail page)</span></Label>
+                <Label>Banner Image * <span className="text-xs text-muted-foreground font-normal">— recommended size: 1200 × 630 px</span></Label>
                 {form.featuredImage ? (
                   <div className="relative rounded-xl overflow-hidden border border-border/50 group">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -456,7 +456,7 @@ function JobsTab() {
                       <>
                         <ImagePlus className="h-7 w-7 text-muted-foreground mb-2" />
                         <span className="text-sm text-muted-foreground">Click to upload banner</span>
-                        <span className="text-[10px] text-muted-foreground mt-1">JPG, PNG, WEBP &middot; max 5 MB</span>
+                        <span className="text-[10px] text-muted-foreground mt-1">1200 × 630 px &middot; JPG, PNG, WEBP &middot; max 5 MB</span>
                       </>
                     )}
                     <input
@@ -470,8 +470,8 @@ function JobsTab() {
               </div>
 
               <div className="grid sm:grid-cols-2 gap-4">
-                <div className="space-y-2 sm:col-span-2"><Label>Title *</Label><Input value={form.title} onChange={(e) => setForm({ ...form, title: e.target.value })} placeholder="Job title" /></div>
-                <div className="space-y-2 sm:col-span-2"><Label>Short Description * <span className="text-xs text-muted-foreground font-normal">(appears under the banner on the card)</span></Label><Textarea value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })} placeholder="Short summary candidates see first" rows={3} /></div>
+                <div className="space-y-2 sm:col-span-2"><Label>Title *</Label><Input value={form.title} onChange={(e) => setForm({ ...form, title: e.target.value })} placeholder="Official Job Title + Year  e.g. Lady Constable 2025" /></div>
+                <div className="space-y-2 sm:col-span-2"><Label>Short Description * <span className="text-xs text-muted-foreground font-normal">(1-2 lines — candidates see this first)</span></Label><Textarea value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })} placeholder="1-2 lines about the job..." rows={2} /></div>
 
                 {/* WhatsApp apply number (mandatory) */}
                 <div className="space-y-2 sm:col-span-2">
@@ -479,12 +479,18 @@ function JobsTab() {
                   <Input value={form.whatsapp} onChange={(e) => setForm({ ...form, whatsapp: e.target.value })} placeholder="0300-7033832" />
                 </div>
 
-                <div className="space-y-2"><Label>Location *</Label><Input value={form.location} onChange={(e) => setForm({ ...form, location: e.target.value })} placeholder="City, State" /></div>
-                <div className="space-y-2"><Label>Department</Label><Input value={form.department} onChange={(e) => setForm({ ...form, department: e.target.value })} /></div>
+                <div className="space-y-2"><Label>Location *</Label><Input value={form.location} onChange={(e) => setForm({ ...form, location: e.target.value })} placeholder="e.g. Lodhran / All Over Pakistan" /></div>
+                <div className="space-y-2"><Label>Department</Label><Input value={form.department} onChange={(e) => setForm({ ...form, department: e.target.value })} placeholder="e.g. Police / Health / IT" /></div>
                 <div className="space-y-2"><Label>Type</Label>
                   <Select value={form.employmentType} onValueChange={(v) => setForm({ ...form, employmentType: v })}>
                     <SelectTrigger><SelectValue /></SelectTrigger>
-                    <SelectContent><SelectItem value="Full-time">Full-time</SelectItem><SelectItem value="Part-time">Part-time</SelectItem><SelectItem value="Contract">Contract</SelectItem><SelectItem value="Freelance">Freelance</SelectItem></SelectContent>
+                    <SelectContent>
+                      <SelectItem value="Full-time">Full-time</SelectItem>
+                      <SelectItem value="Part-time">Part-time</SelectItem>
+                      <SelectItem value="Contract">Contract</SelectItem>
+                      <SelectItem value="Internship">Internship</SelectItem>
+                      <SelectItem value="Freelance">Freelance</SelectItem>
+                    </SelectContent>
                   </Select>
                 </div>
                 <div className="space-y-2"><Label>Work Mode</Label>
@@ -493,28 +499,22 @@ function JobsTab() {
                     <SelectContent><SelectItem value="On-site">On-site</SelectItem><SelectItem value="Remote">Remote</SelectItem><SelectItem value="Hybrid">Hybrid</SelectItem></SelectContent>
                   </Select>
                 </div>
-                <div className="space-y-2"><Label>Experience</Label>
-                  <Select value={form.experience} onValueChange={(v) => setForm({ ...form, experience: v })}>
-                    <SelectTrigger><SelectValue /></SelectTrigger>
-                    <SelectContent><SelectItem value="Entry-level">Entry-level</SelectItem><SelectItem value="Mid-level">Mid-level</SelectItem><SelectItem value="Senior">Senior</SelectItem><SelectItem value="Executive">Executive</SelectItem></SelectContent>
-                  </Select>
-                </div>
-                <div className="space-y-2"><Label>Education</Label><Input value={form.education} onChange={(e) => setForm({ ...form, education: e.target.value })} /></div>
-                <div className="space-y-2"><Label>Salary Min (per year)</Label><Input type="number" value={form.salaryMin} onChange={(e) => setForm({ ...form, salaryMin: e.target.value })} placeholder="e.g. 50000" /></div>
-                <div className="space-y-2"><Label>Salary Max (per year)</Label><Input type="number" value={form.salaryMax} onChange={(e) => setForm({ ...form, salaryMax: e.target.value })} placeholder="e.g. 80000" /></div>
+                <div className="space-y-2"><Label>Experience</Label><Input value={form.experience} onChange={(e) => setForm({ ...form, experience: e.target.value })} placeholder="e.g. Freshers / 2+ years / No experience required" /></div>
+                <div className="space-y-2"><Label>Education</Label><Input value={form.education} onChange={(e) => setForm({ ...form, education: e.target.value })} placeholder="e.g. Matric / Intermediate / Bachelor's" /></div>
+                <div className="space-y-2 sm:col-span-2"><Label>Salary <span className="text-xs text-muted-foreground font-normal">(optional — only fill if officially confirmed)</span></Label><Input type="number" value={form.salaryMin} onChange={(e) => setForm({ ...form, salaryMin: e.target.value })} placeholder="e.g. 35000  (leave empty if not confirmed)" /></div>
                 <div className="space-y-2"><Label>Status</Label>
                   <Select value={form.status} onValueChange={(v) => setForm({ ...form, status: v })}>
                     <SelectTrigger><SelectValue /></SelectTrigger>
-                    <SelectContent><SelectItem value="draft">Draft</SelectItem><SelectItem value="published">Published</SelectItem><SelectItem value="closed">Closed</SelectItem></SelectContent>
+                    <SelectContent><SelectItem value="published">Published</SelectItem><SelectItem value="draft">Draft</SelectItem><SelectItem value="closed">Closed</SelectItem></SelectContent>
                   </Select>
                 </div>
-                <div className="space-y-2 flex items-center gap-2 pt-6"><Switch checked={form.isFeatured} onCheckedChange={(c) => setForm({ ...form, isFeatured: c })} /><Label>Featured</Label></div>
+                <div className="space-y-2 flex items-center gap-2 pt-6"><Switch checked={form.isFeatured} onCheckedChange={(c) => setForm({ ...form, isFeatured: c })} /><Label>Featured <span className="text-xs text-muted-foreground font-normal">(only important jobs)</span></Label></div>
               </div>
 
               {/* Full job details (shown on the detail page) */}
-              <div className="space-y-2"><Label>Responsibilities <span className="text-xs text-muted-foreground font-normal">(one per line)</span></Label><Textarea value={form.responsibilities} onChange={(e) => setForm({ ...form, responsibilities: e.target.value })} rows={4} placeholder={"Lead the frontend team\nReview pull requests\n..."} /></div>
-              <div className="space-y-2"><Label>Requirements <span className="text-xs text-muted-foreground font-normal">(one per line)</span></Label><Textarea value={form.requirements} onChange={(e) => setForm({ ...form, requirements: e.target.value })} rows={4} placeholder={"5+ years experience\nStrong React skills\n..."} /></div>
-              <div className="space-y-2"><Label>Benefits <span className="text-xs text-muted-foreground font-normal">(optional, one per line)</span></Label><Textarea value={form.benefits} onChange={(e) => setForm({ ...form, benefits: e.target.value })} rows={3} placeholder={"Health insurance\nRemote work\n..."} /></div>
+              <div className="space-y-2"><Label>Responsibilities <span className="text-xs text-muted-foreground font-normal">(3-6 points, one per line)</span></Label><Textarea value={form.responsibilities} onChange={(e) => setForm({ ...form, responsibilities: e.target.value })} rows={4} placeholder={"Maintain law and order\nPatrol assigned area\nFile daily reports"} /></div>
+              <div className="space-y-2"><Label>Requirements <span className="text-xs text-muted-foreground font-normal">(5-10 points, one per line)</span></Label><Textarea value={form.requirements} onChange={(e) => setForm({ ...form, requirements: e.target.value })} rows={5} placeholder={"Age: 18-25 years\nHeight: 5'6\"\nMatric passed\nPhysically fit\nDomicile required"} /></div>
+              <div className="space-y-2"><Label>Benefits <span className="text-xs text-muted-foreground font-normal">(2-4 points, only verified — one per line)</span></Label><Textarea value={form.benefits} onChange={(e) => setForm({ ...form, benefits: e.target.value })} rows={3} placeholder={"Government job\nMedical allowance\nProvident fund"} /></div>
 
               {formError && (
                 <div className="text-sm text-red-500 bg-red-500/10 border border-red-500/20 rounded-lg px-3 py-2">{formError}</div>
