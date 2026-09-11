@@ -93,7 +93,7 @@ function NavDesktop() {
       className={`hidden lg:block fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
           ? "bg-background/90 backdrop-blur-xl border-b border-border shadow-sm"
-          : "bg-background/60 backdrop-blur-md"
+          : "bg-transparent"
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -117,7 +117,7 @@ function NavDesktop() {
               <button
                 key={link.label}
                 onClick={() => handleNavClick(link.href)}
-                className="px-3 py-2 text-sm font-semibold text-foreground/75 hover:text-gold transition-colors rounded-lg whitespace-nowrap"
+                className={`px-3 py-2 text-sm font-semibold transition-colors rounded-lg whitespace-nowrap hover:text-gold ${scrolled ? "text-foreground/75" : "text-white/90"}`}
               >
                 {link.label}
               </button>
@@ -126,7 +126,7 @@ function NavDesktop() {
 
           {/* Right side */}
           <div className="flex items-center gap-3">
-            <MoodToggle />
+            <MoodToggle className={scrolled ? "" : "border-white/30 text-white/80 hover:border-white/60"} />
             <Button
               onClick={() => handleNavClick("#contact")}
               className="bg-gold-gradient text-navy-dark rounded-xl font-bold h-11 px-5 shadow-md shadow-gold/20"
