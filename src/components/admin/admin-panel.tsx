@@ -1018,7 +1018,7 @@ const tabs = [
   { id: "announcements", label: "Announcements", icon: Megaphone },
   { id: "courses", label: "IT Courses", icon: GraduationCap },
   { id: "services", label: "Services", icon: HeartHandshake },
-  { id: "testimonials", label: "Reviews", icon: Star },
+  { id: "testimonials", label: "Success Stories", icon: Star },
   { id: "partners", label: "Partners & MoUs", icon: Handshake },
   { id: "team", label: "Team", icon: Users },
   { id: "gallery", label: "Gallery", icon: Images },
