@@ -18,7 +18,7 @@ export function FreeServicesSection() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("/api/services?status=published&limit=8")
+    fetch("/api/services?status=published&limit=6")
       .then((r) => r.json())
       .then((d) => setItems(d.services || []))
       .catch(() => {})
