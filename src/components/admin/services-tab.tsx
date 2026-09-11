@@ -29,11 +29,9 @@ interface Row {
   sortOrder: number;
 }
 
-const ELIGIBILITY = ["Disabled persons", "Govt employees", "Disabled persons & Govt employees", "Everyone", "Students"];
-
 const EMPTY = {
-  title: "", description: "", details: "", eligibility: "Disabled persons & Govt employees",
-  icon: "", featuredImage: "", whatsapp: "0300-7033832", isFree: true, status: "draft", isFeatured: false, sortOrder: 0,
+  title: "", description: "", details: "", eligibility: "",
+  icon: "", featuredImage: "", whatsapp: "0300-7033832", isFree: true, status: "published", isFeatured: false, sortOrder: 0,
 };
 
 export function ServicesTab() {
@@ -103,29 +101,65 @@ export function ServicesTab() {
           <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
             <DialogHeader><DialogTitle>{editing ? "Edit" : "Create"} Service</DialogTitle></DialogHeader>
             <div className="space-y-4 pt-2">
-              <Label>Banner Image * <span className="text-xs text-muted-foreground font-normal">(required — shown on the service card)</span></Label>
-              <BannerUpload value={form.featuredImage} onChange={(url) => setForm({ ...form, featuredImage: url })} hint="required service image" />
+              <div>
+                <Label>Banner Image * <span className="text-xs text-muted-foreground font-normal">— recommended size: 1200 × 630 px</span></Label>
+                <p className="text-xs text-muted-foreground mt-0.5">JPG / PNG / WEBP · max 5 MB</p>
+              </div>
+              <BannerUpload value={form.featuredImage} onChange={(url) => setForm({ ...form, featuredImage: url })} hint="1200 × 630 px · JPG, PNG, WEBP · max 5 MB" />
               <div className="grid sm:grid-cols-2 gap-4">
                 <div className="space-y-2 sm:col-span-2"><Label>Service Title *</Label><Input value={form.title} onChange={(e) => setForm({ ...form, title: e.target.value })} placeholder="e.g. Free Web Development Training" /></div>
-                <div className="space-y-2"><Label>Eligibility</Label>
-                  <Select value={form.eligibility} onValueChange={(v) => setForm({ ...form, eligibility: v })}>
-                    <SelectTrigger><SelectValue /></SelectTrigger>
-                    <SelectContent>{ELIGIBILITY.map((c) => <SelectItem key={c} value={c}>{c}</SelectItem>)}</SelectContent>
-                  </Select>
+                <div className="space-y-2"><Label>Eligibility</Label><Input value={form.eligibility} onChange={(e) => setForm({ ...form, eligibility: e.target.value })} placeholder="e.g. Students, Graduates, Job Seekers & Career Aspirants" /></div>
+                <div className="space-y-2"><Label>Icon (Lucide name)</Label><Input value={form.icon} onChange={(e) => setForm({ ...form, icon: e.target.value })} placeholder="e.g. GraduationCap / HeartHandshake / Briefcase" /></div>
+                <div className="space-y-2 sm:col-span-2">
+                  <Label>Short Description * <span className="text-xs text-muted-foreground font-normal">(1-2 lines — shown on the card)</span></Label>
+                  <Textarea value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })} rows={2} placeholder="e.g. Get personalized career guidance to choose the right education, skills, and career path with confidence." />
                 </div>
-                <div className="space-y-2"><Label>Icon (Lucide name)</Label><Input value={form.icon} onChange={(e) => setForm({ ...form, icon: e.target.value })} placeholder="e.g. HeartHandshake" /></div>
-                <div className="space-y-2 sm:col-span-2"><Label>Short Description *</Label><Textarea value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })} rows={2} placeholder="One-line summary" /></div>
-                <div className="space-y-2 sm:col-span-2"><Label>Full Details</Label><Textarea value={form.details} onChange={(e) => setForm({ ...form, details: e.target.value })} rows={4} placeholder="What's included, how to avail, MOU info (one point per line)" /></div>
-                <div className="space-y-2"><Label>WhatsApp (apply)</Label><Input value={form.whatsapp} onChange={(e) => setForm({ ...form, whatsapp: e.target.value })} placeholder="0300-7033832" /></div>
-                <div className="space-y-2"><Label>Display Order <span className="text-xs text-muted-foreground font-normal">(1 = first, 2 = second… leave 0 to add at the end)</span></Label><Input type="number" min={0} value={form.sortOrder} onChange={(e) => setForm({ ...form, sortOrder: Number(e.target.value) || 0 })} placeholder="0" /></div>
+                <div className="space-y-2 sm:col-span-2">
+                  <Label>Full Details <span className="text-xs text-muted-foreground font-normal">(what&apos;s included — one point per line)</span></Label>
+                  <Textarea value={form.details} onChange={(e) => setForm({ ...form, details: e.target.value })} rows={7} placeholder={"Personalized one-on-one career counseling\nEducation and career pathway guidance\nGuidance for choosing the right degree and field\nSkills and career development planning\nJob and employment pathway guidance"} />
+                </div>
+                <div className="space-y-2"><Label>WhatsApp (Apply)</Label><Input value={form.whatsapp} onChange={(e) => setForm({ ...form, whatsapp: e.target.value })} placeholder="0300-7033832" /></div>
+                <div className="space-y-2"><Label>Display Order <span className="text-xs text-muted-foreground font-normal">(1 = first, 2 = second… 0 = end)</span></Label><Input type="number" min={0} value={form.sortOrder} onChange={(e) => setForm({ ...form, sortOrder: Number(e.target.value) || 0 })} placeholder="0" /></div>
                 <div className="space-y-2"><Label>Status</Label>
                   <Select value={form.status} onValueChange={(v) => setForm({ ...form, status: v })}>
                     <SelectTrigger><SelectValue /></SelectTrigger>
-                    <SelectContent><SelectItem value="draft">Draft</SelectItem><SelectItem value="published">Published</SelectItem><SelectItem value="closed">Closed</SelectItem></SelectContent>
+                    <SelectContent>
+                      <SelectItem value="published">Published</SelectItem>
+                      <SelectItem value="draft">Draft</SelectItem>
+                      <SelectItem value="closed">Closed</SelectItem>
+                    </SelectContent>
                   </Select>
                 </div>
-                <div className="space-y-2 flex items-center gap-2 pt-6"><Switch checked={form.isFree} onCheckedChange={(c) => setForm({ ...form, isFree: c })} /><Label>Free Service</Label></div>
-                <div className="space-y-2 flex items-center gap-2"><Switch checked={form.isFeatured} onCheckedChange={(c) => setForm({ ...form, isFeatured: c })} /><Label>Featured</Label></div>
+                <div className="space-y-3 sm:col-span-2 rounded-xl border border-border/60 bg-muted/30 p-4">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <Label className="font-semibold">Free Service</Label>
+                      <p className="text-xs text-muted-foreground mt-0.5">
+                        {form.isFree ? "ON — free service (آپ یہ مفت دے رہے ہیں)" : "OFF — paid service (clients ko pay karna hoga)"}
+                      </p>
+                    </div>
+                    <Switch checked={form.isFree} onCheckedChange={(c) => setForm({ ...form, isFree: c })} />
+                  </div>
+                  <div className="flex items-center justify-between border-t border-border/40 pt-3">
+                    <div>
+                      <Label className="font-semibold">Featured <span className="text-xs font-normal text-muted-foreground">(only important services)</span></Label>
+                      <p className="text-xs text-muted-foreground mt-0.5">Featured services appear highlighted on the website</p>
+                    </div>
+                    <Switch checked={form.isFeatured} onCheckedChange={(c) => setForm({ ...form, isFeatured: c })} />
+                  </div>
+                </div>
+              </div>
+
+              {/* Poster reference */}
+              <div className="rounded-xl border border-gold/25 bg-gold/5 p-4 text-sm">
+                <p className="font-semibold text-gold mb-2">بر صرف یہ رکھیں — Poster Content</p>
+                <p className="text-muted-foreground text-xs leading-relaxed">
+                  Poster mein sirf yeh likho:<br />
+                  <strong>SERVICE NAME</strong> (e.g. CAREER COUNSELING)<br />
+                  Guidance • Planning • Growth<br />
+                  Sajad Digital Services<br />
+                  0315-7033832 | 0300-7033832
+                </p>
               </div>
               {error && <div className="text-sm text-red-500 bg-red-500/10 border border-red-500/20 rounded-lg px-3 py-2">{error}</div>}
               <Button onClick={handleSave} disabled={saving} className="w-full bg-navy dark:bg-gold dark:text-navy-dark text-white">{saving ? "Saving..." : editing ? "Update" : "Create"}</Button>
