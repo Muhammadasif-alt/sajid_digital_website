@@ -1014,16 +1014,15 @@ function CategoriesTab() {
    ============================================================ */
 const tabs = [
   { id: "dashboard", label: "Dashboard", icon: LayoutDashboard },
-  { id: "success-stories", label: "Success Stories", icon: Trophy },
   { id: "jobs", label: "Jobs", icon: Briefcase },
   { id: "announcements", label: "Announcements", icon: Megaphone },
   { id: "courses", label: "IT Courses", icon: GraduationCap },
   { id: "services", label: "Services", icon: HeartHandshake },
+  { id: "testimonials", label: "Reviews", icon: Star },
   { id: "partners", label: "Partners & MoUs", icon: Handshake },
   { id: "team", label: "Team", icon: Users },
   { id: "gallery", label: "Gallery", icon: Images },
   { id: "blogs", label: "Blogs", icon: FileText },
-  { id: "testimonials", label: "Reviews", icon: Star },
   { id: "messages", label: "Messages", icon: MessageSquare },
 ];
 
@@ -1126,7 +1125,6 @@ export function AdminPanel({ open, onClose, onLogout }: { open: boolean; onClose
               <div className="admin-scroll flex-1 min-h-0 overflow-y-auto">
                 <div className="p-6 max-w-7xl mx-auto">
                   {activeTab === "dashboard" && <DashboardTab onSwitch={switchTab} />}
-                  {activeTab === "success-stories" && <SuccessStoriesTab />}
                   {activeTab === "jobs" && <JobsTab />}
                   {activeTab === "announcements" && <AnnouncementsTab />}
                   {activeTab === "courses" && <CoursesTab />}
