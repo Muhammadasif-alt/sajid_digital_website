@@ -29,9 +29,9 @@ export function ServicesPageGrid() {
 
   if (loading) {
     return (
-      <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
-        {Array.from({ length: 8 }).map((_, i) => (
-          <div key={i} className="h-48 rounded-2xl bg-muted animate-pulse" />
+      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        {Array.from({ length: 6 }).map((_, i) => (
+          <div key={i} className="aspect-[1200/630] rounded-2xl bg-muted animate-pulse" />
         ))}
       </div>
     );
@@ -58,14 +58,14 @@ export function ServicesPageGrid() {
   }
 
   return (
-    <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+    <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
       {items.map((s) => (
         <Link
           key={s.id}
           href={`/services/${s.slug}`}
           className="group flex flex-col rounded-2xl bg-card border border-border hover:border-gold/50 shadow-sm hover:shadow-xl hover:shadow-gold/10 hover:-translate-y-1 overflow-hidden transition-all duration-300"
         >
-          <div className="relative h-48 w-full overflow-hidden bg-muted">
+          <div className="relative aspect-[1200/630] w-full overflow-hidden bg-muted">
             {s.featuredImage ? (
               // eslint-disable-next-line @next/next/no-img-element
               <img src={s.featuredImage} alt={s.title} loading="lazy" decoding="async" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
